@@ -92,3 +92,13 @@
 .account-menu{
     width: 200px;
 }
+.bottom-bar{
+    text-align: center;
+}
+.bottom-bar-item{
+    text-decoration: none;
+    
+}
+.bottom-bar-link{
+    text-decoration: none;
+}
