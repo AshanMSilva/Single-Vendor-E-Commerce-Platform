@@ -1,4 +1,4 @@
-.row-header{
+/*.row-header{
     margin: 0px auto;
     padding: 0px auto;
 }
@@ -28,19 +28,36 @@
 }
 
 
-.navbar-dark{
-    background-color: #512da8;
-}
+
 .btn-reserve{
     background-color: #ff9900;
 }
 .card-reserve{
     background-color: #ffd633;
 }
+*/
+.navbar-dark{
+    background-color: #512da8;
+}
 .dropdown:hover .dropdown-menu {
     display: block;
 }
-
+@media (max-width:575px){
+    .search{
+        width: 220px;
+        display: inline-block;
+    }
+    .search-bar{
+        text-align: center;
+        display: block;
+        
+    }
+    .top-search{
+        margin:0px;
+       
+    }
+    
+}
 @media (min-width:576px) and (max-width:767px){
     .search{
         width: 170px;;
@@ -53,7 +70,25 @@
 }
 @media (min-width:992px){
     .search{
-        width: 600px;;
+        width: 550px;;
     }
     
+}
+.carousel-manual{
+    border: 1px;
+    border-color: black;
+    height: 300px;
+    background-color: red;
+}
+/*.brand-navbar{
+    margin-top: 40px;
+}*/
+.dropright:hover .dropdown-menu {
+    display: block;
+}
+.menu-manual{
+    width: 600px;
+}
+.account-menu{
+    width: 200px;
 }
