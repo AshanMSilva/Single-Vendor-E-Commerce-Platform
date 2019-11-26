@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{REQUEST-FILENAME} !-d
+RewriteCond %{REQUEST-FILENAME} !-f
+RewriteCond $1 !^(config|core|css|js|fonts|robots\.txt)
+
+RewriteRule ^(.+)$ index.php/$1 [L]
