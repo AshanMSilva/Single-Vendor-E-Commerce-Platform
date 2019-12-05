@@ -75,13 +75,13 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+									<li class="nav-item"><a class="nav-link" href="" data-target="#loginModal" data-toggle="modal">Login</a></li>
 									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
 								</ul>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-							<li class="nav-item"><a href="login.html" class="account nav-link"><span class="ti-user"></span></a></li>
+							<li class="nav-item"><a href="" class="account nav-link" data-target="#loginModal" data-toggle="modal"><span class="ti-user"></span></a></li>
 							<li class="nav-item"><a href="cart.html" class="cart  nav-link"><span class="ti-shopping-cart"></span></a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
@@ -105,7 +105,110 @@
 		</div>
 	</header>
 	<!-- End Header Area -->
+	<!--start login modal
+	<div id="loginModal1" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-md" role="content">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Log In</h4>
+					<button class="close" type="buttton" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+						<div class="col-md-12 form-group">
+							<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+						</div>
+						<div class="col-md-12 form-group">
+							<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+						</div>
+						<div class="col-md-12 form-group">
+							<div class="creat_account">
+								<input type="checkbox" id="f-option2" name="selector">
+								<label for="f-option2">Keep me logged in</label>
+							</div>
+						</div>
+						<div class="col-md-12 form-group">
+							<button type="submit" value="submit" class="primary-btn">Log In</button>
+							<a href="#">Forgot Password?</a>
+							<a href="">Create an Account</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>-->
+	<!--start login signup modal-->
+	<div id="loginModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg" role="content">
+			<div class="modal-content">
+				<div class="modal-header">
+					<ul class="nav nav-tabs">
+						<li class="nav-item">
+							<a href="#login" class="nav-link active" role="tab" data-toggle="tab">Log In</a>
+						</li>
+						<li class="nav-item">
+							<a href="#signup" class="nav-link" role="tab" data-toggle="tab">SignUp</a>
+						</li>
+					</ul>
+					<button class="close" type="buttton" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="tab-content">
+						<!--start login panel-->
+						<div role="tabpanel" class="tab-pane fade show active" id="login">
+							<div class="col-lg-6">
+								<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+									<div class="col-md-12 form-group">
+										<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+									</div>
+									<div class="col-md-12 form-group">
+										<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+									</div>
+									<div class="col-md-12 form-group">
+										<div class="creat_account">
+											<input type="checkbox" id="f-option2" name="selector">
+											<label for="f-option2">Keep me logged in</label>
+										</div>
+									</div>
+									<div class="col-md-12 form-group">
+										<button type="submit" value="submit" class="primary-btn">Log In</button>
+										<a href="#">Forgot Password?</a>
+										<!--<a href="">Create an Account</a>-->
+									</div>
+								</form>
+							</div>
+							<div class="col-lg-6">
 
+							</div>
+						</div>
+						<!--end login panel-->
+						<!--start signup panel-->
+						<div role="tabpanel" class="tab-pane fade" id="signup">
+							<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+								<div class="col-md-12 form-group">
+									<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+								</div>
+								<div class="col-md-12 col-lg-6 form-group">
+									<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+								</div>
+								<div class="col-md-12 col-lg-6 form-group">
+									<input type="password" class="form-control" id="re-password" name="re-password" placeholder="Re-Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Re-Password'">
+								</div>
+								
+								<div class="col-md-12 col-lg-6 offset-lg-3 form-group">
+									<button type="submit" value="submit" class="primary-btn">SignUp</button>
+									<!--<a href="">Already have an Account?</a>-->
+								</div>
+							</form>
+						</div>
+						<!--end signup panel-->
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end login signup modal-->
 	<!-- start banner Area -->
 	<section class="banner-area">
 		<div class="container">
