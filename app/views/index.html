@@ -186,16 +186,39 @@
 						<!--start signup panel-->
 						<div role="tabpanel" class="tab-pane fade" id="signup">
 							<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+								<div class="col-md-6 form-group">
+									<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required>
+								</div>
+								<div class="col-md-6 form-group">
+									<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'" required>
+								</div>
 								<div class="col-md-12 form-group">
-									<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+									<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required>
 								</div>
-								<div class="col-md-12 col-lg-6 form-group">
-									<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+								<div class="col-md-6 form-group">
+									<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required>
 								</div>
-								<div class="col-md-12 col-lg-6 form-group">
-									<input type="password" class="form-control" id="re-password" name="re-password" placeholder="Re-Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Re-Password'">
+								<div class="col-md-6 form-group">
+									<input type="password" class="form-control" id="re-password" name="re-password" placeholder="Re-Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Re-Password'" required>
 								</div>
-								
+								<div class="col-md-6 col-lg-4 form-group">
+									<input type="number" class="form-control" id="houseNumber" name="houseNumber" placeholder="House Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'House Number'" required>
+								</div>
+								<div class="col-md-6 col-lg-4 form-group">
+									<input type="text" class="form-control" id="street" name="street" placeholder="Street" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Street'" required>
+								</div>
+								<div class="col-md-6 col-lg-4 form-group">
+									<input type="text" class="form-control" id="city" name="city" placeholder="City" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'" required>
+								</div>
+								<div class="col-md-6 col-lg-4 form-group">
+									<input type="text" class="form-control" id="state" name="state" placeholder="State" onfocus="this.placeholder = ''" onblur="this.placeholder = 'State'" required>
+								</div>
+								<div class="col-md-6 col-lg-4 form-group">
+									<input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Zip Code" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zip Code'" required>
+								</div>
+								<div class="col-md-6 col-lg-4 form-group">
+									
+								</div>
 								<div class="col-md-12 col-lg-6 offset-lg-3 form-group">
 									<button type="submit" value="submit" class="primary-btn">SignUp</button>
 									<!--<a href="">Already have an Account?</a>-->
