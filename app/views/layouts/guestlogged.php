@@ -75,13 +75,13 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="" data-target="#loginModal" data-toggle="modal">Login</a></li>
+									<li class="nav-item"><a class="nav-link" href="" data-target="#signupModal" data-toggle="modal">Login</a></li>
 									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
 								</ul>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-							<li class="nav-item"><a href="" class="account nav-link" data-target="#loginModal" data-toggle="modal"><span class="ti-user"></span></a></li>
+							<li class="nav-item"><a href="" class="account nav-link" data-target="#signupModal" data-toggle="modal"><span class="ti-user"></span></a></li>
 							<li class="nav-item"><a href="cart.html" class="cart  nav-link"><span class="ti-shopping-cart"></span></a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
@@ -106,7 +106,7 @@
 	</header>
 	<!-- End Header Area -->
 	<!--start signup modal-->
-	<div id="signupModal1" class="modal fade" role="dialog">
+	<div id="signupModal" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-lg" role="content">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -115,18 +115,43 @@
 				</div>
 				<div class="modal-body">
 					<form class="row login_form" action="" method="post" id="contactForm" novalidate="novalidate">
+						<div class="col-md-6 form-group">
+							<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required>
+						</div>
+						<div class="col-md-6 form-group">
+							<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'" required>
+						</div>
 						<div class="col-md-12 form-group">
-							<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+							<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required>
 						</div>
-						<div class="col-md-12 col-lg-6 form-group">
-							<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+						<div class="col-md-6 form-group">
+							<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required>
 						</div>
-						<div class="col-md-12 col-lg-6 form-group">
-							<input type="password" class="form-control" id="re-password" name="re-password" placeholder="Re-Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Re-Password'">
+						<div class="col-md-6 form-group">
+							<input type="password" class="form-control" id="re-password" name="re-password" placeholder="Re-Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Re-Password'" required>
+						</div>
+						<div class="col-md-6 col-lg-4 form-group">
+							<input type="number" class="form-control" id="houseNumber" name="houseNumber" placeholder="House Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'House Number'" required>
+						</div>
+						<div class="col-md-6 col-lg-4 form-group">
+							<input type="text" class="form-control" id="street" name="street" placeholder="Street" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Street'" required>
+						</div>
+						<div class="col-md-6 col-lg-4 form-group">
+							<input type="text" class="form-control" id="city" name="city" placeholder="City" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'" required>
+						</div>
+						<div class="col-md-6 col-lg-4 form-group">
+							<input type="text" class="form-control" id="state" name="state" placeholder="State" onfocus="this.placeholder = ''" onblur="this.placeholder = 'State'" required>
+						</div>
+						<div class="col-md-6 col-lg-4 form-group">
+							<input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Zip Code" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zip Code'" required>
+						</div>
+						<div class="col-md-6 col-lg-4 form-group">
+									
 						</div>
 								
 						<div class="col-md-12 col-lg-6 offset-lg-3 form-group">
 							<button type="submit" value="submit" class="primary-btn">SignUp</button>
+							<!--<a href="">Already have an Account?</a>-->
 						</div>
 					</form>
 				</div>

@@ -9,11 +9,11 @@
         }
         public function registerloggedAction(){
             $this->view->setLayout('registerlogged');
-            $this->view->render('home/registerlogged');
+            $this->view->render('home/index');
         }
         public function guestloggedAction(){
             $this->view->setLayout('guestlogged');
-            $this->view->render('home/guestlogged');
+            $this->view->render('home/index');
         }
     }
     
