@@ -81,7 +81,7 @@
 								</ul>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-							<li class="nav-item"><a href="" class="account nav-link"><span class="ti-user"></span></a></li>
+							<!--<li class="nav-item"><a href="" class="account nav-link"><span class="ti-user"></span></a></li>-->
 							<li class="nav-item"><a href="cart.html" class="cart  nav-link"><span class="ti-shopping-cart"></span></a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">

@@ -19,6 +19,18 @@ class View{
 			die('The view - ' . $viewName . ' does not exist.');
 		}
 	}
+	public function render_without_layout($viewName){
+		$viewArr = explode('/', $viewName);
+		$viewString = implode(DS, $viewArr);
+
+		if(file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')){
+			include(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php');
+			//include (ROOT . DS . 'app' . DS . 'views' . DS . 'layouts' . DS . $this->_layout . '.php');
+		}
+		else{
+			die('The view - ' . $viewName . ' does not exist.');
+		}
+	}
 
 	public function content($type){
 		if($type == 'head'){

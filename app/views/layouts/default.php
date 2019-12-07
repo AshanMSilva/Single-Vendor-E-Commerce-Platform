@@ -157,7 +157,7 @@
 						<!--start login panel-->
 						<div role="tabpanel" class="tab-pane fade show active" id="login">
 							<div class="col-lg-6">
-								<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+								<form class="row login_form" action="<?=PROOT?>register/login" method="post" id="loginForm" novalidate="novalidate">
 									<div class="col-md-12 form-group">
 										<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
 									</div>
@@ -171,7 +171,7 @@
 										</div>
 									</div>
 									<div class="col-md-12 form-group">
-										<button type="submit" value="submit" class="primary-btn">Log In</button>
+										<button type="submit" name="submit" class="primary-btn">Log In</button>
                                         <a href="#">Forgot Password?</a>
                                         <a href="#">Continue as a Guest</a>
 										<!--<a href="">Create an Account</a>-->
