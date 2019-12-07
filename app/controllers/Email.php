@@ -22,7 +22,7 @@
         }
         public function verifycodeAction(){
             if(isset($_POST['submit'])){
-                $code =$_POST['code']
+                $code =$_POST['code'];
             }
         }
     }
