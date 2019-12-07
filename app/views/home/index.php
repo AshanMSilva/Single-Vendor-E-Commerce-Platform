@@ -1,8 +1,10 @@
 <?php $this->setSiteTitle('Home')?>
+	
 <?php $this->start('head')?>
 
 <?php $this->end()?>
 <?php $this->start('body')?>
+	<?php Alert::displayscriptalert();?>
 	<!-- start banner Area -->
 	<section class="banner-area">
 		<div class="container">

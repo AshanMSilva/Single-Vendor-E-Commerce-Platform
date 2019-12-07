@@ -7,13 +7,17 @@
         public function loginAction(){
            // dnd($this->_action);
             if(isset($_POST['submit'])){
-                $email = $_POST['email'];
-                $password =$_POST['password'];
-                if($email=='ashan'){
-                    Session::set('logged',false);
+                $email = Input::get('email');
+                $password =Input::get('password');
+                if($email =='ashan'){
+                    Alert::set('email is incorrect');
+                    //Session::set('logged',false);
+                    Router::redirect('home/index');
                 }
                 else{
-                    Session::set('logged',true);
+                    Alert::set('email is correct'); 
+                   // Session::set('logged',true);
+                   Router::redirect('home/registerlogged');
                 }
                 
                 
@@ -23,25 +27,6 @@
                 //dnd($_POST);
             }
             
-            //$this->view->render('register/login');
-            if(Session::exists('logged') && Session::get('logged')==true){
-                //dnd($_SESSION);
-                //dnd($logged);
-                $home = new Home('Home','registerloggedAction');
-                $home->registerloggedAction();
-                //$home->registerloggedAction();
-                //$this->view->setLayout('registerlogged');
-                //$this->view->render('home/index');
-            }
-            else{
-                $home = new Home('Home','indexAction');
-                //dnd($home);
-                $home->indexAction();
-                //$home->indexAction();
-                //dnd($_SESSION);
-                //$this->view->setLayout('default');
-                //$this->view->render('home/index');
-            }
         }
         public function signupAction(){
 

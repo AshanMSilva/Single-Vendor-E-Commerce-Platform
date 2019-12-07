@@ -97,7 +97,7 @@
 		<div class="search_input" id="search_input_box">
 			<div class="container">
 				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here" required>
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 				</form>
@@ -114,7 +114,7 @@
 					<button class="close" type="buttton" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<form class="row login_form" action="" method="post" id="contactForm" novalidate="novalidate">
+					<form class="row login_form" action="" method="post" id="contactForm">
 						<div class="col-md-6 form-group">
 							<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required>
 						</div>
@@ -183,7 +183,7 @@
 						<p>Stay update with our latest</p>
 						<div class="" id="mc_embed_signup">
 
-							<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+							<form target="_blank" novalidate="true" action=""
 							 method="get" class="form-inline">
 
 								<div class="d-flex flex-row">

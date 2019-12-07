@@ -97,7 +97,7 @@
 		<div class="search_input" id="search_input_box">
 			<div class="container">
 				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here" required> 
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 				</form>
@@ -157,12 +157,12 @@
 						<!--start login panel-->
 						<div role="tabpanel" class="tab-pane fade show active" id="login">
 							<div class="col-lg-6">
-								<form class="row login_form" action="<?=PROOT?>register/login" method="post" id="loginForm" novalidate="novalidate">
+								<form class="row login_form" action="<?=PROOT?>register/login" method="post" id="loginForm">
 									<div class="col-md-12 form-group">
-										<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+										<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required>
 									</div>
 									<div class="col-md-12 form-group">
-										<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+										<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required>
 									</div>
 									<div class="col-md-12 form-group">
 										<div class="creat_account">
@@ -172,8 +172,8 @@
 									</div>
 									<div class="col-md-12 form-group">
 										<button type="submit" name="submit" class="primary-btn">Log In</button>
-                                        <a href="#">Forgot Password?</a>
-                                        <a href="#">Continue as a Guest</a>
+                                        <a href="<?=PROOT?>register/forgotpassword">Forgot Password?</a>
+                                        <a href="<?=PROOT?>register/guest">Continue as a Guest</a>
 										<!--<a href="">Create an Account</a>-->
 									</div>
 								</form>
@@ -185,7 +185,7 @@
 						<!--end login panel-->
 						<!--start signup panel-->
 						<div role="tabpanel" class="tab-pane fade" id="signup">
-							<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+							<form class="row login_form" action="<?=PROOT?>register/sgnup" method="post" id="contactForm">
 								<div class="col-md-6 form-group">
 									<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required>
 								</div>
