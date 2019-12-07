@@ -216,6 +216,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="<?=PROOT?>js/gmaps.min.js"></script>
 	<script src="<?=PROOT?>js/main.js"></script>
+    <?php Script::displayscript();
+?>
 </body>
 
 </html>
