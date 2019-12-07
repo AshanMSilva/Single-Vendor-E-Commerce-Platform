@@ -29,9 +29,12 @@
             
         }
         public function signupAction(){
+            if(isset($_POST['submit'])){
 
+            }
         }
         public function guestAction(){
-
+            Alert::set('Successfully logged as a guest..!'); 
+            Router::redirect('home/guestlogged');
         }
     }
