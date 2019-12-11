@@ -13,6 +13,7 @@
                 
                 $signupdetails=Session::get('signupdetails');
                 $email=$signupdetails['email'];
+                Session::set('email',$email);
                 $this->view->setLayout('normal');
                 $this->view->render('email/validate');
             }
@@ -25,15 +26,23 @@
         }
         public function sendAction(){
             if(isset($_POST['submit'])){
-                $randcode=$System::generaterandcode();
+                $randcode=System::generaterandcode();
                 Session::set('randcode',$randcode);
                 $email=$_POST['email'];
-                System::sendmail($email,$randcode);
-                $script ='$(window).on("load",function(){
-                    $("#verficationCodeModal").modal("show");
-                });';
-                Script::set($script);
-                Router::redirect('email/validate');
+                //dnd($_POST);
+                if(System::sendmail($email,"",$randcode)){
+                    $script ='$(window).on("load",function(){
+                        $("#verficationCodeModal").modal("show");
+                    });';
+                    Script::set($script);
+                    Alert::set('Verification code sent to your email address successfully ');
+                    Router::redirect('email/validate');
+                }
+                else{
+                    Alert::set('An error occured while sending the email. Try re-sending the Verification Code. Check whether the email address is correct. Check your internet connection.');
+                    Router::redirect('email/validate');
+                }
+                
                 //dnd($_SESSION);
             }
 
@@ -55,6 +64,7 @@
                     else{
                         Session::delete('randcode');
                         Alert::set('Your input code is incorrect. Please click send button to send verification code again..! ');
+                        Router::redirect('email/validate');
                     }
                 }
 

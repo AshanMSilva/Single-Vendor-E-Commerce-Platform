@@ -1,4 +1,14 @@
-<?php $this->setSiteTitle('Email Validation')?>
+<?php $this->setSiteTitle('Email Validation');
+//dnd($email);
+if(Session::exists('email')){
+        $email=Session::get('email');
+        Session::delete('email');
+}
+else{
+        dnd($_SESSION);
+}
+
+?>
 	
 <?php $this->start('head')?>
 <?php //Script::displayscript();
@@ -6,7 +16,7 @@
 
 <?php $this->end()?>
 <?php $this->start('body')?>
-
+<?php Alert::displayscriptalert();?>
 <br>
 <br>
 <br>
@@ -20,19 +30,20 @@
                                                 </div>
                                                 <div class='col-sm-6'><?php echo $email?></div>
                                         </div>
+                                        <hr>
                                         <div class='row'>
                                                 <h5>Please click the button below to send the verification code to above email address</h5>
                                         </div>
                                 
                                         <form action="<?=PROOT?>email/send" method="post" id="" class='row login_form'>
                                                         <div class='form-group'>
-                                                                <input type="hidden" name='email' value='emailaddress'>
+                                                                <input type="hidden" name='email' value='<?php echo $email?>'>
                                                         </div>
                                                         <div class='form-group'>
                                                                 <div class='col-sm-6'>
                                                                         <button class='btn btn-warning' type='submit' name='submit' >Send Code</button>
                                                                 </div>
-                                                                <div class='col-sm-6'>
+                                                                <div class=''>
                                                                         <a href="">Enter Another Email Address</a>
                                                                 </div>
                                                         </div>

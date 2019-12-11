@@ -202,7 +202,7 @@
 									<input type="password" class="form-control" id="re-password" name="re-password" placeholder="Re-Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Re-Password'" required>
 								</div>
 								<div class="col-md-6 col-lg-4 form-group">
-									<input type="number" class="form-control" id="houseNumber" name="houseNumber" placeholder="House Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'House Number'" required>
+									<input type="text" class="form-control" id="houseNumber" name="houseNumber" placeholder="House Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'House Number'" required>
 								</div>
 								<div class="col-md-6 col-lg-4 form-group">
 									<input type="text" class="form-control" id="street" name="street" placeholder="Street" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Street'" required>
@@ -353,6 +353,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="<?=PROOT?>js/gmaps.min.js"></script>
     <script src="<?=PROOT?>js/main.js"></script>
+	<?php Script::displayscript();
+?>
     
 </body>
 

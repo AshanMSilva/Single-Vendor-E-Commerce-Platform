@@ -9,15 +9,34 @@
             if(isset($_POST['submit'])){
                 $email = Input::get('email');
                 $password =Input::get('password');
+
+                //get email from database
+
                 if($email =='ashan'){
-                    Alert::set('email is incorrect');
+
+                    //get password from database
+
+                    /*if(System::verifypassword(sha1($password),put password here){
+                        Alert::set('Welcome Back'); 
+                        Router::redirect('home/registerlogged');
+                    }
+                    else{
+                        Alert::set('Password is incorrect');
+                        $script ='$(window).on("load",function(){
+                        $("#loginModal").modal("show");
+                    });';
+                        Script::set($script);
+                        Router::redirect('home/index');
+                    }*/
+                    //Alert::set('email is correct');
                     //Session::set('logged',false);
-                    Router::redirect('home/index');
+                    
                 }
                 else{
-                    Alert::set('email is correct'); 
+                    Alert::set('email is incorrect'); 
                    // Session::set('logged',true);
-                   Router::redirect('home/registerlogged');
+                   Router::redirect('home/index');
+                   
                 }
                 
                 
@@ -42,6 +61,11 @@
                     Router::redirect('email/validate');
                 }
                 else{
+                    $script ='$(window).on("load",function(){
+                        $("#loginModal").modal("show");
+                    });';
+                    Alert::set('Please enter same password in both places');
+                    Script::set($script);
                     Router::redirect('home/index');
                 }
                 
