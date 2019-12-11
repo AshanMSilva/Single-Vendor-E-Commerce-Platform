@@ -30,11 +30,29 @@
         }
         public function signupAction(){
             if(isset($_POST['submit'])){
-
+                $signupdetails= $_POST;
+                $password =Input::get('password');
+                $repassword =Input::get('re-password');
+                if(System::verifypassword($password,$repassword)){
+                    $signupdetails['password']=System::encrypt($password);
+                    $signupdetails['re-password'] =null;
+                    Session::set('signupdetails',$signupdetails);
+                    //$url = 'email/validate?email='.$email;
+                    //dnd($signupdetails);
+                    Router::redirect('email/validate');
+                }
+                else{
+                    Router::redirect('home/index');
+                }
+                
+               
             }
         }
-        public function guestAction(){
-            Alert::set('Successfully logged as a guest..!'); 
-            Router::redirect('home/guestlogged');
+        //public function guestAction(){
+        //    Alert::set('Successfully logged as a guest..!'); 
+        //    Router::redirect('home/guestlogged');
+        //}
+        public function forgotpasswordAction(){
+
         }
     }

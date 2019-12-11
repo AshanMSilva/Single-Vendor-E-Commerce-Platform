@@ -18,7 +18,7 @@
                                         <div class='row'>
                                                 <div class='col-sm-6'>Your Entered Email Address
                                                 </div>
-                                                <div class='col-sm-6'>email address</div>
+                                                <div class='col-sm-6'><?php echo $email?></div>
                                         </div>
                                         <div class='row'>
                                                 <h5>Please click the button below to send the verification code to above email address</h5>

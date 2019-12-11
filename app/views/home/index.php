@@ -26,7 +26,7 @@
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
-									<img class="img-fluid" src="../../img/banner/banner-img.png" alt="">
+									<img class="img-fluid" src="<?=PROOT?>img/banner/banner-img.png" alt="">
 								</div>
 							</div>
 						</div>
@@ -45,7 +45,7 @@
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
-									<img class="img-fluid" src="../../img/banner/banner-img.png" alt="">
+									<img class="img-fluid" src="<?=PROOT?>img/banner/banner-img.png" alt="">
 								</div>
 							</div>
 						</div>

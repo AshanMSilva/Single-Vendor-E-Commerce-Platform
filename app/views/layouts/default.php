@@ -172,9 +172,9 @@
 									</div>
 									<div class="col-md-12 form-group">
 										<button type="submit" name="submit" class="primary-btn">Log In</button>
-                                        <a href="<?=PROOT?>register/forgotpassword">Forgot Password?</a>
-                                        <a href="<?=PROOT?>register/guest">Continue as a Guest</a>
-										<!--<a href="">Create an Account</a>-->
+                                        <a href="" data-target="#forgotPasswordModal" data-toggle="modal"data-dismiss="modal">Forgot Password?</a>
+                                        <!--<a href="<?=PROOT?>register/guest">Continue as a Guest</a>
+										<a href="">Create an Account</a>-->
 									</div>
 								</form>
 							</div>
@@ -185,7 +185,7 @@
 						<!--end login panel-->
 						<!--start signup panel-->
 						<div role="tabpanel" class="tab-pane fade" id="signup">
-							<form class="row login_form" action="<?=PROOT?>register/sgnup" method="post" id="contactForm">
+							<form class="row login_form" action="<?=PROOT?>register/signup" method="post" id="contactForm">
 								<div class="col-md-6 form-group">
 									<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required>
 								</div>
@@ -221,7 +221,7 @@
 								</div>
 								
 								<div class="col-md-12 col-lg-6 offset-lg-3 form-group">
-									<button type="submit" value="submit" class="primary-btn">SignUp</button>
+									<button type="submit" value="submit" class="primary-btn" name="submit" id="submit">SignUp</button>
 									<!--<a href="">Already have an Account?</a>-->
 								</div>
 							</form>
@@ -234,8 +234,28 @@
 		</div>
 	</div>
     <!--end login signup modal-->
-    
-    
+    <!--start forgot password modal--> 
+    <div id="forgotPasswordModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg" role="content">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title text-warning">Forgot Password</h4>
+					<button class="close" type="buttton" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form class="login_form" action="<?=PROOT?>register/forgotpassword" method="post">
+						<div class="form-group">
+							<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required>
+						</div>
+                        <div class="form-group">
+							<button type="submit" value="submit" class="primary-btn col-md-3">Submit</button>
+							
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
     <?= $this->content('body');?>
 
     <!-- start footer Area -->
