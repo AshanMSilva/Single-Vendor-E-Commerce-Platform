@@ -48,10 +48,15 @@
 
         }
         public function verifycodeAction(){
-            if(isset($_POST['submit'])){
+            //dnd($_SESSION);
+            //dnd($_POST);
+            if(isset($_POST['submitcode'])){
                 $code =$_POST['code'];
+                //dnd($_SESSION);
                 if(Session::exists('randcode')){
+                    
                     $randcode= Session::get('randcode');
+                    //dnd($code);
                     if($code==$randcode){
                         if(Session::exists('signupdetails')){
                             $signupdetails =Session::get('signupdetails');
@@ -62,6 +67,7 @@
                         }
                     }
                     else{
+                        //dnd(type($randcode));
                         Session::delete('randcode');
                         Alert::set('Your input code is incorrect. Please click send button to send verification code again..! ');
                         Router::redirect('email/validate');

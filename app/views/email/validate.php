@@ -65,10 +65,10 @@ else{
 				<div class="modal-body">
 					<form class="row login_form" action="<?=PROOT?>email/verifycode" method="post" id="">
                                                 <div class="col-md-12 form-group">
-							<input type="number" class="form-control" id="code" name="code" placeholder="Verification Code" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Verification Code'" required>
+							<input type="text" class="form-control" id="code" name="code" placeholder="Verification Code" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Verification Code'" required>
 						</div>
                                                 <div class="form-group">
-							<button type="submit" value="submit" class="primary-btn">Submit</button>
+							<button type="submit" name="submitcode" class="primary-btn">Submit</button>
 							
 						</div>
                                         </form>
