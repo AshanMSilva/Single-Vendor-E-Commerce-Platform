@@ -173,11 +173,7 @@
 									<div class="col-md-12 form-group">
 										<button type="submit" name="submit" class="primary-btn">Log In</button>
                                         <a href="" data-target="#forgotPasswordModal" data-toggle="modal"data-dismiss="modal">Forgot Password?</a>
-<<<<<<< HEAD
-                                        <!--<a href="<?=PROOT?>register/guest">Continue as a Guest</a>
-=======
                                         <!--<a href="<?//=PROOT?>register/guest">Continue as a Guest</a>
->>>>>>> model-sample
 										<a href="">Create an Account</a>-->
 									</div>
 								</form>
@@ -189,38 +185,6 @@
 						<!--end login panel-->
 						<!--start signup panel-->
 						<div role="tabpanel" class="tab-pane fade" id="signup">
-<<<<<<< HEAD
-							<form class="row login_form" action="<?=PROOT?>register/signup" method="post" id="contactForm">
-								<div class="col-md-6 form-group">
-									<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required>
-								</div>
-								<div class="col-md-6 form-group">
-									<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'" required>
-								</div>
-								<div class="col-md-12 form-group">
-									<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required>
-								</div>
-								<div class="col-md-6 form-group">
-									<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required>
-								</div>
-								<div class="col-md-6 form-group">
-									<input type="password" class="form-control" id="re-password" name="re-password" placeholder="Re-Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Re-Password'" required>
-								</div>
-								<div class="col-md-6 col-lg-4 form-group">
-									<input type="text" class="form-control" id="houseNumber" name="houseNumber" placeholder="House Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'House Number'" required>
-								</div>
-								<div class="col-md-6 col-lg-4 form-group">
-									<input type="text" class="form-control" id="street" name="street" placeholder="Street" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Street'" required>
-								</div>
-								<div class="col-md-6 col-lg-4 form-group">
-									<input type="text" class="form-control" id="city" name="city" placeholder="City" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'" required>
-								</div>
-								<div class="col-md-6 col-lg-4 form-group">
-									<input type="text" class="form-control" id="state" name="state" placeholder="State" onfocus="this.placeholder = ''" onblur="this.placeholder = 'State'" required>
-								</div>
-								<div class="col-md-6 col-lg-4 form-group">
-									<input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Zip Code" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zip Code'" required>
-=======
 							<form class="row login_form" action="<?=PROOT?>register/signup" method="post" onsubmit="return validate()" id="contactForm">
 								<div class="col-md-6 form-group">
 									<input type="text" class="form-control" id="firstName" name="first_name" placeholder="First Name" pattern="[A-Za-z\s]{1,}" title="Allowed alphabetic characters only" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required>
@@ -255,7 +219,6 @@
 								</div>
 								<div class="col-md-6 col-lg-4 form-group">
 									<input type="text" class="form-control" id="zipCode" name="zip_code" placeholder="Zip Code" pattern="[0-9]{5}" title="Should contain only 5 numbers" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zip Code'" required>
->>>>>>> model-sample
 								</div>
 								<div class="col-md-6 col-lg-4 form-group">
 									
@@ -274,8 +237,6 @@
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
-=======
 
 	<script>
 	function validate(){
@@ -292,7 +253,6 @@
 	}
 	</script>
 
->>>>>>> model-sample
     <!--end login signup modal-->
     <!--start forgot password modal--> 
     <div id="forgotPasswordModal" class="modal fade" role="dialog">
