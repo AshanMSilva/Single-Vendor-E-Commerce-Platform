@@ -4,11 +4,28 @@ class Model{
 	protected $_db, $_table, $_modelName, $_softDelete = false, $_columnNames = [];
 	public $id;
 
+<<<<<<< HEAD
 	public function __construct($table){
 		$this->_db = DB::getInstance();
 		$this->_table = $table;
 		$this->_setTableColumns();
 		$this->_modelName = str_replace(' ', '', ucwords(str_replace('_', ' ', $this->_table)));
+=======
+	public function __construct(/* $table */){
+		$this->_db = DB::getInstance();
+		// $this->_table = $table;
+		// $this->_setTableColumns();
+		//$this->_modelName = str_replace(' ', '', ucwords(str_replace('_', ' ', $this->_table)));
+	}
+
+	public function set_model_name($model_name){
+		$this->_modelName = $model_name;
+	}
+
+	public function set_table_name($table){
+		//echo $table;
+		$this->_table = $table;
+>>>>>>> model-sample
 	}
 
 	protected function _setTableColumns(){
@@ -23,6 +40,7 @@ class Model{
 		return $this->_db->get_columns($this->_table);
 	}
 
+<<<<<<< HEAD
 	public function select($params = []){
 		$results = [];
 		$resultsQuery = $this->_db->select($this->_table, $params);
@@ -36,6 +54,21 @@ class Model{
 			$results[] = $obj;
 		}
 		return $results;
+=======
+	public function select($columns, $params = []){
+		$model_objs = [];
+		$resultsQuery = $this->_db->select($this->_table, $columns, $params);
+
+		foreach($resultsQuery as $result){
+			$obj = new $this->_modelName($result);
+
+			/*foreach($result as $key => $val){
+				$obj->$key = $val;
+			}*/
+			$model_objs[] = $obj;
+		}
+		return $model_objs;
+>>>>>>> model-sample
 	}
 
 	public function save(){
@@ -43,7 +76,11 @@ class Model{
 		foreach($this->_columnNames as $column){
 			$fields[$column] = $this->$column;
 		}
+<<<<<<< HEAD
 		//determine whether to update of insert
+=======
+		//determine whether to update or insert
+>>>>>>> model-sample
 		if(property_exists($this, 'id') && $this->id != ''){
 			return $this->update($this->id, $fields);
 		}
@@ -74,4 +111,40 @@ class Model{
 	public function query($sql, $bind = []){
 		return $this->_db->query($sql, $bind);
 	}
+<<<<<<< HEAD
+=======
+
+	public function get_last_insert_id(){
+		return $this->_db->last_insert_id();
+	}
+
+	public function data(){
+		$data = new stdClass();
+		foreach($this->_columnNames as $column){
+			$data->column = $this->column;
+		}
+		return $data;
+	}
+	
+	public function assign($params){
+		if(!empty($params)){
+			foreach($params as $key => $val){
+				if(in_array($key, $this->_columnNames)){
+					$this->$key = sanitize($val);
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	public function select_count($columns, $params = []){
+		//dnd($params);
+		return $this->_db->select_count($this->_table, $columns, $params);
+	}
+
+	protected function call_procedure($name, $params = []){
+		return $this->_db->call_procedure($name, $params);
+	}
+>>>>>>> model-sample
 }

@@ -34,7 +34,11 @@ class DB{
 			if($this->_query->execute()){
 				$this->_result = $this->_query->fetchALL(PDO::FETCH_OBJ);
 				$this->_count = $this->_query->rowCount();
+<<<<<<< HEAD
 				$this->_lastInsertID = $this->_pdo->lastInsertID();
+=======
+				$this->_lastInsertID = $this->_pdo->lastInsertID();				
+>>>>>>> model-sample
 			}
 			else{
 				$this->_error = true;
@@ -65,12 +69,35 @@ class DB{
 		}
 	}*/
 
+<<<<<<< HEAD
 	protected function _read($table, $params=[]){
 		//print_r($params);
+=======
+	protected function _read($table, $columns, $params=[]){
+		//print_r($params);
+		//dnd($columns);
+>>>>>>> model-sample
 		$conditionString = '';
 		$bind = [];
 		$order = '';
 		$limit = '';
+<<<<<<< HEAD
+=======
+		
+		if(isset($columns)){
+			$columnString = '';
+			if(is_array($columns)){
+				foreach($columns as $column){
+					$columnString .= ' ' . $column . ',';
+				}
+				$columnString = trim($columnString);
+				$columnString = rtrim($columnString, ',');
+			}
+			else{
+				$columnString = $columns;
+			}			
+		}
+>>>>>>> model-sample
 
 		//conditions
 		if(isset($params['conditions'])){
@@ -104,8 +131,14 @@ class DB{
 			$limit = ' LIMIT ' . $params['limit'];
 		}
 
+<<<<<<< HEAD
 		$sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
 		//echo $sql;
+=======
+		$sql = "SELECT {$columnString} FROM {$table}{$conditionString}{$order}{$limit}";
+		//echo $sql . "<br>";
+		//dnd($sql);
+>>>>>>> model-sample
 		if($this->query($sql, $bind)){
 			if(!count($this->_result)) return false;
 			return true;
@@ -113,8 +146,13 @@ class DB{
 		return false;
 	}
 
+<<<<<<< HEAD
 	public function select($table, $params=[]){
 		if($this->_read($table, $params)){
+=======
+	public function select($table, $columns, $params=[]){
+		if($this->_read($table, $columns, $params)){
+>>>>>>> model-sample
 			return $this->results();
 		}
 		return false;
@@ -134,9 +172,17 @@ class DB{
 		$valueString = rtrim($valueString, ',');
 		
 		$sql =  "INSERT INTO {$table} ({$fieldString}) VALUES ({$valueString})";
+<<<<<<< HEAD
 		echo $sql . "<br>";
 		if(!$this->query($sql, $values)->error()){
 			return true;
+=======
+		// echo $sql . "<br>";
+		if(!$this->query($sql, $values)->error()){
+			// echo $this->_lastInsertID;
+			return $this->_lastInsertID;
+			//return true;
+>>>>>>> model-sample
 		}
 		return false;
 	}
@@ -167,10 +213,34 @@ class DB{
 		return false;
 	}
 
+<<<<<<< HEAD
+=======
+	public function select_count($table, $columns, $params){
+		//dnd($columns);
+		if($this->_read($table, $columns, $params)){
+			return $this->get_row_count();
+		}
+		else{
+			return false;
+		}
+	}
+
+>>>>>>> model-sample
 	public function results(){
 		return $this->_result;
 	}
 
+<<<<<<< HEAD
+=======
+	public function get_row_count(){
+		return $this->_count;
+	}
+
+	public function last_insert_id(){
+		return $this->_lastInsertID;
+	}
+
+>>>>>>> model-sample
 	public function get_columns($table){
 		return $this->query("SHOW COLUMNS FROM {$table}")->results();
 	}
@@ -179,4 +249,34 @@ class DB{
 		return $this->_error;
 	}
 
+<<<<<<< HEAD
+=======
+	public function call_procedure($procedure, $params = []){
+		$paramString = '';
+		
+		if(isset($params)){
+			
+			if(is_array($params)){
+				foreach($params as $param){
+					$paramString .= ' ' . $param . ',';
+				}
+				$paramString = trim($paramString);
+				$paramString = rtrim($paramString, ',');
+			}
+			else{
+				$paramString = "'" . $params . "'";
+			}
+		}
+		
+		$sql = "CALL {$procedure}({$paramString})";
+		// dnd($sql);
+		if($this->query($sql)){
+			return $this->results();
+		}
+		else{
+			return false;
+		}
+	}
+
+>>>>>>> model-sample
 }

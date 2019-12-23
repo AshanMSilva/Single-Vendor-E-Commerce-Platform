@@ -2,18 +2,31 @@
 
 class View{
 	protected $_head, $_body, $_siteTitle = SITE_TITLE, $_outputBuffer, $_layout = DEFAULT_LAYOUT;
+<<<<<<< HEAD
 
+=======
+	protected $_data = [];	//an array of data needed at the view
+>>>>>>> model-sample
 	public function __construct(){
 	
 	}
 
+<<<<<<< HEAD
 	public function render($viewName){
+=======
+	public function render($viewName, $data = []){
+>>>>>>> model-sample
 		$viewArr = explode('/', $viewName);
 		$viewString = implode(DS, $viewArr);
 
 		if(file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')){
 			include(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php');
+<<<<<<< HEAD
 			include (ROOT . DS . 'app' . DS . 'views' . DS . 'layouts' . DS . $this->_layout . '.php');
+=======
+			include(ROOT . DS . 'app' . DS . 'views' . DS . 'layouts' . DS . $this->_layout . '.php');
+			$this->_data = $data;
+>>>>>>> model-sample
 		}
 		else{
 			die('The view - ' . $viewName . ' does not exist.');
@@ -71,4 +84,11 @@ class View{
 		$this->_layout = $path;
 	}
 
+<<<<<<< HEAD
+=======
+	public function get_data(){
+		return $this->_data;
+	}
+
+>>>>>>> model-sample
 }
