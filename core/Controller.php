@@ -10,8 +10,6 @@ class Controller extends Application{
 		$this->_action = $action;
 		$this->view = new View();
 	}
-<<<<<<< HEAD
-=======
 
 	protected function load_model($model){
 		if(class_exists($model)){
@@ -19,5 +17,4 @@ class Controller extends Application{
 			// $this->{$model.'Model'} = new $model(/*strtolower($model)*/);
 		}
 	}
->>>>>>> model-sample
 }

@@ -1,14 +1,8 @@
 <?php
     class System{
-<<<<<<< HEAD
-        public static function sendmail($email,$subject,$message){
-            $header = "From: ashansilva.17@cse.mrt.ac.lk";
-            if(mail($email,$subject,$message,$header)){
-=======
         public static function sendmail($email, $subject, $message){
             $header = "From: sahanjayasingha12@gmail.com";
             if(mail($email, $subject, $message, $header)){
->>>>>>> model-sample
                 return true;
             }
             else{
@@ -16,28 +10,18 @@
             }
         }
 
-<<<<<<< HEAD
-        public static function verifypassword($password,$repassword){
-            if($password==$repassword){
-=======
         public static function email_exists($email){
             $db = DB::getInstance();
             $results_obj = $db->query("SELECT customer_id FROM registered_customers WHERE email = ?", [$email]);
             $row_count = $results_obj->get_row_count();
             // dnd($row_count);
             if($row_count){
->>>>>>> model-sample
                 return true;
             }
             else{
                 return false;
             }
         }
-<<<<<<< HEAD
-        public static function encrypt($name){
-            return sha1($name);
-        }
-=======
     
         public static function verify_password($email, $password){
             $db = DB::getInstance();
@@ -82,7 +66,6 @@
             return sha1($name);
         }
 
->>>>>>> model-sample
         public static function generaterandcode(){
             return substr(str_shuffle("0123456789"),0,5);
         }

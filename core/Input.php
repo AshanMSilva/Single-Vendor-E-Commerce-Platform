@@ -1,16 +1,10 @@
 <?php
     class Input{
-<<<<<<< HEAD
-        public static function sanitize($dirty){
-            return htmlentities($dirty,ENT_QUOTES,"UTF-8");
-        }
-=======
         
         public static function sanitize($dirty){
             return htmlentities($dirty,ENT_QUOTES,"UTF-8");
         }
 
->>>>>>> model-sample
         public static function get($input){
             if(isset($_POST[$input])){
                 return self::sanitize($_POST[$input]);
@@ -19,8 +13,6 @@
                 return self::sanitize($_GET[$input]);
             }
         }
-<<<<<<< HEAD
-=======
 
         public static function get_array($input = []){
             $input_array = [];
@@ -31,5 +23,4 @@
             }
             return $input_array;
         }
->>>>>>> model-sample
     }

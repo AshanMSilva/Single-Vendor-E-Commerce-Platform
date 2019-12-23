@@ -15,11 +15,7 @@
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-<<<<<<< HEAD
-    <title>Karma Shop</title>
-=======
     <title><?= $this->siteTitle()?></title>
->>>>>>> model-sample
 
     <!--
             CSS

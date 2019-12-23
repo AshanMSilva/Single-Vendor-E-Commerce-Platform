@@ -3,11 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-<<<<<<< HEAD
--- Generation Time: Dec 05, 2019 at 04:18 AM
-=======
 -- Generation Time: Dec 23, 2019 at 03:38 AM
->>>>>>> model-sample
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -26,8 +22,6 @@ SET time_zone = "+00:00";
 -- Database: `e_commerce_platform`
 --
 
-<<<<<<< HEAD
-=======
 DELIMITER $$
 --
 -- Procedures
@@ -55,7 +49,6 @@ END$$
 
 DELIMITER ;
 
->>>>>>> model-sample
 -- --------------------------------------------------------
 
 --
@@ -63,13 +56,6 @@ DELIMITER ;
 --
 
 CREATE TABLE `attributes` (
-<<<<<<< HEAD
-  `attribute_name` varchar(20) NOT NULL,
-  `value` varchar(50) NOT NULL,
-  `variant_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-=======
   `product_id` int(11) NOT NULL,
   `variant_id` int(11) DEFAULT NULL,
   `attribute_name` varchar(20) NOT NULL,
@@ -97,7 +83,6 @@ INSERT INTO `attributes` (`product_id`, `variant_id`, `attribute_name`, `value`)
 (2, 13, 'HDD', '1000GB'),
 (2, 13, 'Color', 'Grey');
 
->>>>>>> model-sample
 -- --------------------------------------------------------
 
 --
@@ -119,15 +104,10 @@ CREATE TABLE `card_details` (
 
 CREATE TABLE `carts` (
   `customer_id` int(11) NOT NULL,
-<<<<<<< HEAD
-  `variant_id` int(11) DEFAULT NULL,
-  `quantity` int(11) NOT NULL
-=======
   `product_id` int(11) NOT NULL,
   `variant_id` int(11) DEFAULT NULL,
   `quantity` int(11) NOT NULL DEFAULT '1',
   `removed_flag` tinyint(1) NOT NULL DEFAULT '0'
->>>>>>> model-sample
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -140,11 +120,7 @@ CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL,
   `title` varchar(20) NOT NULL,
   `description` varchar(150) DEFAULT NULL,
-<<<<<<< HEAD
-  `image` blob
-=======
   `image` varchar(255) DEFAULT NULL
->>>>>>> model-sample
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -152,10 +128,6 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`category_id`, `title`, `description`, `image`) VALUES
-<<<<<<< HEAD
-(1, 'Laptops', 'abcd', NULL),
-(2, 'Phones', 'efgh', NULL);
-=======
 (1, 'Electronic Devices', NULL, NULL),
 (2, 'Toys', NULL, NULL),
 (3, 'Smart Phones', NULL, NULL),
@@ -177,7 +149,6 @@ INSERT INTO `categories` (`category_id`, `title`, `description`, `image`) VALUES
 (19, 'LCD TVs', NULL, NULL),
 (20, 'LED TVs', NULL, NULL),
 (21, 'Plasma TVs', NULL, NULL);
->>>>>>> model-sample
 
 -- --------------------------------------------------------
 
@@ -190,8 +161,6 @@ CREATE TABLE `category_relations` (
   `sub_category_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-<<<<<<< HEAD
-=======
 --
 -- Dumping data for table `category_relations`
 --
@@ -217,7 +186,6 @@ INSERT INTO `category_relations` (`category_id`, `sub_category_id`) VALUES
 (5, 15),
 (5, 16);
 
->>>>>>> model-sample
 -- --------------------------------------------------------
 
 --
@@ -254,8 +222,6 @@ CREATE TABLE `customers` (
   `last_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-<<<<<<< HEAD
-=======
 --
 -- Dumping data for table `customers`
 --
@@ -277,7 +243,6 @@ INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`) VALUES
 (14, 'Alex', 'Benjamin'),
 (15, 'Sahan', 'Jayasinghe');
 
->>>>>>> model-sample
 -- --------------------------------------------------------
 
 --
@@ -337,20 +302,11 @@ CREATE TABLE `guest_customers` (
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
--- Table structure for table `inventory`
---
-
-CREATE TABLE `inventory` (
-  `variant_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
-=======
 -- Table structure for table `main_cities`
 --
 
 CREATE TABLE `main_cities` (
   `city` varchar(20) NOT NULL
->>>>>>> model-sample
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -360,13 +316,8 @@ CREATE TABLE `main_cities` (
 -- (See below for the actual view)
 --
 CREATE TABLE `ordered_categories` (
-<<<<<<< HEAD
-`title` varchar(20)
-,`description` varchar(150)
-=======
 `category_title` varchar(20)
 ,`category_description` varchar(150)
->>>>>>> model-sample
 ,`variant_id` int(11)
 );
 
@@ -381,11 +332,6 @@ CREATE TABLE `orders` (
   `order_date` date NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'created',
   `customer_id` int(11) NOT NULL,
-<<<<<<< HEAD
-  `soft_delete` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-=======
   `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -410,7 +356,6 @@ INSERT INTO `orders` (`order_id`, `order_date`, `status`, `customer_id`, `delete
 (14, '2019-12-12', 'created', 8, 0),
 (15, '2019-12-15', 'created', 4, 0);
 
->>>>>>> model-sample
 -- --------------------------------------------------------
 
 --
@@ -419,16 +364,11 @@ INSERT INTO `orders` (`order_id`, `order_date`, `status`, `customer_id`, `delete
 
 CREATE TABLE `order_details` (
   `order_id` int(11) NOT NULL,
-<<<<<<< HEAD
-=======
   `product_id` int(11) NOT NULL,
->>>>>>> model-sample
   `variant_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-<<<<<<< HEAD
-=======
 --
 -- Dumping data for table `order_details`
 --
@@ -453,7 +393,6 @@ INSERT INTO `order_details` (`order_id`, `product_id`, `variant_id`, `quantity`)
 (9, 13, 31, 1),
 (10, 12, 12, 1);
 
->>>>>>> model-sample
 -- --------------------------------------------------------
 
 --
@@ -462,21 +401,14 @@ INSERT INTO `order_details` (`order_id`, `product_id`, `variant_id`, `quantity`)
 
 CREATE TABLE `payments` (
   `order_id` int(11) NOT NULL,
-<<<<<<< HEAD
-  `amount` decimal(10,2) NOT NULL,
-  `card_number` int(15) NOT NULL
-=======
   `payment_method` varchar(20) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `card_number` int(15) DEFAULT NULL
->>>>>>> model-sample
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
-=======
 -- Stand-in structure for view `price_range`
 -- (See below for the actual view)
 --
@@ -489,18 +421,11 @@ CREATE TABLE `price_range` (
 -- --------------------------------------------------------
 
 --
->>>>>>> model-sample
 -- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
   `product_id` int(11) NOT NULL,
-<<<<<<< HEAD
-  `title` varchar(20) NOT NULL,
-  `image` blob
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-=======
   `title` varchar(100) NOT NULL,
   `brand` varchar(50) NOT NULL,
   `image` varchar(255) DEFAULT NULL
@@ -532,7 +457,6 @@ INSERT INTO `products` (`product_id`, `title`, `brand`, `image`) VALUES
 (19, 'Technic RC Remote Control Racing Car', 'Lego', NULL),
 (20, 'Sony Smart Band SWR30', 'SONY', NULL);
 
->>>>>>> model-sample
 -- --------------------------------------------------------
 
 --
@@ -540,12 +464,6 @@ INSERT INTO `products` (`product_id`, `title`, `brand`, `image`) VALUES
 --
 
 CREATE TABLE `product_category_relations` (
-<<<<<<< HEAD
-  `category_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-=======
   `product_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -586,7 +504,6 @@ CREATE TABLE `product_details` (
 ,`max_price` decimal(15,2)
 );
 
->>>>>>> model-sample
 -- --------------------------------------------------------
 
 --
@@ -604,8 +521,6 @@ CREATE TABLE `registered_customers` (
   `zip_code` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-<<<<<<< HEAD
-=======
 --
 -- Dumping data for table `registered_customers`
 --
@@ -623,7 +538,6 @@ INSERT INTO `registered_customers` (`customer_id`, `email`, `password`, `house_n
 (10, 'dannywu@nowhere.com', 'NmeE/vygrhgRMDQWs2pHPw==', 60, 'Dui. Rd', 'Soquel', 'South Dakota', '07396'),
 (15, 'sahanjayasinghe.17@cse.mrt.ac.lk', '$2y$10$7yT9Hm4Ea/ncOlB40u1xrOOC8gS8GU3XdeEsansJZWdvYF1jbdyyS', 77, 'Loften Avenue', 'New Jersy', 'Philedelphia', '45107');
 
->>>>>>> model-sample
 -- --------------------------------------------------------
 
 --
@@ -631,15 +545,6 @@ INSERT INTO `registered_customers` (`customer_id`, `email`, `password`, `house_n
 --
 
 CREATE TABLE `variants` (
-<<<<<<< HEAD
-  `sku` varchar(25) NOT NULL,
-  `weight` decimal(6,3) NOT NULL,
-  `price` decimal(15,2) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `variant_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-=======
   `product_id` int(11) NOT NULL,
   `variant_id` int(11) NOT NULL,
   `sku` varchar(25) NOT NULL,
@@ -691,7 +596,6 @@ INSERT INTO `variants` (`product_id`, `variant_id`, `sku`, `weight`, `price`, `s
 (16, 36, 'XM21qw-e56yzkj', '72.936', '22.00', 0),
 (16, 37, 'XM4t6q3-niq981', '72.936', '22.00', 0);
 
->>>>>>> model-sample
 -- --------------------------------------------------------
 
 --
@@ -708,9 +612,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `ordered_categories`;
 
-<<<<<<< HEAD
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ordered_categories`  AS  select `categories`.`title` AS `title`,`categories`.`description` AS `description`,`order_details`.`variant_id` AS `variant_id` from (`categories` join `order_details`) where `categories`.`category_id` in (select `product_category_relations`.`category_id` from `product_category_relations` where `product_category_relations`.`product_id` in (select `variants`.`product_id` from `variants` where `variants`.`variant_id` in (select `order_details`.`variant_id` from `order_details`))) ;
-=======
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ordered_categories`  AS  select `categories`.`title` AS `category_title`,`categories`.`description` AS `category_description`,`order_details`.`variant_id` AS `variant_id` from (`categories` join `order_details`) where `categories`.`category_id` in (select `product_category_relations`.`category_id` from `product_category_relations` where `product_category_relations`.`product_id` in (select `variants`.`product_id` from `variants` where `variants`.`variant_id` in (select `order_details`.`variant_id` from `order_details`))) ;
 
 -- --------------------------------------------------------
@@ -730,7 +631,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `product_details`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_details`  AS  select `products`.`product_id` AS `product_id`,`products`.`title` AS `title`,`products`.`brand` AS `brand`,`products`.`image` AS `image`,`price_range`.`min_price` AS `min_price`,`price_range`.`max_price` AS `max_price` from (`products` join `price_range` on((`products`.`product_id` = `price_range`.`product_id`))) ;
->>>>>>> model-sample
 
 --
 -- Indexes for dumped tables
@@ -740,12 +640,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Indexes for table `attributes`
 --
 ALTER TABLE `attributes`
-<<<<<<< HEAD
-  ADD KEY `variant_id` (`variant_id`);
-=======
   ADD KEY `variant_id` (`variant_id`),
   ADD KEY `product_id` (`product_id`);
->>>>>>> model-sample
 
 --
 -- Indexes for table `card_details`
@@ -758,23 +654,15 @@ ALTER TABLE `card_details`
 --
 ALTER TABLE `carts`
   ADD KEY `customer_id` (`customer_id`),
-<<<<<<< HEAD
-  ADD KEY `variant_id` (`variant_id`);
-=======
   ADD KEY `variant_id` (`variant_id`),
   ADD KEY `product_id` (`product_id`);
->>>>>>> model-sample
 
 --
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
-<<<<<<< HEAD
-  ADD PRIMARY KEY (`category_id`);
-=======
   ADD PRIMARY KEY (`category_id`),
   ADD UNIQUE KEY `title` (`title`);
->>>>>>> model-sample
 
 --
 -- Indexes for table `category_relations`
@@ -802,15 +690,12 @@ ALTER TABLE `customers`
   ADD PRIMARY KEY (`customer_id`);
 
 --
-<<<<<<< HEAD
-=======
 -- Indexes for table `customer_contacts`
 --
 ALTER TABLE `customer_contacts`
   ADD KEY `customer_id` (`customer_id`);
 
 --
->>>>>>> model-sample
 -- Indexes for table `deliveries`
 --
 ALTER TABLE `deliveries`
@@ -825,15 +710,6 @@ ALTER TABLE `guest_customers`
   ADD KEY `customer_id` (`customer_id`);
 
 --
-<<<<<<< HEAD
--- Indexes for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD KEY `variant_id` (`variant_id`);
-
---
-=======
->>>>>>> model-sample
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -845,9 +721,6 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_details`
   ADD KEY `order_id` (`order_id`),
-<<<<<<< HEAD
-  ADD KEY `variant_id` (`variant_id`);
-=======
   ADD KEY `variant_id` (`variant_id`),
   ADD KEY `product_id` (`product_id`);
 
@@ -856,7 +729,6 @@ ALTER TABLE `order_details`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`order_id`);
->>>>>>> model-sample
 
 --
 -- Indexes for table `products`
@@ -893,9 +765,6 @@ ALTER TABLE `variants`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-<<<<<<< HEAD
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-=======
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
@@ -915,7 +784,6 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `variants`
   MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
->>>>>>> model-sample
 
 --
 -- Constraints for dumped tables
@@ -925,12 +793,8 @@ ALTER TABLE `variants`
 -- Constraints for table `attributes`
 --
 ALTER TABLE `attributes`
-<<<<<<< HEAD
-  ADD CONSTRAINT `attributes_ibfk_1` FOREIGN KEY (`variant_id`) REFERENCES `variants` (`variant_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-=======
   ADD CONSTRAINT `attributes_ibfk_1` FOREIGN KEY (`variant_id`) REFERENCES `variants` (`variant_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `attributes_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
->>>>>>> model-sample
 
 --
 -- Constraints for table `card_details`
@@ -943,12 +807,8 @@ ALTER TABLE `card_details`
 --
 ALTER TABLE `carts`
   ADD CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-<<<<<<< HEAD
-  ADD CONSTRAINT `carts_ibfk_2` FOREIGN KEY (`variant_id`) REFERENCES `variants` (`variant_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-=======
   ADD CONSTRAINT `carts_ibfk_2` FOREIGN KEY (`variant_id`) REFERENCES `variants` (`variant_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `carts_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
->>>>>>> model-sample
 
 --
 -- Constraints for table `category_relations`
@@ -964,15 +824,12 @@ ALTER TABLE `courier_contacts`
   ADD CONSTRAINT `courier_contacts_ibfk_1` FOREIGN KEY (`courier_id`) REFERENCES `couriers` (`courier_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
-<<<<<<< HEAD
-=======
 -- Constraints for table `customer_contacts`
 --
 ALTER TABLE `customer_contacts`
   ADD CONSTRAINT `customer_contacts_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
->>>>>>> model-sample
 -- Constraints for table `deliveries`
 --
 ALTER TABLE `deliveries`
@@ -986,15 +843,6 @@ ALTER TABLE `guest_customers`
   ADD CONSTRAINT `guest_customers_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
-<<<<<<< HEAD
--- Constraints for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`variant_id`) REFERENCES `variants` (`variant_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
-=======
->>>>>>> model-sample
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
@@ -1005,9 +853,6 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-<<<<<<< HEAD
-  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`variant_id`) REFERENCES `variants` (`variant_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-=======
   ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `order_details_ibfk_3` FOREIGN KEY (`variant_id`) REFERENCES `variants` (`variant_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -1016,7 +861,6 @@ ALTER TABLE `order_details`
 --
 ALTER TABLE `payments`
   ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
->>>>>>> model-sample
 
 --
 -- Constraints for table `product_category_relations`

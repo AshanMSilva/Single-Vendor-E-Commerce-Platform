@@ -8,10 +8,7 @@
             $this->view->render('home/index');
         }
         public function registerloggedAction(){
-<<<<<<< HEAD
-=======
             // dnd($_SESSION);
->>>>>>> model-sample
             $this->view->setLayout('registerlogged');
             $this->view->render('home/index');
         }

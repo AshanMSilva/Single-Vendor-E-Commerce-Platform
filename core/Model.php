@@ -4,13 +4,6 @@ class Model{
 	protected $_db, $_table, $_modelName, $_softDelete = false, $_columnNames = [];
 	public $id;
 
-<<<<<<< HEAD
-	public function __construct($table){
-		$this->_db = DB::getInstance();
-		$this->_table = $table;
-		$this->_setTableColumns();
-		$this->_modelName = str_replace(' ', '', ucwords(str_replace('_', ' ', $this->_table)));
-=======
 	public function __construct(/* $table */){
 		$this->_db = DB::getInstance();
 		// $this->_table = $table;
@@ -25,7 +18,6 @@ class Model{
 	public function set_table_name($table){
 		//echo $table;
 		$this->_table = $table;
->>>>>>> model-sample
 	}
 
 	protected function _setTableColumns(){
@@ -40,21 +32,6 @@ class Model{
 		return $this->_db->get_columns($this->_table);
 	}
 
-<<<<<<< HEAD
-	public function select($params = []){
-		$results = [];
-		$resultsQuery = $this->_db->select($this->_table, $params);
-
-		foreach($resultsQuery as $result){
-			$obj = new $this->_modelName($this->_table);
-
-			foreach($result as $key => $val){
-				$obj->$key = $val;
-			}
-			$results[] = $obj;
-		}
-		return $results;
-=======
 	public function select($columns, $params = []){
 		$model_objs = [];
 		$resultsQuery = $this->_db->select($this->_table, $columns, $params);
@@ -68,7 +45,6 @@ class Model{
 			$model_objs[] = $obj;
 		}
 		return $model_objs;
->>>>>>> model-sample
 	}
 
 	public function save(){
@@ -76,11 +52,7 @@ class Model{
 		foreach($this->_columnNames as $column){
 			$fields[$column] = $this->$column;
 		}
-<<<<<<< HEAD
-		//determine whether to update of insert
-=======
 		//determine whether to update or insert
->>>>>>> model-sample
 		if(property_exists($this, 'id') && $this->id != ''){
 			return $this->update($this->id, $fields);
 		}
@@ -111,8 +83,6 @@ class Model{
 	public function query($sql, $bind = []){
 		return $this->_db->query($sql, $bind);
 	}
-<<<<<<< HEAD
-=======
 
 	public function get_last_insert_id(){
 		return $this->_db->last_insert_id();
@@ -146,5 +116,4 @@ class Model{
 	protected function call_procedure($name, $params = []){
 		return $this->_db->call_procedure($name, $params);
 	}
->>>>>>> model-sample
 }

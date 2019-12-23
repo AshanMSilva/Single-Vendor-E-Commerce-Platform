@@ -16,13 +16,9 @@
         }
         public static function delete($name){
             if(self::exists($name)){
-<<<<<<< HEAD
-                unset($_SESSION[$name]);
-=======
                 // dnd("delete fn");
                 unset($_SESSION[$name]);
                 // dnd($_SESSION);
->>>>>>> model-sample
             }
         }
         public static function uagent_no_version(){ //to get information about login machine
