@@ -4,26 +4,36 @@
 <?php $this->start('head')?>
 
 <?php $this->end()?>
-
 <?php $this->start('body')?>
-<!-- start banner Area -->
-    <section class="banner-area">
+
+<!--================Single Product Area =================-->
+<div class="product_image_area">
 		<div class="container">
-			<div class="row fullscreen align-items-center justify-content-start">
-				<div class="col-lg-12">
-                <!-- Start product Area -->
-                    <section class="related-product-area section_gap_bottom">
-                        <div class="container">
-                            
-                            <div class="row justify-content-center">
-                                <div class="col-lg-6 text-center">
-                                    <div class="section-title">
-                                    <h1><?php echo $title;?> </h1>
-                                    </div>
-                                </div>
-                            </div>
-                                <form action="../controllers/addToCart.php" method="POST">
-                                    <?php $attributes=$_SESSION["attributes"];?> 
+			<div class="row s_product_inner">
+				<div class="col-lg-6">
+					<div class="s_Product_carousel">
+						<div class="single-prd-item">
+							<img class="img-fluid" src="../../img/category/s-p1.jpg" alt="">
+						</div>
+						<div class="single-prd-item">
+							<img class="img-fluid" src="../../img/category/s-p1.jpg" alt="">
+						</div>
+						<div class="single-prd-item">
+							<img class="img-fluid" src="../../img/category/s-p1.jpg" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5 offset-lg-1">
+					<div class="s_product_text">
+						<h3><?php echo $title;?></h3>
+						<h2><?php echo Session::get('productPrice');?></h2>
+						<ul class="list">
+							<li><a class="active" href="#"><span>Category</span> : <?php echo Session::get('category_name')?></a></li>
+							<li><a class="active" href="#"><span>Brand</span> : <?php echo Session::get('brand_name')?></a></li>
+							<!-- <li><a href="#"><span>Availibility</span> : In Stock</a></li> -->
+                        </ul>
+                            <form action="<?=PROOT?>cart/addProduct" method="POST">
+                                    <?php $attributes=$_SESSION["attributes"];?>
                                     <table>
                                         <div >
                                         <?php foreach($attributes as $attri_name=> $values):?>
@@ -38,29 +48,21 @@
                                         <?php endforeach;?>
                                         </div>     
                                     </table>
-                                    <div>
-                                        <label for="">Quantity</label>
-                                        <input type="number" name="quantity" class="col-1">
+                                    
+                                    <div class="product_count">
+                                        <label for="qty">Quantity:</label>
+                                        <input type="text" name="quantity" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
                                     </div>
-                                    <button type="submit">Add To Cart</button> 
-                                </form>
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="ctg-right">
-                                        <a href="#" target="_blank">
-                                            <img class="img-fluid d-block mx-auto" src="img/category/c5.jpg" alt="">
-                                        </a>
+                                    <div class="card_area d-flex align-items-center">
+                                        <button class="primary-btn" type="submit">Add To Cart</button> 
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- End product Area -->
+                            </form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</section>
-	<!-- End banner Area -->
+	</div>
+	<!--================End Single Product Area =================-->
 
 
 <?php $this->end()?>
