@@ -3,7 +3,6 @@
         public function __construct($controller,$action){
             parent::__construct($controller,$action);
         }
-
         public function productDisplayAction(){
             $product_id=$_GET["id"];
             $title=$_GET["title"];
@@ -13,7 +12,15 @@
             $attributes=$this->getAttributes($product_id,$con);
             Session::set('attributes',$attributes);
 
-            $this->view->setLayout('default');
+            //get the category
+            $sql="SElECT title FROM categories join product_category_relations using (category_id) where product_id = ?";
+            $category_name=$con->query($sql,[$product_id])->results()[0]->title;
+            Session::set('category_name',$category_name);
+
+            //get the brand
+            $brand_name=$con->query("SELECT brand from products where product_id= ?",[$product_id])->results()[0]->brand;
+            Session::set('brand_name',$brand_name);
+            $this->view->setLayout('normal');
             $this->view->render('product/productDisplay');
         }
 
@@ -34,7 +41,9 @@
                     array_push($attributes[$attribute_name],$value);
                 }
                 else{
-                    array_push($attributes[$attribute_name],$value);
+                    if(in_array($value,$attributes[$attribute_name])==false){
+                        array_push($attributes[$attribute_name],$value);
+                    }
                 }
             }
             return $attributes;            
