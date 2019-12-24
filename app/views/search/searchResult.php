@@ -47,11 +47,13 @@
                                         <div class="price">
                                         <?php 
                                             if ($maxPrice==$minPrice){
-                                                echo "<h6>".$maxPrice."</h6>";
+                                                $price=$maxPrice;
                                             }
                                             else{
-                                                echo "<h6>".$minPrice." - ".$maxPrice."</h6>";
+                                                $price= $minPrice." - ".$maxPrice;
                                             }
+                                            Session::set('productPrice',$price);
+                                            echo "<h6>".$price."</h6>"
                                         ?>
                                         </div>
                                     </div>
