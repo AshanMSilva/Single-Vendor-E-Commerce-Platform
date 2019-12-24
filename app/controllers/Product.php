@@ -12,6 +12,7 @@
             $con=DB::getInstance();
             $attributes=$this->getAttributes($product_id,$con);
             Session::set('attributes',$attributes);
+
             $this->view->setLayout('default');
             $this->view->render('product/productDisplay');
         }
@@ -19,7 +20,7 @@
         //this function returns the all attributes for given product
         function getAttributes($product_id,$con){
             $attributes=array();
-            $sql="select attribute_name,value from variants join attributes using (variant_id) where product_id= ? "; 
+            $sql="select attribute_name,value from attributes  where product_id= ?"; 
             $result = $con->query($sql,[$product_id]);
 
 
@@ -36,7 +37,13 @@
                     array_push($attributes[$attribute_name],$value);
                 }
             }
-            return $attributes;
+            return $attributes;            
+        }
+
+        public function productAddAction(){
+
+
+
         }
     
     }
