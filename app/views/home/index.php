@@ -106,9 +106,48 @@
 		</div>
 	</section>
 	<!-- end features Area -->
+	<!--start top category area-->
+	<section class="category-area">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-6 text-center">
+					<div class="section-title">
+						<h1>Top Categories</h1>
+						<p>We have 2 Main categories</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-6">
+					<div class="single-deal">
+						<div class="overlay"></div>
+						<img class="img-fluid w-100" src="<?=PROOT?>img/category/c1.jpg" alt="">
+						<a href="">
+							<div class="deal-details">
+								<h6 class="deal-title">Electronics</h6>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6">
+					<div class="single-deal">
+						<div class="overlay"></div>
+						<img class="img-fluid w-100" src="<?=PROOT?>img/category/c1.jpg" alt="">
+						<a href="">
+							<div class="deal-details">
+								<h6 class="deal-title">Toys</h6>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--end top category area-->		
+					
 
 	<!-- Start category Area -->
-	<section class="category-area">
+	<!--<section class="category-area">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-lg-8 col-md-12">
@@ -172,7 +211,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section>-->
 	<!-- End category Area -->
 
 	<!-- start product Area -->

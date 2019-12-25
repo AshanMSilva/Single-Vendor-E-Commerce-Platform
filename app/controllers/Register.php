@@ -118,33 +118,7 @@
         //    Alert::set('Successfully logged as a guest..!'); 
         //    Router::redirect('home/guestlogged');
         //}
-        public function forgotpasswordAction(){
-            if(isset($_POST['submit'])){
-                $email = $_POST['email'];
-                 
-
-                if(System::email_exists($email)){
-                    $subject= 'Forgot Password request';
-                    $randcode= System::generaterandcode();
-                    $message ="ForgotPassword Code: " . $randcode . " . Please use the given code to verify your email. Please reset Your Password.";
-                    if(System::sendmail($email, $subject, $message)){
-                        Alert::set('ForgotPassword code is sent to your email address successfully');
-                        $this->view->setLayout('normal');
-                        $this->view->render('register/forgotpassword');
-                    }
-                    else{
-
-                    }
-                    
-                }
-                else{
-
-                }
-
-                
-            }
-            
-        }
+        
         public function logoutAction(){
             if(Session::get('logged_in')){
                 session_destroy();

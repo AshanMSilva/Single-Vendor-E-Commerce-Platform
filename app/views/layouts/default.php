@@ -266,7 +266,7 @@
 					<button class="close" type="buttton" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<form class="login_form" action="<?=PROOT?>register/forgotpassword" method="post">
+					<form class="login_form" action="<?=PROOT?>forgotpassword" method="post">
 						<div class="form-group">
 							<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required>
 						</div>
