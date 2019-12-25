@@ -51,8 +51,9 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
-							<li class="nav-item submenu dropdown">
+							<li class="nav-item active"><a class="nav-link" href="<?=PROOT?>home">Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/tracking">Tracking</a></li>
+							<!--<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
@@ -62,7 +63,7 @@
 									<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
 									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
 								</ul>
-							</li>
+							</li>-->
 							<!--<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Blog</a>
@@ -73,16 +74,18 @@
 							</li>-->
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
+								 aria-expanded="false">Category</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="" data-target="#loginModal" data-toggle="modal">Login</a></li>
-									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Category2</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Category3</a></li>
+									<!--<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
+									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
 								</ul>
 							</li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact">Contact</a></li>
 							<li class="nav-item"><a href="" class="account nav-link" data-target="#loginModal" data-toggle="modal"><span class="ti-user"></span></a></li>
-							<li class="nav-item"><a href="cart.html" class="cart  nav-link"><span class="ti-shopping-cart"></span></a></li>
+							<li class="nav-item"><a href="<?=PROOT?>cart" class="cart  nav-link"><span class="ti-shopping-cart"></span></a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							
@@ -268,7 +271,7 @@
 							<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required>
 						</div>
                         <div class="form-group">
-							<button type="submit" value="submit" class="primary-btn col-md-3">Submit</button>
+							<button type="submit" value="submit" name="submit" class="primary-btn col-md-3">Submit</button>
 							
 						</div>
 					</form>

@@ -75,7 +75,9 @@
                             Session::set('current_logged_in_customer', $id);
                             // dnd($_SESSION);
                             Alert::set('Welcome to C Stores E-Commerce Platform');
+                            Session::set('logged_in',true);
                             Router::redirect('home/registerlogged');
+                            
                         }
                     }
                     else{

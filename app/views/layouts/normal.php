@@ -49,8 +49,9 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-							<li class="nav-item submenu dropdown active">
+                            <li class="nav-item "><a class="nav-link" href="<?=PROOT?>home">Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/tracking">Tracking</a></li>
+							<!--<li class="nav-item submenu dropdown active">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
@@ -60,28 +61,31 @@
 									<li class="nav-item active"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
 									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
 								</ul>
-							</li>
-							<li class="nav-item submenu dropdown">
+							</li>-->
+							<!--<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Blog</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
 									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
 								</ul>
-							</li>
+							</li>-->
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
+								 aria-expanded="false">Category</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Category2</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Category3</a></li>
+									<!--<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
+									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
 								</ul>
 							</li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact">Contact</a></li>
+                            
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+                            <li class="nav-item"><a href="<?=PROOT?>cart" class="cart"><span class="ti-shopping-cart"></span></a></li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>

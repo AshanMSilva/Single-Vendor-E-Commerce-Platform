@@ -4,13 +4,39 @@
             parent::__construct($controller,$action);
         }
         public function indexAction(){
-            $this->view->setLayout('default');
-            $this->view->render('home/index');
+            if(Session::exists('logged_in')){
+                if(Session::get('logged_in')){
+                    $this->view->setLayout('registerlogged');
+                    $this->view->render('home/index');
+                }
+                else{
+                    $this->view->setLayout('default');
+                    $this->view->render('home/index');
+                }
+            }
+            else{
+                $this->view->setLayout('default');
+                $this->view->render('home/index'); 
+            }
+            
+            
         }
         public function registerloggedAction(){
             // dnd($_SESSION);
-            $this->view->setLayout('registerlogged');
-            $this->view->render('home/index');
+            if(Session::exists('logged_in')){
+                if(Session::get('logged_in')){
+                    $this->view->setLayout('registerlogged');
+                    $this->view->render('home/index');
+                }
+                else{
+                    $this->view->setLayout('default');
+                    $this->view->render('home/index');
+                }
+            }
+            else{
+                $this->view->setLayout('default');
+                $this->view->render('home/index'); 
+            }
         }
         
 
