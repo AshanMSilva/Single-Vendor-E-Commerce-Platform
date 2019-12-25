@@ -10,6 +10,10 @@
             if(isset($_POST["key"])){
                 $x= Input::get('key');
             }
+
+            Session::set('xx',$x);
+            $x=Session::get('xx');
+
             //call function
             $lastView=$this->searchItem($x,$con);
             $prodDetails=array();
