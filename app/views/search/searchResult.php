@@ -10,10 +10,10 @@
 	<!-- start banner Area -->
     
     
-    <section class="banner-area">
+   <!-- <section class="banner-area">
 		<div class="container">
 			<div class="row fullscreen align-items-center justify-content-start">
-				<div class="col-lg-12">
+				<div class="col-lg-12">-->
                 
             <!-- Start Search Results Area -->
 
@@ -43,7 +43,7 @@
                                 <div class="single-related-product d-flex">
                                     <!-- <a href="#"><img src="../../img/r1.jpg" alt=""></a> -->
                                     <div class="desc">
-                                    <a href="<?=PROOT?>product/productDisplay?id=<?php echo $product_id?>&title=<?php echo $title;?>" class="title"><?php echo $title;?></a>
+                                    <a href="<?=PROOT?>singleproduct/productDisplay?id=<?php echo $product_id?>&title=<?php echo $title;?>" class="title"><?php echo $title;?></a>
                                         <div class="price">
                                         <?php 
                                             if ($maxPrice==$minPrice){
@@ -83,11 +83,12 @@
                 </div>
             </section>
             <!-- End Search Results Area -->
-				</div>
+	<!--			</div>
 			</div>
 		</div>
-	</section>
+	</section>-->
 	<!-- End banner Area -->
+    
 
 
 <?php $this->end()?>

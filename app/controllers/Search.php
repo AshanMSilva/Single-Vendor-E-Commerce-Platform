@@ -23,7 +23,7 @@
             Session::set('x',$x);
             Session::set('prodDetails',$prodDetails);
 
-            $this->view->setLayout('default');
+            $this->view->setLayout('normal');
             $this->view->render('search/searchResult');
         }
         
