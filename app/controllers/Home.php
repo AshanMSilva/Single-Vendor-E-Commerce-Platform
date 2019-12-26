@@ -53,6 +53,8 @@
             $root_categories = Category::get_root_categories();
             // dnd($root_categories);
             $data['categories'] = $root_categories;
+            $topProducts = Product::top_selling_products();
+            $data['topProducts'] =$topProducts;
             // dnd($_SESSION);
             if(Session::exists('logged_in')){
                 if(Session::get('logged_in')){
