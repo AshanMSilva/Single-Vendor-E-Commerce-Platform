@@ -32,6 +32,7 @@
 	<link rel="stylesheet" href="<?=PROOT?>css/magnific-popup.css">
     <link rel="stylesheet" href="<?=PROOT?>css/main.css">
     <?= $this->content('head');?>
+	
 </head>
 
 <body>
@@ -41,7 +42,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="<?=PROOT?>img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="<?=PROOT?>home"><img src="<?=PROOT?>img/fav.png" alt=""> <Strong> IDIOTS </Strong></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -51,8 +52,8 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="<?=PROOT?>home">Home</a></li>
-							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/tracking">Tracking</a></li>
+							<li class="nav-item active"><a class="nav-link" href="<?=PROOT?>home"><span class="fa fa-home"></span> Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/tracking"><span class="fa fa-truck"></span> Tracking</a></li>
 							<!--<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
@@ -74,7 +75,7 @@
 							</li>-->
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Category</a>
+								 aria-expanded="false"><span class="fa fa-list"></span> Category</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
 									<li class="nav-item"><a class="nav-link" href="">Category2</a></li>
@@ -83,7 +84,7 @@
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
 								</ul>
 							</li>
-							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact">Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact"><span class="fa fa-comments"></span> Contact</a></li>
 							<li class="nav-item"><a href="" class="account nav-link" data-target="#loginModal" data-toggle="modal"><span class="ti-user"></span></a></li>
 							<li class="nav-item"><a href="<?=PROOT?>cart" class="cart  nav-link"><span class="ti-shopping-cart"></span></a></li>
 						</ul>
@@ -159,30 +160,33 @@
 					<div class="tab-content">
 						<!--start login panel-->
 						<div role="tabpanel" class="tab-pane fade show active" id="login">
-							<div class="col-lg-6">
-								<form class="row login_form" action="<?=PROOT?>register/login" method="post" id="loginForm">
-									<div class="col-md-12 form-group">
-										<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required>
-									</div>
-									<div class="col-md-12 form-group">
-										<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required>
-									</div>
-									<div class="col-md-12 form-group">
-										<div class="creat_account">
-											<input type="checkbox" id="f-option2" name="selector">
-											<label for="f-option2">Keep me logged in</label>
+							<div class="row">
+							
+								<div class="col-lg-6">
+									<form class="row login_form" action="<?=PROOT?>register/login" method="post" id="loginForm">
+										<div class="col-md-12 form-group">
+											<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required>
 										</div>
-									</div>
-									<div class="col-md-12 form-group">
-										<button type="submit" name="submit" class="primary-btn">Log In</button>
-                                        <a href="" data-target="#forgotPasswordModal" data-toggle="modal"data-dismiss="modal">Forgot Password?</a>
-                                        <!--<a href="<?//=PROOT?>register/guest">Continue as a Guest</a>
-										<a href="">Create an Account</a>-->
-									</div>
-								</form>
-							</div>
-							<div class="col-lg-6">
-
+										<div class="col-md-12 form-group">
+											<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required>
+										</div>
+										<!--<div class="col-md-12 form-group">
+											<div class="creat_account">
+												<input type="checkbox" id="f-option2" name="selector">
+												<label for="f-option2">Keep me logged in</label>
+											</div>
+										</div>-->
+										<div class="col-md-12 form-group">
+											<button type="submit" name="submit" class="primary-btn">Log In</button>
+											<a href="" data-target="#forgotPasswordModal" data-toggle="modal"data-dismiss="modal">Forgot Password?</a>
+											<!--<a href="<?//=PROOT?>register/guest">Continue as a Guest</a>
+											<a href="">Create an Account</a>-->
+										</div>
+									</form>
+								</div>
+								<div class="col-lg-6 d-none d-lg-block">
+									<img class="img-fluid" src="<?=PROOT?>img/shopping-online.jpg" alt="">
+								</div>
 							</div>
 						</div>
 						<!--end login panel-->
@@ -295,7 +299,7 @@
 					</div>
 				</div>
 				<div class="col-lg-4  col-md-6 col-sm-6">
-					<div class="single-footer-widget">
+					<!--<div class="single-footer-widget">
 						<h6>Newsletter</h6>
 						<p>Stay update with our latest</p>
 						<div class="" id="mc_embed_signup">
@@ -312,16 +316,16 @@
 									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
 									<div style="position: absolute; left: -5000px;">
 										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-									</div>
+									</div>-->
 
 									<!-- <div class="col-lg-4 col-md-4">
 												<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
 											</div>  -->
-								</div>
+								<!--</div>
 								<div class="info"></div>
 							</form>
 						</div>
-					</div>
+					</div>-->
 				</div>
 				<div class="col-lg-3  col-md-6 col-sm-6">
 					<div class="single-footer-widget mail-chimp">

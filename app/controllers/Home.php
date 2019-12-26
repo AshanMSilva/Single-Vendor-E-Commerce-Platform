@@ -10,8 +10,9 @@
             
             if(Session::exists('logged_in')){
                 if(Session::get('logged_in')){
-                    $this->view->setLayout('registerlogged');
-                    $this->view->render('home/index');
+                    //$this->view->setLayout('registerlogged');
+                    //$this->view->render('home/index');
+                    Router::redirect('home/registerlogged');
                     //$this->view->render('home/index',$topProducts);
                 }
                 else{
@@ -37,14 +38,16 @@
                     //$this->view->render('home/index',$topProducts);
                 }
                 else{
-                    $this->view->setLayout('default');
-                    $this->view->render('home/index');
+                    //$this->view->setLayout('default');
+                    //$this->view->render('home/index');
+                    Router::redirect('home/index');
                     //$this->view->render('home/index',$topProducts);
                 }
             }
             else{
-                $this->view->setLayout('default');
-                $this->view->render('home/index'); 
+                //$this->view->setLayout('default');
+                //$this->view->render('home/index'); 
+                Router::redirect('home/index');
                 //$this->view->render('home/index',$topProducts);
             }
         }

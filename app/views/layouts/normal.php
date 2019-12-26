@@ -5,9 +5,9 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="../../img/fav.png">
+    <link rel="shortcut icon" href="<?=PROOT?>img/fav.png">
     <!-- Author Meta -->
-    <meta name="author" content="CodePixar">
+    <meta name="author" content="3-idiots+kaveesha">
     <!-- Meta Description -->
     <meta name="description" content="">
     <!-- Meta Keyword -->
@@ -39,7 +39,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="<?=PROOT?>img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="<?=PROOT?>home"><img src="<?=PROOT?>img/fav.png" alt=""> <Strong> IDIOTS </Strong> </a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -49,8 +49,8 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item "><a class="nav-link" href="<?=PROOT?>home">Home</a></li>
-							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/tracking">Tracking</a></li>
+                            <li class="nav-item "><a class="nav-link" href="<?=PROOT?>home"><span class="fa fa-home"></span> Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/tracking"><span class="fa fa-truck"></span> Tracking</a></li>
 							<!--<li class="nav-item submenu dropdown active">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
@@ -72,7 +72,7 @@
 							</li>-->
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Category</a>
+								 aria-expanded="false"><span class="fa fa-list"></span> Category</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
 									<li class="nav-item"><a class="nav-link" href="">Category2</a></li>
@@ -81,7 +81,7 @@
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
 								</ul>
 							</li>
-                            <li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact"><span class="fa fa-comments"></span> Contact</a></li>
                             
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
@@ -138,7 +138,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
+                    <!--<div class="single-footer-widget">
                         <h6>Newsletter</h6>
                         <p>Stay update with our latest</p>
                         <div class="" id="mc_embed_signup">
@@ -159,14 +159,14 @@
                                             type="text">
                                     </div>
 
-                                    <!-- <div class="col-lg-4 col-md-4">
+                                     <div class="col-lg-4 col-md-4">
 													<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-												</div>  -->
+												</div>  
                                 </div>
                                 <div class="info"></div>
                             </form>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="col-lg-3  col-md-6 col-sm-6">
                     <div class="single-footer-widget mail-chimp">

@@ -119,10 +119,5 @@
         //    Router::redirect('home/guestlogged');
         //}
         
-        public function logoutAction(){
-            if(Session::get('logged_in')){
-                session_destroy();
-                Router::redirect('home/index');
-            }
-        }
+        
     }
