@@ -14,7 +14,7 @@ class Checkout extends Controller{
                 $reg_cust_obj = RegisteredCustomer::get_reg_cust_by_id($cust_id);
                 // pass object to view - set default values using object. customer can change delivery address, card 
                 $this->view->setLayout('normal');
-                $this->view->render('cart/checkout',$reg_cust_obj);
+                $this->view->render('mycart/checkout',$reg_cust_obj);
             }
             else{
                 // render view - guest customer should fill the form in the view. first name, last name should be taken
