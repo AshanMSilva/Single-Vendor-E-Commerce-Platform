@@ -20,11 +20,23 @@
                         $id = $reg_cust->get_id();
                         Session::set('current_logged_in_customer', $id);
                         Session::set('logged_in', true);
+                        Session::set('registered_customer', $id);
+
+                        if(Session::exists('my_cart')){
+                            $my_products = Session::get('my_cart');
+                            // dnd($my_products);
+                            $cart = new Cart();
+                            foreach($my_products as $product){
+                                // dnd($id);
+                                $cart->add_product($product);
+                            }
+                            Session::delete('my_cart');                           
+                        }
                         //get password from database
 
                         /*if(System::verifypassword(sha1($password),put password here){
                             Alert::set('Welcome Back'); 
-                            Router::redirect('home/registerlogged');
+                            Router::redirect('home/index');
                         }
                         else{
                             Alert::set('Password is incorrect');
@@ -37,7 +49,7 @@
                         //Alert::set('email is correct');
                         //Session::set('logged',false);
                         
-                        Router::redirect('home/registerlogged');
+                        Router::redirect('home/index');
                     }
                     else{
                         Alert::set('Invalid Password');
@@ -61,7 +73,7 @@
 
             if(isset($_POST['submit'])){ 
                 // dnd($_POST);               
-                $post_array = Input::get_array($_POST);                
+                $post_array = Input::get_array($_POST, ['submit']);                
                 // dnd($post_array);
                 if(!System::email_exists($post_array['email'])){        
                     

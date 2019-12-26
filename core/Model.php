@@ -62,13 +62,15 @@ class Model{
 	}
 
 	public function insert($fields){
+		// dnd($fields);
 		if(empty($fields))	return false;
 		return $this->_db->insert($this->_table, $fields);
 	}
 
-	public function update($id, $fields){
-		if(empty($fields) || $id == '')  return false;
-		return $this->_db->update($this->_table, $id, $fields);
+	public function update($fields, $params){
+		// dnd($params);
+		if(empty($fields) || empty($params))  return false;
+		return $this->_db->update($this->_table, $fields, $params);
 	}
 
 	public function delete($id = ''){
@@ -115,5 +117,9 @@ class Model{
 
 	protected function call_procedure($name, $params = []){
 		return $this->_db->call_procedure($name, $params);
+	}
+
+	protected function call_function($function, $params = []){
+		return $this->_db->call_function($function, $params);
 	}
 }

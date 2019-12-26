@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 23, 2019 at 03:38 AM
+-- Generation Time: Dec 26, 2019 at 04:11 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -27,10 +27,16 @@ DELIMITER $$
 -- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_customer_details` (IN `in_email` VARCHAR(50))  NO SQL
-SELECT customers.customer_id, first_name, last_name, email, house_number, street, city, state, zip_code FROM `customers` INNER JOIN `registered_customers` USING(customer_id) WHERE registered_customers.email = in_email$$
+SELECT customers.customer_id, first_name, last_name, email, house_number, street, city, state, zip_code FROM `customers`  INNER JOIN (SELECT * FROM `registered_customers` WHERE registered_customers.email = in_email) AS reg_cust_details USING(customer_id)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reg_customer_by_id` (IN `id` INT)  NO SQL
+SELECT cust_details.customer_id, first_name, last_name, email, house_number, street, city, state, zip_code FROM `registered_customers` INNER JOIN (SELECT * FROM `customers` WHERE customers.customer_id = id) AS cust_details USING(customer_id)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `select_category_products` (IN `id` INT)  NO SQL
 SELECT * FROM `product_details` WHERE product_id IN (SELECT product_id FROM product_category_relations WHERE category_id = id)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `select_customer_cart` (IN `id` INT)  NO SQL
+SELECT products.product_id, title, brand, image, variant_id, sku, weight, price, stock, quantity FROM products INNER JOIN optimized_cart_details WHERE customer_id = id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `select_root_categories` ()  NO SQL
 SELECT * FROM `categories` WHERE category_id NOT IN (SELECT sub_category_id FROM category_relations)$$
@@ -38,12 +44,15 @@ SELECT * FROM `categories` WHERE category_id NOT IN (SELECT sub_category_id FROM
 CREATE DEFINER=`root`@`localhost` PROCEDURE `select_sub_categories` (IN `id` INT)  NO SQL
 SELECT * FROM `categories` WHERE category_id IN (SELECT sub_category_id FROM category_relations WHERE category_id = id)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `top_selling_products` ()  NO SQL
+SELECT product_details.product_id, title, brand, image, min_price, max_price, total_sales FROM product_details INNER JOIN (SELECT product_id, SUM(quantity) AS total_sales FROM order_details INNER JOIN (SELECT order_id FROM orders WHERE order_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND CURDATE()) AS last_month_orders USING(order_id) GROUP BY product_id ORDER BY SUM(quantity) DESC) AS top_products USING(product_id)$$
+
 --
 -- Functions
 --
 CREATE DEFINER=`root`@`localhost` FUNCTION `calc_total_price` (`id` INT) RETURNS DECIMAL(15,2) BEGIN
 	DECLARE total DECIMAL(15,2);
-	SELECT SUM(price*quantity) INTO @total FROM variants INNER JOIN (SELECT variant_id, quantity FROM carts WHERE 		  	  customer_id=id AND removed_flag = 0) AS unique_cart    	  	  USING(variant_id);
+    SELECT SUM(price*quantity) INTO @total FROM variants INNER JOIN (SELECT variant_id, quantity FROM optimized_carts       	WHERE customer_id = id) AS unique_cart USING(variant_id);
 	RETURN @total;
 END$$
 
@@ -109,6 +118,14 @@ CREATE TABLE `carts` (
   `quantity` int(11) NOT NULL DEFAULT '1',
   `removed_flag` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`customer_id`, `product_id`, `variant_id`, `quantity`, `removed_flag`) VALUES
+(15, 7, 18, 1, 0),
+(15, 2, 13, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -250,9 +267,6 @@ INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`) VALUES
 -- (See below for the actual view)
 --
 CREATE TABLE `customers_with_active_orders` (
-`customer_id` int(11)
-,`first_name` varchar(20)
-,`last_name` varchar(20)
 );
 
 -- --------------------------------------------------------
@@ -273,15 +287,14 @@ CREATE TABLE `customer_contacts` (
 --
 
 CREATE TABLE `deliveries` (
-  `delivery_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `courier_id` int(11) DEFAULT NULL,
   `delivery_method` varchar(20) NOT NULL,
-  `tracking_info` varchar(20) DEFAULT NULL,
-  `expected_date` date NOT NULL,
+  `tracking_info` varchar(100) DEFAULT NULL,
+  `estimated_date` date DEFAULT NULL,
   `completed_date` date DEFAULT NULL,
-  `status` varchar(20) NOT NULL,
-  `customer_contact` varchar(12) DEFAULT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'in-progress',
+  `customer_contact` varchar(12) NOT NULL,
   `house_number` int(11) DEFAULT NULL,
   `street` varchar(20) DEFAULT NULL,
   `city` varchar(20) DEFAULT NULL,
@@ -309,6 +322,64 @@ CREATE TABLE `main_cities` (
   `city` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `main_cities`
+--
+
+INSERT INTO `main_cities` (`city`) VALUES
+('Austin'),
+('Beaumont'),
+('Boston'),
+('Chicago'),
+('Cleveland'),
+('Dallas'),
+('Denver'),
+('Detroit'),
+('El Paso'),
+('Houston'),
+('Kansas City'),
+('Las Vegas'),
+('Miami'),
+('Minneapolis'),
+('New Orleans'),
+('New York'),
+('Philadelphia'),
+('San Antonio'),
+('San Diego'),
+('San Francisco'),
+('Seattle'),
+('Washington, D.C.');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `optimized_carts`
+-- (See below for the actual view)
+--
+CREATE TABLE `optimized_carts` (
+`customer_id` int(11)
+,`product_id` int(11)
+,`variant_id` int(11)
+,`quantity` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `optimized_cart_details`
+-- (See below for the actual view)
+--
+CREATE TABLE `optimized_cart_details` (
+`customer_id` int(11)
+,`quantity` int(11)
+,`product_id` int(11)
+,`variant_id` int(11)
+,`sku` varchar(25)
+,`weight` decimal(10,3)
+,`price` decimal(15,2)
+,`stock` int(11)
+);
+
 -- --------------------------------------------------------
 
 --
@@ -330,7 +401,6 @@ CREATE TABLE `ordered_categories` (
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `order_date` date NOT NULL,
-  `status` varchar(20) NOT NULL DEFAULT 'created',
   `customer_id` int(11) NOT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -339,22 +409,22 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `order_date`, `status`, `customer_id`, `deleted`) VALUES
-(1, '2019-10-28', 'created', 3, 0),
-(2, '2019-11-05', 'created', 7, 0),
-(3, '2019-11-16', 'created', 4, 0),
-(4, '2019-11-16', 'created', 1, 0),
-(5, '2019-11-21', 'created', 9, 0),
-(6, '2019-11-26', 'created', 3, 0),
-(7, '2019-12-02', 'created', 4, 0),
-(8, '2019-12-02', 'created', 1, 0),
-(9, '2019-12-04', 'created', 7, 0),
-(10, '2019-12-07', 'created', 2, 0),
-(11, '2019-12-08', 'created', 10, 0),
-(12, '2019-12-08', 'created', 3, 0),
-(13, '2019-12-08', 'created', 7, 0),
-(14, '2019-12-12', 'created', 8, 0),
-(15, '2019-12-15', 'created', 4, 0);
+INSERT INTO `orders` (`order_id`, `order_date`, `customer_id`, `deleted`) VALUES
+(1, '2019-10-28', 3, 0),
+(2, '2019-11-05', 7, 0),
+(3, '2019-11-16', 4, 0),
+(4, '2019-11-16', 1, 0),
+(5, '2019-11-21', 9, 0),
+(6, '2019-11-26', 3, 0),
+(7, '2019-12-02', 4, 0),
+(8, '2019-12-02', 1, 0),
+(9, '2019-12-04', 7, 0),
+(10, '2019-12-07', 2, 0),
+(11, '2019-12-08', 10, 0),
+(12, '2019-12-08', 3, 0),
+(13, '2019-12-08', 7, 0),
+(14, '2019-12-12', 8, 0),
+(15, '2019-12-15', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -527,16 +597,16 @@ CREATE TABLE `registered_customers` (
 
 INSERT INTO `registered_customers` (`customer_id`, `email`, `password`, `house_number`, `street`, `city`, `state`, `zip_code`) VALUES
 (1, 'johnfelix145@example.com', 'jfgORVR1nMRSlU4ZqwRl4Q==', 75, 'Lorem Rd', 'Zuni', 'Rhode Island', '87771'),
-(2, 'samhoward@example.com', 'pbI2BqjtDQR7tAI/d8xj0Q==', 19, 'Nascetur Ave', 'Pahrump', 'Nevada', '32164'),
+(2, 'samhoward@example.com', 'pbI2BqjtDQR7tAI/d8xj0Q==', 19, 'Nascetur Ave', 'Housten', 'Texas', '32164'),
 (3, 'peterjenkins@example.com', 'ucWn7dKzF+J//fu+xVZIpQ==', 148, 'Venenatis St.', 'Glen Haven', 'Nevada', '76891'),
 (4, 'alicesummer@example.com', 'howZlIIY3Yx5XGXD4yliBg==', 6, 'Quam Street', 'Rowley', 'Alaska', '29510'),
-(5, 'deanmorgan7@example.com', 'WQUWPmcK5gklqLYuykY0FA==', 27, 'Senectus St', 'Houma', 'Nevada', '37722'),
+(5, 'deanmorgan7@example.com', 'WQUWPmcK5gklqLYuykY0FA==', 27, 'Senectus St', 'El Paso', 'Texas', '37722'),
 (6, 'kaifali215@example.com', 'H81c0+4gA69F5oKSSDxoBA==', 95, 'Dickinson Square', 'Dresden', 'New Jersey', '70862'),
 (7, 'marywhite@nowhere.com', '4iT8zFUdJQ1W3YaH5e7Eig==', 46, 'Euismod Av', 'Paia', 'Vermont', '84684'),
 (8, 'shanecooper@example.com', '1yFzehy7+zt+VMYMOIguCA==', 42, 'Lectus Ave', 'Glen Head', 'Illinois', '24015'),
 (9, 'samwinchester6@example.com', '4NI3jN0oOvgQkZ4VJ7YK8g==', 16, 'Aenean Street', 'Roxboro', 'Alabama', '63402'),
 (10, 'dannywu@nowhere.com', 'NmeE/vygrhgRMDQWs2pHPw==', 60, 'Dui. Rd', 'Soquel', 'South Dakota', '07396'),
-(15, 'sahanjayasinghe.17@cse.mrt.ac.lk', '$2y$10$7yT9Hm4Ea/ncOlB40u1xrOOC8gS8GU3XdeEsansJZWdvYF1jbdyyS', 77, 'Loften Avenue', 'New Jersy', 'Philedelphia', '45107');
+(15, 'sahanjayasinghe.17@cse.mrt.ac.lk', '$2y$10$7yT9Hm4Ea/ncOlB40u1xrOOC8gS8GU3XdeEsansJZWdvYF1jbdyyS', 77, 'Loften Avenue', 'Philedelphia', 'Pennsylvania', '45107');
 
 -- --------------------------------------------------------
 
@@ -604,6 +674,24 @@ INSERT INTO `variants` (`product_id`, `variant_id`, `sku`, `weight`, `price`, `s
 DROP TABLE IF EXISTS `customers_with_active_orders`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `customers_with_active_orders`  AS  select `customers`.`customer_id` AS `customer_id`,`customers`.`first_name` AS `first_name`,`customers`.`last_name` AS `last_name` from (`customers` join `orders`) where ((`orders`.`customer_id` = `customers`.`customer_id`) and (`orders`.`status` = 'created')) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `optimized_carts`
+--
+DROP TABLE IF EXISTS `optimized_carts`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `optimized_carts`  AS  select `carts`.`customer_id` AS `customer_id`,`carts`.`product_id` AS `product_id`,`carts`.`variant_id` AS `variant_id`,`carts`.`quantity` AS `quantity` from `carts` where (`carts`.`removed_flag` = 0) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `optimized_cart_details`
+--
+DROP TABLE IF EXISTS `optimized_cart_details`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `optimized_cart_details`  AS  select `optimized_carts`.`customer_id` AS `customer_id`,`optimized_carts`.`quantity` AS `quantity`,`variants`.`product_id` AS `product_id`,`variants`.`variant_id` AS `variant_id`,`variants`.`sku` AS `sku`,`variants`.`weight` AS `weight`,`variants`.`price` AS `price`,`variants`.`stock` AS `stock` from (`optimized_carts` join `variants` on((`optimized_carts`.`variant_id` = `variants`.`variant_id`))) ;
 
 -- --------------------------------------------------------
 
@@ -699,7 +787,8 @@ ALTER TABLE `customer_contacts`
 -- Indexes for table `deliveries`
 --
 ALTER TABLE `deliveries`
-  ADD PRIMARY KEY (`delivery_id`),
+  ADD PRIMARY KEY (`order_id`),
+  ADD UNIQUE KEY `tracking_info` (`tracking_info`),
   ADD KEY `order_id` (`order_id`),
   ADD KEY `courier_id` (`courier_id`);
 
@@ -708,6 +797,12 @@ ALTER TABLE `deliveries`
 --
 ALTER TABLE `guest_customers`
   ADD KEY `customer_id` (`customer_id`);
+
+--
+-- Indexes for table `main_cities`
+--
+ALTER TABLE `main_cities`
+  ADD UNIQUE KEY `city` (`city`);
 
 --
 -- Indexes for table `orders`

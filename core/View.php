@@ -10,6 +10,7 @@ class View{
 	public function render($viewName, $data = []){
 		$viewArr = explode('/', $viewName);
 		$viewString = implode(DS, $viewArr);
+		// dnd($data);
 
 		if(file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')){
 			$this->_data = $data;

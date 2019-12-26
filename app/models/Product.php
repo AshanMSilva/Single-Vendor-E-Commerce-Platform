@@ -21,13 +21,44 @@ class Product extends Model{
         return $products;
     }
 
+    public static function get_product_by_id($id){
+        $db = DB::getInstance();
+        $resultsQ = $db->select('products', '*', ['conditions' => 'product_id = ?', 'bind' => [$id]]);
+        // dnd($resultsQ);
+        $product = new Product($resultsQ[0]);
+        // dnd($product);
+        return $product;
+    }
+
+    public function set_variant($id){
+        parent::set_model_name('Variant');
+        parent::set_table_name('variants');
+        $variant = parent::select(['variant_id', 'sku', 'weight', 'price', 'stock'], [
+            'conditions' => 'variant_id = ?',
+            'bind' => [$id]
+        ]);
+        // dnd($variant);
+        $this->variants = $variant;
+    }
+
     public function select_variants(){
         parent::set_model_name('Variant');
         parent::set_table_name('variants');
         $this->variants = parent::select(['variant_id', 'sku', 'weight', 'price', 'stock'], [
-                                            'conditions' => 'product_id = ?',
-                                            'bind' => [$this->product_id]
-                                        ]);     
+            'conditions' => 'product_id = ?',
+            'bind' => [$this->product_id]
+        ]);   
+    }
+
+    public static function update_stock($cart_array){
+        $db = DB::getInstance();
+        foreach($cart_array as $product){
+            $new_stock = 'stock - ' . $product['quantity'];
+            $db->update('variants', ['stock' => $new_stock], [
+                'conditions' => 'variant_id = ?',
+                'bind' => [$product['variant_id']]
+            ]);
+        }
     }
 
     public function get_product_id(){
