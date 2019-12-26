@@ -14,10 +14,10 @@
             }
         }
 
-        public static function get_array($input = []){
+        public static function get_array($input = [], $buttons = []){
             $input_array = [];
             foreach($input as $key => $val){
-                if($key != 'submit'){                           //name of the submit button
+                if(in_array($key, $buttons)){                           // names of form buttons
                     $input_array[$key] = self::sanitize($val);
                 }
             }

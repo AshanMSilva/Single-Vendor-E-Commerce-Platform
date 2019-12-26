@@ -69,4 +69,38 @@
         public static function generaterandcode(){
             return substr(str_shuffle("0123456789"),0,5);
         }
+
+        public static function calc_delivery_estimate($cart_products, $city = null){
+            $delivery_time = 5;
+            
+            if($city != null){
+                $db = DB::getInstance();
+                $count = $db->select_count('main_cities', '*', [
+                    'conditions' => 'city = ?',
+                    'bind' => [$city]
+                ]);
+                // dnd($count);
+                if(!$count){
+                    $delivery_time += 2;
+                }
+            }
+            // dnd($delivery_time);         
+            
+            foreach($cart_products as $product){
+                $variant_obj = $product['product_obj']->get_variants()[0];
+                // dnd($variant_obj);
+                $stock = intval($variant_obj->get_stock());
+                // dnd($stock);
+                $quantity = $product['quantity'];                
+                if($stock < $quantity){
+                    $delivery_time += 3;
+                    // echo $delivery_time;
+                    break;
+                }
+            }
+            // dnd($delivery_time);
+            $date = date('Y/m/d', strtotime(' + ' . $delivery_time .' days'));
+            // dnd($date);
+            return $date;
+        }
     }

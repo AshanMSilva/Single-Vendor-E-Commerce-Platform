@@ -16,11 +16,34 @@ class Variant extends Model{
         // dnd($this->variant_id);
         $resultsQ = $this->_db->select('attributes', ['attribute_name', 'value'], ['conditions' => 'variant_id = ?', 'bind' => [$this->variant_id]]);
         // dnd($resultsQ);
-        foreach($resultsQ as $row){
-            //dnd($row->attribute_name);
-            $this->attributes[$row->attribute_name] = $row->value;            
-        }
+
+        if($resultsQ != false){
+            foreach($resultsQ as $row){
+                //dnd($row->attribute_name);
+                $this->attributes[$row->attribute_name] = $row->value;            
+            }
+        }      
         // dnd($this->attributes);
+    }
+
+    public function get_variant_id(){
+        return $this->variant_id;
+    }
+
+    public function get_sku(){
+        return $this->sku;
+    }
+
+    public function get_weight(){
+        return $this->weight;
+    }
+
+    public function get_price(){
+        return $this->price;
+    }
+
+    public function get_stock(){
+        return $this->stock;
     }
 
     public function get_attributes(){

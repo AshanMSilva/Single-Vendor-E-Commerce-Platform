@@ -20,13 +20,13 @@ class Browse extends Controller{
             //dnd($root_category);
             
             if($root_category->has_sub_category()){
-                $categories = $root_category->get_sub_categories();
+                $categories = $root_category->get_sub_categories();     // render the view categories/index. pass category objs
                 dnd($categories);
             }
             else{
                 //load products belong to the category
                 //echo "else"; die();
-                $products = $root_category->get_category_products();
+                $products = $root_category->get_category_products();    // render the view category-products/index. pass product objs
                 dnd($products[0]);
             }           
         }
@@ -41,7 +41,20 @@ class Browse extends Controller{
             $product = $results[0];
             $product->select_variants();
             dnd($product->get_variants());          // [0]->get_attributes()
-        }
-        
+
+            // render the view single-product/index. pass product obj
+        }        
+    }
+
+    public function addToCartAction(){
+        // product_id, variant_id, quantity should be sent through post from the single-product view
+        //$post_array = Input::get_array($_POST, ['add']);     // contains product_id, variant_id, quantity
+        // dnd(Session::get('registered_customer'));
+        $post_array = ['product_id' => '2', 'variant_id' => '13', 'quantity' => 2];
+        // dnd($post_array['product_id']);
+        $cart = new Cart();
+        // $cart = Cart::get_instance();
+        $cart->add_product($post_array);
+        dnd($_SESSION);
     }
 }

@@ -30,7 +30,7 @@
                 Session::set('randcode', $randcode);
                 $email = $_POST['email'];
                 //dnd($_POST);
-                $msg = "Verification Code: " . $randcode . " . Please use the given code to verify your email. Thank you for joining with C Stores.";
+                $msg = "Verification Code: " . $randcode . " . Please use the given code to verify your email. Thank you for joining with E-Commerce Platform.";
                 // dnd($msg);
 
                 if(System::sendmail($email, "E-mail Verification Process", $msg)){
@@ -72,10 +72,20 @@
                             //dnd($_SESSION);
                             // dnd($reg_cust);
                             $id = $reg_cust->get_id();
-                            Session::set('current_logged_in_customer', $id);
+                            Session::set('registered_customer', $id);
+
+                            if(Session::exists('my_cart')){
+                                $my_products = Session::get('my_cart');
+                                $cart = new Cart();
+                                foreach($my_products as $product){
+                                    $cart->add_product($product);
+                                }
+                                Session::delete('my_cart');                       
+                            }
+
                             // dnd($_SESSION);
                             Alert::set('Welcome to C Stores E-Commerce Platform');
-                            Router::redirect('home/registerlogged');
+                            Router::redirect('home/index');
                         }
                     }
                     else{

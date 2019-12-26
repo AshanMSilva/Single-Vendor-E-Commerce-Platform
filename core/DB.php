@@ -159,9 +159,10 @@ class DB{
 		return false;
 	}
 
-	public function update($table, $id, $fields = []){
+	public function update($table, $fields, $params){
 		$fieldString = '';
 		$values = [];
+		$conditionString = '';
 
 		foreach($fields as $field => $value){
 			$fieldString .= ' ' . $field . ' = ?,';
@@ -170,7 +171,32 @@ class DB{
 		$fieldString = trim($fieldString);
 		$fieldString = rtrim($fieldString, ',');
 
-		$sql = "UPDATE {$table} SET {$fieldString} WHERE id = {$id}";
+		if(isset($params['conditions'])){
+			if(is_array($params['conditions'])){
+				foreach($params['conditions'] as $condition){
+					$conditionString .= ' ' . $condition . ' AND';
+				}
+				$conditionString = trim($conditionString);
+				$conditionString = rtrim($conditionString, ' AND');
+			}
+			else{
+				$conditionString = $params['conditions'];
+			}
+			if($conditionString != ''){
+				$conditionString = ' WHERE ' . $conditionString;
+			}
+		}
+
+		//bind
+		if(array_key_exists('bind', $params)){
+			foreach($params['bind'] as $bind){
+				$values[] = $bind;
+			}
+		}
+
+		$sql = "UPDATE {$table} SET {$fieldString}{$conditionString}";
+		// dnd($sql);
+		// dnd($values);
 		if(!$this->query($sql, $values)->error()){
 			return true; 
 		}
@@ -235,6 +261,34 @@ class DB{
 		$sql = "CALL {$procedure}({$paramString})";
 		// dnd($sql);
 		if($this->query($sql)){
+			return $this->results();
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function call_function($function, $params = []){
+		$paramString = '';
+
+		if(isset($params)){
+			
+			if(is_array($params)){
+				foreach($params as $param){
+					$paramString .= ' ' . $param . ',';
+				}
+				$paramString = trim($paramString);
+				$paramString = rtrim($paramString, ',');
+			}
+			else{
+				$paramString = "'" . $params . "'";
+			}
+		}
+
+		$sql = "SELECT {$function}({$paramString}) AS {$function}";
+		// dnd($sql);
+		if($this->query($sql)){
+			// dnd($this->results());
 			return $this->results();
 		}
 		else{

@@ -26,6 +26,14 @@ class RegisteredCustomer extends Customer{
         return $reg_cust;   
     }
 
+    public static function get_reg_cust_by_id($id){
+        $db = DB::getInstance();
+        $resultsQ = $db->call_procedure('get_reg_customer_by_id', $id);
+        //dnd($resultsQ);
+        $reg_cust = new RegisteredCustomer($resultsQ[0]);
+        return $reg_cust;
+    }
+
     public function insert_customer($details){
         parent::set_table_name('customers');
         $id = parent::insert(['first_name' => $details['first_name'],
@@ -53,5 +61,22 @@ class RegisteredCustomer extends Customer{
     public function get_id(){
         // dnd($this->customer_id);
         return $this->customer_id;
-    }    
+    }
+
+    public function get_first_name(){
+        return $this->first_name;
+    }
+
+    public function get_last_name(){
+        return $this->last_name;
+    }
+    
+    public function set_address($details){
+        $address_keys = ['house_number', 'street', 'city', 'state', 'zip_code'];
+        foreach($details as $key => $val){
+            if(in_array($key, $address_keys)){
+                $this->$key = $val;
+            }
+        }
+    }
 }
