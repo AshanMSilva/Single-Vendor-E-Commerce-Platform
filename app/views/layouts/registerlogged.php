@@ -97,7 +97,7 @@
 								</ul>
 							</li>
 							<!--<li class="nav-item"><a href="" class="account nav-link"><span class="ti-user"></span></a></li>-->
-							<li class="nav-item"><a href="<?=PROOT?>cart" class="cart  nav-link"><span class="ti-shopping-cart"></span></a></li>
+							<li class="nav-item"><a href="<?=PROOT?>myCart" class="cart  nav-link"><span class="ti-shopping-cart"></span></a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							

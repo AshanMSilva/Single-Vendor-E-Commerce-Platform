@@ -12,6 +12,8 @@ class MyCart extends Controller{
         $products = $cart->get_products();      // return array looks like: [ [product_obj, quantity], .... ]
         $data = [$products, $total];
         //render the view of cart. pass the data array
+        $this->view->setLayout('normal');
+        $this->view->render('mycart/index',$data);
     }
 
     public function removeFromCartAction($variant_id){

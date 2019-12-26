@@ -85,7 +85,7 @@
                             
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item"><a href="<?=PROOT?>cart" class="cart"><span class="ti-shopping-cart"></span></a></li>
+                            <li class="nav-item"><a href="<?=PROOT?>myCart" class="cart"><span class="ti-shopping-cart"></span></a></li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>

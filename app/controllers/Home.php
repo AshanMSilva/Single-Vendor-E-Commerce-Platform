@@ -7,8 +7,11 @@
 
         public function indexAction(){
             //dnd(Product::top_selling_products());
-            
-            //$topProducts = Product::top_selling_products();
+            $root_categories = Category::get_root_categories();
+             //dnd($root_categories);
+            $data['categories'] = $root_categories;
+            $topProducts = Product::top_selling_products();
+            $data['topProducts'] =$topProducts;
             
             if(Session::exists('logged_in')){
                 if(Session::get('logged_in')){
@@ -19,19 +22,19 @@
                 }
                 else{
                     $this->view->setLayout('default');
-                    $this->view->render('home/index');
+                    $this->view->render('home/index',$data);
                     //$this->view->render('home/index',$topProducts);
                 }
             }
             else{
                 $this->view->setLayout('default');
-                $this->view->render('home/index'); 
+                $this->view->render('home/index',$data); 
                 //$this->view->render('home/index',$topProducts);
             }
             
             
 
-            $root_categories = Category::get_root_categories();
+            /*$root_categories = Category::get_root_categories();
             // dnd($root_categories);
             $data['categories'] = $root_categories;
 
@@ -42,16 +45,19 @@
             else{
                 $this->view->setLayout('default');
                 $this->view->render('home/index', $data);
-            }            
+            }   */         
         }
 
 
-        /*public function registerloggedAction(){
+        public function registerloggedAction(){
+            $root_categories = Category::get_root_categories();
+            // dnd($root_categories);
+            $data['categories'] = $root_categories;
             // dnd($_SESSION);
             if(Session::exists('logged_in')){
                 if(Session::get('logged_in')){
                     $this->view->setLayout('registerlogged');
-                    $this->view->render('home/index');
+                    $this->view->render('home/index',$data);
                     //$this->view->render('home/index',$topProducts);
                 }
                 else{
@@ -79,7 +85,7 @@
 
         
             
-        }*/
+        //}
         //public function guestloggedAction(){
         //    $this->view->setLayout('guestlogged');
         //    $this->view->render('home/index');
@@ -97,5 +103,5 @@
             }            
             $this->view->render('home/index');
         }*/    
-    }
+    //}
     

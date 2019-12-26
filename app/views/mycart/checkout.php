@@ -148,7 +148,7 @@
                                 <a href="#">terms & conditions*</a>
                             </div>
                             <a class="primary-btn" href="#">Proceed to Paypal</a>
-                            <a class="primary-btn" href="<?=PROOT?>cart/confirmation">Confirmation</a>
+                            <a class="primary-btn" href="<?=PROOT?>checkout/confirmCheckout">Confirmation</a>
                         </div>
                     </div>
                 </div>

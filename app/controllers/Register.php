@@ -18,7 +18,7 @@
                         Alert::set('LogIn Successful');
                         $reg_cust = RegisteredCustomer::create_reg_cust($email);
                         $id = $reg_cust->get_id();
-                        Session::set('current_logged_in_customer', $id);
+                        //Session::set('current_logged_in_customer', $id);
                         Session::set('logged_in', true);
                         Session::set('registered_customer', $id);
 

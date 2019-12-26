@@ -7,17 +7,21 @@ class Checkout extends Controller{
     }
 
     public function confirmDetailsAction(){
-        if(isset($_POST['checkout'])){
+        //if(isset($_POST['checkout'])){
 
             if(Session::exists('registered_customer')){
                 $cust_id = Session::get('registered_customer');
                 $reg_cust_obj = RegisteredCustomer::get_reg_cust_by_id($cust_id);
                 // pass object to view - set default values using object. customer can change delivery address, card 
+                $this->view->setLayout('normal');
+                $this->view->render('cart/checkout',$reg_cust_obj);
             }
             else{
                 // render view - guest customer should fill the form in the view. first name, last name should be taken
+                $this->view->setLayout('normal');
+                $this->view->render('mycart/checkout');
             }
-        }
+        //}
     }
 
     public function confirmCheckoutAction(){
@@ -83,6 +87,8 @@ class Checkout extends Controller{
             $data['cart'] = $cart_products; 
             dnd($_SESSION);           
             // render checkout/confirmCheckout
+            $this->view->setLayout('normal');
+            $this->view->render('mycart/confirmation',$data);
         }        
     }
 

@@ -267,6 +267,9 @@ INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`) VALUES
 -- (See below for the actual view)
 --
 CREATE TABLE `customers_with_active_orders` (
+  `customer_id` int(11)
+,`first_name` varchar(20)
+,`last_name` varchar(20)
 );
 
 -- --------------------------------------------------------
@@ -673,7 +676,8 @@ INSERT INTO `variants` (`product_id`, `variant_id`, `sku`, `weight`, `price`, `s
 --
 DROP TABLE IF EXISTS `customers_with_active_orders`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `customers_with_active_orders`  AS  select `customers`.`customer_id` AS `customer_id`,`customers`.`first_name` AS `first_name`,`customers`.`last_name` AS `last_name` from (`customers` join `orders`) where ((`orders`.`customer_id` = `customers`.`customer_id`) and (`orders`.`status` = 'created')) ;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `customers_with_active_orders`  AS  select `customers`.`customer_id` AS `customer_id`,`customers`.`first_name` AS `first_name`,`customers`.`last_name` AS `last_name` from (`customers` join `orders`) where (`orders`.`customer_id` = `customers`.`customer_id`) ;
 
 -- --------------------------------------------------------
 

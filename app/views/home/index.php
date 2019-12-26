@@ -8,7 +8,9 @@
 <?php $this->start('body')?>
 	<?php $data = $this->get_data();
 	$categories = $data['categories'];
-	// dnd($categories);
+	$topProducts = $data['topProducts'];
+	//dnd($topProducts);
+	 //dnd($categories);
 	?>
 	<?php Alert::displayscriptalert();?>
 	<!-- start banner Area -->
@@ -114,6 +116,7 @@
 	<section class="category-area">
 		<div class="container">
 			<div class="row justify-content-center">
+				
 				<div class="col-lg-6 text-center">
 					<div class="section-title">
 						<h1>Top Categories</h1>
@@ -122,18 +125,20 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-6 col-md-6">
-					<div class="single-deal">
-						<div class="overlay"></div>
-						<img class="img-fluid w-100" src="<?=PROOT?>img/category/c1.jpg" alt="">
-						<a href="">
-							<div class="deal-details">
-								<h6 class="deal-title">Electronics</h6>
-							</div>
-						</a>
+				<?php foreach($categories as $cat): ?>
+					<div class="col-lg-6 col-md-6">
+						<div class="single-deal">
+							<div class="overlay"></div>
+							<img class="img-fluid w-100" src="<?=PROOT?>img/category/c1.jpg" alt="">
+							<a href="<?=PROOT?>browse/loadCategories/<?=$cat->get_category_id()?>">
+								<div class="deal-details">
+									<h6 class="deal-title"><?=$cat->get_title()?></h6>
+								</div>
+							</a>
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-6 col-md-6">
+				<?php endforeach; ?>
+				<!--<div class="col-lg-6 col-md-6">
 					<div class="single-deal">
 						<div class="overlay"></div>
 						<img class="img-fluid w-100" src="<?=PROOT?>img/category/c1.jpg" alt="">
@@ -143,7 +148,7 @@
 							</div>
 						</a>
 					</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 	</section>
@@ -151,25 +156,25 @@
 					
 
 	<!-- Start category Area -->	
-	<section class="category-area">
+	<!--<section class="category-area">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-lg-8 col-md-12">
 					<div class="row">
-						<?php foreach($categories as $cat): ?>
+						<?php //foreach($categories as $cat): ?>
 							<div class="col-lg-8 col-md-8">
 								<div class="single-deal">
 									<div class="overlay"></div>
 									<img class="img-fluid w-100" src="<?=PROOT?>img/category/c1.jpg" alt="">
-									<a href="<?=PROOT?>browse/loadCategories/<?=$cat->get_category_id()?>" > <!-- class="img-pop-up" target="_blank" -->
+									<a href="<?=PROOT?>browse/loadCategories/<?=$cat->get_category_id()?>" >  class="img-pop-up" target="_blank"
 										<div class="deal-details">
 											<h6 class="deal-title"><?=$cat->get_title()?></h6>
 										</div>
 									</a>
 								</div>
 							</div>
-						<?php endforeach; ?>
-						<!--<div class="col-lg-4 col-md-4">
+						<?php //endforeach; ?>
+						<div class="col-lg-4 col-md-4">
 							<div class="single-deal">
 								<div class="overlay"></div>
 								<img class="img-fluid w-100" src="<?=PROOT?>img/category/c2.jpg" alt="">
