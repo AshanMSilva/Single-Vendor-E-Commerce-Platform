@@ -72,9 +72,9 @@
         public function signupAction(){
 
             if(isset($_POST['submit'])){ 
-                // dnd($_POST);               
-                $post_array = Input::get_array($_POST, ['submit']);                
-                // dnd($post_array);
+                 //dnd($_POST);               
+                $post_array = $_POST;                
+                //dnd($post_array);
                 if(!System::email_exists($post_array['email'])){        
                     
                     if(System::validate_password($post_array['password'])){
@@ -100,11 +100,13 @@
                             Router::redirect('email/validate');
                         }
                         else{
+                            
                             Alert::set('Password and Re-Password fields are not the same');
                             Router::redirect('home/index');
                         }                      
                     }
                     else{
+                        //dnd($password);
                         $script ='$(window).on("load",function(){
                             $("#loginModal").modal("show");
                         });';
