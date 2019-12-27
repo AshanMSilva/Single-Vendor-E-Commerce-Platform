@@ -1,5 +1,5 @@
 <?php
-    class Product extends Controller{
+    class Singleproduct extends Controller{
         public function __construct($controller,$action){
             parent::__construct($controller,$action);
         }
