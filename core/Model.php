@@ -36,15 +36,20 @@ class Model{
 		$model_objs = [];
 		$resultsQuery = $this->_db->select($this->_table, $columns, $params);
 
-		foreach($resultsQuery as $result){
-			$obj = new $this->_modelName($result);
-
-			/*foreach($result as $key => $val){
-				$obj->$key = $val;
-			}*/
-			$model_objs[] = $obj;
+		if ($resultsQuery != false){
+			foreach($resultsQuery as $result){
+				$obj = new $this->_modelName($result);
+	
+				/*foreach($result as $key => $val){
+					$obj->$key = $val;
+				}*/
+				$model_objs[] = $obj;
+			}
+			return $model_objs;
 		}
-		return $model_objs;
+		else{
+			return false;
+		}		
 	}
 
 	public function save(){
