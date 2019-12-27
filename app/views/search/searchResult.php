@@ -43,7 +43,7 @@
                                 <div class="single-related-product d-flex">
                                     <!-- <a href="#"><img src="../../img/r1.jpg" alt=""></a> -->
                                     <div class="desc">
-                                    <a href="<?=PROOT?>product/productDisplay?id=<?php echo $product_id?>&title=<?php echo $title;?>" class="title"><?php echo $title;?></a>
+                                    <a href="<?=PROOT?>singleproduct/productDisplay?id=<?php echo $product_id?>&title=<?php echo $title;?>" class="title"><?php echo $title;?></a>
                                         <div class="price">
                                         <?php 
                                             if ($maxPrice==$minPrice){
