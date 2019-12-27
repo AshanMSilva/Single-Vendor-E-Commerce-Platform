@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2019 at 04:11 AM
+-- Generation Time: Dec 27, 2019 at 03:29 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -26,6 +26,9 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_belonging_categories` (IN `id` INT)  NO SQL
+SELECT categories.category_id, title FROM categories WHERE category_id IN (SELECT category_id FROM `product_category_relations` WHERE product_id = id)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_customer_details` (IN `in_email` VARCHAR(50))  NO SQL
 SELECT customers.customer_id, first_name, last_name, email, house_number, street, city, state, zip_code FROM `customers`  INNER JOIN (SELECT * FROM `registered_customers` WHERE registered_customers.email = in_email) AS reg_cust_details USING(customer_id)$$
 
@@ -45,7 +48,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `select_sub_categories` (IN `id` INT
 SELECT * FROM `categories` WHERE category_id IN (SELECT sub_category_id FROM category_relations WHERE category_id = id)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `top_selling_products` ()  NO SQL
-SELECT product_details.product_id, title, brand, image, min_price, max_price, total_sales FROM product_details INNER JOIN (SELECT product_id, SUM(quantity) AS total_sales FROM order_details INNER JOIN (SELECT order_id FROM orders WHERE order_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND CURDATE()) AS last_month_orders USING(order_id) GROUP BY product_id ORDER BY SUM(quantity) DESC) AS top_products USING(product_id)$$
+SELECT product_details.product_id, title, brand, image, min_price, max_price, total_sales FROM product_details INNER JOIN (SELECT product_id, SUM(quantity) AS total_sales FROM order_details INNER JOIN (SELECT order_id FROM orders WHERE order_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND CURDATE()) AS last_month_orders USING(order_id) GROUP BY product_id ORDER BY SUM(quantity) DESC) AS top_products USING(product_id) LIMIT 8$$
 
 --
 -- Functions
@@ -135,7 +138,7 @@ INSERT INTO `carts` (`customer_id`, `product_id`, `variant_id`, `quantity`, `rem
 
 CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL,
-  `title` varchar(20) NOT NULL,
+  `title` varchar(50) NOT NULL,
   `description` varchar(150) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -165,7 +168,10 @@ INSERT INTO `categories` (`category_id`, `title`, `description`, `image`) VALUES
 (18, 'iOS Phones', NULL, NULL),
 (19, 'LCD TVs', NULL, NULL),
 (20, 'LED TVs', NULL, NULL),
-(21, 'Plasma TVs', NULL, NULL);
+(21, 'Plasma TVs', NULL, NULL),
+(22, 'Toy Vehicles', NULL, NULL),
+(23, 'Ride On Toy Vehicles', NULL, NULL),
+(24, 'Remote Control Vehicles', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -189,7 +195,6 @@ INSERT INTO `category_relations` (`category_id`, `sub_category_id`) VALUES
 (1, 6),
 (1, 7),
 (1, 8),
-(2, 9),
 (2, 10),
 (4, 11),
 (4, 12),
@@ -201,7 +206,11 @@ INSERT INTO `category_relations` (`category_id`, `sub_category_id`) VALUES
 (3, 17),
 (3, 18),
 (5, 15),
-(5, 16);
+(5, 16),
+(2, 22),
+(22, 9),
+(22, 23),
+(22, 24);
 
 -- --------------------------------------------------------
 
@@ -259,15 +268,6 @@ INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`) VALUES
 (13, 'Calvin', 'Harris'),
 (14, 'Alex', 'Benjamin'),
 (15, 'Sahan', 'Jayasinghe');
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `customers_with_active_orders`
--- (See below for the actual view)
---
-CREATE TABLE `customers_with_active_orders` (
-);
 
 -- --------------------------------------------------------
 
@@ -387,7 +387,7 @@ CREATE TABLE `optimized_cart_details` (
 -- (See below for the actual view)
 --
 CREATE TABLE `ordered_categories` (
-`category_title` varchar(20)
+`category_title` varchar(50)
 ,`category_description` varchar(150)
 ,`variant_id` int(11)
 );
@@ -557,7 +557,14 @@ INSERT INTO `product_category_relations` (`product_id`, `category_id`) VALUES
 (11, 18),
 (12, 12),
 (13, 6),
-(15, 9);
+(15, 9),
+(14, 23),
+(16, 6),
+(17, 14),
+(17, 20),
+(18, 10),
+(20, 6),
+(19, 24);
 
 -- --------------------------------------------------------
 
@@ -665,15 +672,6 @@ INSERT INTO `variants` (`product_id`, `variant_id`, `sku`, `weight`, `price`, `s
 (15, 35, 'uq34axks431', '1022.350', '45.00', 0),
 (16, 36, 'XM21qw-e56yzkj', '72.936', '22.00', 0),
 (16, 37, 'XM4t6q3-niq981', '72.936', '22.00', 0);
-
--- --------------------------------------------------------
-
---
--- Structure for view `customers_with_active_orders`
---
-DROP TABLE IF EXISTS `customers_with_active_orders`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `customers_with_active_orders`  AS  select `customers`.`customer_id` AS `customer_id`,`customers`.`first_name` AS `first_name`,`customers`.`last_name` AS `last_name` from (`customers` join `orders`) where ((`orders`.`customer_id` = `customers`.`customer_id`) and (`orders`.`status` = 'created')) ;
 
 -- --------------------------------------------------------
 
@@ -860,7 +858,7 @@ ALTER TABLE `variants`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `customers`
