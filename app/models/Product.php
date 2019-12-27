@@ -61,6 +61,23 @@ class Product extends Model{
         }
     }
 
+    public function get_belonging_categories(){
+        $resultsQ = parent::call_procedure('get_belonging_categories', $this->product_id);
+        $category_array = [];
+
+        if($resultsQ != false){
+            $count = count($resultsQ);
+            for($i = 0; $i < $count; $i++){
+                $category_array[$i]['category_id'] = $resultsQ[$i]->category_id;
+                $category_array[$i]['title'] = $resultsQ[$i]->title;
+            }
+            return $category_array;
+        }
+        else{
+            return [];
+        }
+    }
+
     public function get_product_id(){
         return $this->product_id;
     }

@@ -35,7 +35,7 @@ class Category extends Model{
             $sub_categories[] = $category;
         }
         return $sub_categories;
-    }
+    }    
 
     public function has_sub_category(){
         //dnd($this->category_id);
