@@ -18,8 +18,9 @@
             <!-- Start Search Results Area -->
 
             <?php 
-            $x=Session::get('x');
-            $prodDetails=Session::get('prodDetails');
+            $data=$this->get_data();
+            $prodDetails=$data[0];
+            $x=$data[1];
             ?>
             <section class="related-product-area section_gap_bottom">
                 <div class="container">
