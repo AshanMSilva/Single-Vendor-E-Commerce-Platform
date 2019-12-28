@@ -23,6 +23,7 @@ class Orders extends Controller{
 		$date='2019-12-31';
 		$totalprice='Rs.1000.00';
 		$currentlocation = 'hambanthota';
+		$status='shipping';
 		$link='#';
 		echo "<div class='table-row'>
 				  <div class='serial'>";
@@ -38,7 +39,11 @@ class Orders extends Controller{
 			echo "<div class='visit'>";
 				echo $currentlocation;
 			echo "</div>";
-
+			
+			echo "<div class='visit'>";
+				echo $status;
+			echo "</div>";
+			
 			echo "<div class='visit'>";
 				echo "<div class='container border-top-generic' align='middle' >
 												<div class='button-group-area mt-40'>
@@ -75,6 +80,7 @@ class Orders extends Controller{
 											<div class='country'>Date</div>
 											<div class='visit'>Total Price</div>
 											<div class='visit'>Current Location</div>
+											<div class='visit'>Status</div>
 											<div class='visit'>	</div>
 										</div>";
 			foreach ($orders as $value) {
