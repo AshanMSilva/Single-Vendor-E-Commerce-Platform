@@ -35,9 +35,9 @@
 
                 <?php foreach($prodDetails as $product_id => $details):?>
                     <?php 
-                        $title=$details[0];
-                        $minPrice=$details[1];
-                        $maxPrice=$details[2];?>
+                        $title=$details['title'];
+                        $minPrice=$details['minPrice'];
+                        $maxPrice=$details['maxPrice'];?>
                         <div>
                             <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
                                 <div class="single-related-product d-flex">

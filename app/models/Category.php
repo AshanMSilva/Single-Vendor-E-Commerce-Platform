@@ -35,7 +35,7 @@ class Category extends Model{
             $sub_categories[] = $category;
         }
         return $sub_categories;
-    }    
+    }
 
     public function has_sub_category(){
         //dnd($this->category_id);
@@ -53,6 +53,57 @@ class Category extends Model{
         }
         return $products;
     }
+    
+    public static function get_categories_from_key($key){
+        $categories=array();
+        $db=DB::getInstance();
+        $results=$db->select('categories','category_id',[
+            'conditions'=> ['title like ?'],
+            'bind'=>[$key]
+            ]);
+        $rowcount=$db->get_row_count();
+        for($i=0;$i<$rowcount;$i++){
+            $category_id=$results[$i]->category_id;
+            array_push($categories,$category_id);
+        }
+        return $categories;
+        
+    }
+    
+    public  static function get_products_in_category($category_id,$arr=[]){
+        
+        // //database connection
+        $con=DB::getInstance(); 
+        $sqlstmt="SELECT value  FROM attributes WHERE attribute_name= ?";
+        $res=$con->query($sqlstmt,["colour"]);
+        $c=$res->get_row_count();
+        for($i=0;$i<$c;$i++){
+            $f=$res->results()[$i]->value;
+        }
+        //check for sub categories    
+        $sqlSubCat="SELECT sub_category_id  FROM category_relations WHERE category_id= ? ";
+        $resultSubCat=$con->query($sqlSubCat,[$category_id]);
+        $len=$resultSubCat->get_row_count();                                   
+        if ($len=="0"){ // no sub category - simple category  
+            // just display the products of this category
+            $sqlProducts="SELECT product_id  FROM  product_category_relations join products using (product_id) WHERE category_id= ? ";
+            $resultProducts=$con->query($sqlProducts,[$category_id]);
+            $rowcount=$resultProducts->get_row_count();
+            for($i=0;$i<$rowcount;$i++){
+                $product_id=$resultProducts->results()[$i]->product_id;
+                if(in_array($product_id,$arr)==false){
+                    array_push($arr,$product_id);                 
+                }               
+            }return $arr;        
+        }
+        else{ // if this category is a complex category
+            for($i=0;$i<$len;$i++){
+                $sub_category_id=$resultSubCat->results()[$i]->sub_category_id; 
+                return array_merge($arr,Category::get_products_in_category($sub_category_id,$arr)); // recursion 
+            }
+        }
+    }
+
 
     public function get_category_id(){
         return $this->category_id;
