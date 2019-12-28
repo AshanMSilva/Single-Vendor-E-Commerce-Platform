@@ -4,7 +4,7 @@
             parent::__construct($controller,$action);
         }
         public function searchResultAction(){
-            if(isset($_POST["key"])){
+            if(isset($_GET["key"])){
                 $x= Input::get('key');
             }
             Session::set('xx',$x);

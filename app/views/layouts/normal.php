@@ -96,7 +96,7 @@
 		</div>
 		<div class="search_input" id="search_input_box">
 			<div class="container">
-                <form class="d-flex justify-content-between" action="<?=PROOT?>search/searchResult" method="POST">
+                <form class="d-flex justify-content-between" action="<?=PROOT?>search/searchResult" method="GET">
 					<input type="text" class="form-control" id="key" name="key" placeholder="Search For Anything.." required> 
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
