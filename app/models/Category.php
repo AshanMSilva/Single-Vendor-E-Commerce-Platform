@@ -105,6 +105,7 @@ class Category extends Model{
     }
 
 
+
     public function get_category_id(){
         return $this->category_id;
     }

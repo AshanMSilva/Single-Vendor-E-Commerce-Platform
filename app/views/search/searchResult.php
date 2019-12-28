@@ -10,7 +10,7 @@
 	<!-- start banner Area -->
     
     
-   <!-- <section class="banner-area">
+    <!--<section class="banner-area">
 		<div class="container">
 			<div class="row fullscreen align-items-center justify-content-start">
 				<div class="col-lg-12">-->
@@ -88,8 +88,6 @@
 		</div>
 	</section>-->
 	<!-- End banner Area -->
-    
 
 
 <?php $this->end()?>
- 

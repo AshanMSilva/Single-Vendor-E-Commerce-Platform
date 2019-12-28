@@ -3,15 +3,12 @@
         public function __construct($controller,$action){
             parent::__construct($controller,$action);
         }
-
         public function searchResultAction(){
             if(isset($_POST["key"])){
                 $x= Input::get('key');
             }
-
             Session::set('xx',$x);
             $x=Session::get('xx');
-
             //call function
             $lastView=$this->searchItem($x);
             $prodDetails=array();
@@ -20,11 +17,7 @@
             }
             Session::set('x',$x);
             Session::set('prodDetails',$prodDetails);
-
-
-            $this->view->setLayout('default');
             $this->view->setLayout('normal');
-
             $this->view->render('search/searchResult');
         }
         
@@ -33,8 +26,6 @@
         public function viewProductsInCategory($category_id,$arr){ 
             return Category::get_products_in_category($category_id);
         } 
-
-
         //this function returns all matching products for the given key
         //this function is called in searchResultAction
         public function searchItem($key){
@@ -60,7 +51,6 @@
                     array_push($distinct,$product_id);
                 }
             }
-
             return $distinct;
         }
         public function getDetailsOfProduct($product_id){
