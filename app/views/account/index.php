@@ -72,6 +72,9 @@
                         <br>
                         <br>
                         <a class="primary-btn col-lg-12 col-6 offset-sm-3 offset-md-0 text-center" href="">Messages</a>
+						<br>
+						<br>
+						<a class="primary-btn col-lg-12 col-6 offset-sm-3 offset-md-0 text-center" href="">Sign Out</a>
 									<!--<a href="">Already have an Account?</a>-->
 						
                     </div>
