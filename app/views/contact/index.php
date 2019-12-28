@@ -21,7 +21,7 @@
 						</div>
 						<div class="info_item">
 							<i class="lnr lnr-phone-handset"></i>
-							<h6><a href="#">00 (440) 9865 562</a></h6>
+							<h6><a href="#">011 2123456</a></h6>
 							<p>Mon to Fri 9am to 6 pm</p>
 						</div>
 						<div class="info_item">
@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div class="col-lg-9">
-					<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+					<form class="row contact_form" action="<?=PROOT?>contact/contactprocess" method="post" id="contactForm">
 						<div class="col-md-6">
 							<div class="form-group">
 								<input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'">
@@ -50,7 +50,7 @@
 							</div>
 						</div>
 						<div class="col-md-12 text-right">
-							<button type="submit" value="submit" class="primary-btn">Send Message</button>
+							<button type="submit" name="sendFeedback" value="submit" class="primary-btn">Send Message</button>
 						</div>
 					</form>
 				</div>

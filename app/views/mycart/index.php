@@ -5,6 +5,13 @@
 <?php $this->end()?>
 <?php $this->start('body')?>
     <?php Alert::displayscriptalert();?>
+    <?php
+        $data = $this->get_data();
+        $products= $data[0];
+        $total= $data[1];
+        
+        //dnd($data);
+    ?>
     <!--================Cart Area =================-->
     <section class="cart_area">
         <div class="container">
@@ -48,7 +55,7 @@
                                     <h5>$720.00</h5>
                                 </td>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <td>
                                     <div class="media">
                                         <div class="d-flex">
@@ -103,7 +110,7 @@
                                 <td>
                                     <h5>$720.00</h5>
                                 </td>
-                            </tr>
+                            </tr>-->
                             <tr class="bottom_button">
                                 <td>
                                     <a class="gray_btn" href="#">Update Cart</a>
@@ -115,11 +122,11 @@
 
                                 </td>
                                 <td>
-                                    <div class="cupon_text d-flex align-items-center">
+                                    <!--<div class="cupon_text d-flex align-items-center">
                                         <input type="text" placeholder="Coupon Code">
                                         <a class="primary-btn" href="#">Apply</a>
                                         <a class="gray_btn" href="#">Close Coupon</a>
-                                    </div>
+                                    </div>-->
                                 </td>
                             </tr>
                             <tr>
@@ -155,7 +162,7 @@
                                             <li class="active"><a href="#">Local Delivery: $2.00</a></li>
                                         </ul>
                                         <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
-                                        <select class="shipping_select">
+                                        <!--<select class="shipping_select">
                                             <option value="1">Bangladesh</option>
                                             <option value="2">India</option>
                                             <option value="4">Pakistan</option>
@@ -166,7 +173,20 @@
                                             <option value="4">Select a State</option>
                                         </select>
                                         <input type="text" placeholder="Postcode/Zipcode">
-                                        <a class="gray_btn" href="#">Update Details</a>
+                                        <a class="gray_btn" href="#">Update Details</a>-->
+                                        <form action="" method="post">
+                                           
+									        <input type="number" class="form-control" id="houseNumber" name="house_number" placeholder="House Number" min="1" onfocus="this.placeholder = ''" onblur="this.placeholder = 'House Number'" required>                                           
+                                            <input type="text" class="form-control" id="street" name="street" placeholder="Street" pattern="[A-Za-z0-9\s]{1,}" title="Should contain only alphanumeric characters" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Street'" required>
+                                            <input type="text" class="form-control" id="city" name="city" placeholder="City" pattern="[A-Za-z\s]{1,}" title="Allowed alphabetic characters only" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'" required>
+                                            
+                                            <input type="text" class="form-control" id="state" name="state" placeholder="State" pattern="[A-Za-z\s]{1,}" title="Allowed alphabetic characters only" onfocus="this.placeholder = ''" onblur="this.placeholder = 'State'" required>
+                                            
+                                            <input type="text" class="form-control" id="zipCode" name="zip_code" placeholder="Zip Code" pattern="[0-9]{5}" title="Should contain only 5 numbers" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zip Code'" required>
+                                            <div class="form-group">
+                                            <button type="submit" value="submit" class="primary-btn" name="submit" id="submit">Update Shipping Address</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

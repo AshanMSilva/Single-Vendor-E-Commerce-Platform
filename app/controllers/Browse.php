@@ -41,7 +41,7 @@ class Browse extends Controller{
                     // dnd($categories);
                     $data['sub_categories'] = $categories;              
                     
-                    $this->view->setLayout('default');
+                    $this->view->setLayout('normal');
                     $this->view->render('categories/index', $data);
                 }
                 else{
@@ -50,7 +50,7 @@ class Browse extends Controller{
                     $products = $root_category->get_category_products();    // render the view category-products/index. pass product objs
                     // dnd($products[0]);
                     $data['category_products'] = $products;
-                    $this->view->setLayout('default');
+                    $this->view->setLayout('normal');
                     $this->view->render('category-products/index', $data);
                 }        
             }
@@ -107,7 +107,7 @@ class Browse extends Controller{
                 $data['table_headers'] = $table_headers;
                 $data['product'] = $product;
                 
-                $this->view->setLayout('default');
+                $this->view->setLayout('normal');
                 $this->view->render('single-product/index', $data);
                 // render the view single-product/index. pass product obj
             }

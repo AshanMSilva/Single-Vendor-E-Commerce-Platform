@@ -11,6 +11,7 @@
     $category_title = $data['category_title'];
     $cat_products = $data['category_products'];
     $category_array = $data['category_array'];
+    $this->setSiteTitle($category_title);
 	// $topProducts = $data['topProducts'];
 	//dnd($topProducts);
      //dnd($categories);
@@ -35,7 +36,7 @@
 	}
     ?>
 
-    <section class="banner-area organic-breadcrumb">
+    <!--<section class="banner-area organic-breadcrumb">
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
@@ -48,7 +49,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section>-->
     <!-- End Banner Area -->
     <br>
     <div class="container">
