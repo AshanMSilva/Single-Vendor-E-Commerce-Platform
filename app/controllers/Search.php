@@ -11,14 +11,27 @@
             $x=Session::get('xx');
             //call function
             $lastView=$this->searchItem($x);
+
+            //algo improvement
+            if(count($lastView)==0){
+                $keys=explode(" ",$x);
+                foreach($keys as $keyword){
+                    $temp_ids=$this->searchItem($keyword);
+                    foreach($temp_ids as $pid){
+                        if(in_array($pid,$lastView)==false){
+                            array_push($lastView,$pid);
+                        }
+                    }
+                }
+            }
+
             $prodDetails=array();
             foreach($lastView as $product_id){
                 $prodDetails[$product_id]=$this->getDetailsOfProduct($product_id);
             }
-            Session::set('x',$x);
-            Session::set('prodDetails',$prodDetails);
+            $data=[$prodDetails,$x];
             $this->view->setLayout('normal');
-            $this->view->render('search/searchResult');
+            $this->view->render('search/searchResult',$data);
         }
         
         //this function returns the all products in the given category
