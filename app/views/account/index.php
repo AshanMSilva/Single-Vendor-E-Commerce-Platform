@@ -63,7 +63,7 @@
 							</form>
 					</div>
                     <div class="col-lg-3 col-md-4">
-                        <br>
+						<br>
                         <br>
                         <a class="primary-btn col-lg-12 col-6 offset-sm-3 offset-md-0 text-center" href="<?=PROOT?>myCart">Cart</a>
                         <br>
@@ -74,7 +74,10 @@
                         <a class="primary-btn col-lg-12 col-6 offset-sm-3 offset-md-0 text-center" href="">Messages</a>
 						<br>
 						<br>
-						<a class="primary-btn col-lg-12 col-6 offset-sm-3 offset-md-0 text-center" href="">Sign Out</a>
+						<a class="primary-btn col-lg-12 col-6 offset-sm-3 offset-md-0 text-center" href="<?=PROOT?>account/wishlist">Wish List</a>
+						<br>
+						<br>
+						<a class="primary-btn col-lg-12 col-6 offset-sm-3 offset-md-0 text-center" href="<?=PROOT?>account/logout">Sign Out</a>
 									<!--<a href="">Already have an Account?</a>-->
 						
                     </div>
