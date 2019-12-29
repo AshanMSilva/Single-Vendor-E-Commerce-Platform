@@ -22,6 +22,7 @@ class MyCart extends Controller{
     }
 
     public function updateCartAction(){
+        dnd($_POST);
         // POST array looks like: ['variant1' => '13', 'quantity1' => 2, 'variant2' => '5', 'quantity2' => 3 ...]
         if(isset($_POST['update'])){
             $post_array = Input::get_array($_POST, ['update', 'checkout']);

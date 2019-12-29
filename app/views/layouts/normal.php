@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="<?=PROOT?>css/bootstrap.css">
     <link rel="stylesheet" href="<?=PROOT?>css/main.css">
     <?= $this->content('head');?>
+    
 </head>
 
 <body>
@@ -205,8 +206,49 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!-- End footer Area -->
+    
 
-    <script src="<?=PROOT?>js/vendor/jquery-2.2.4.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="<?=PROOT?>js/dist/jautocalc.js"></script>
+		<script type="text/javascript">
+		<!--
+			$(document).ready(function() {
+
+				function autoCalcSetup() {
+					$('form[name=cart]').jAutoCalc('destroy');
+					$('form[name=cart] tr[name=line_items]').jAutoCalc({keyEventsFire: true, decimalPlaces: 2, emptyAsZero: true});
+					$('form[name=cart]').jAutoCalc({decimalPlaces: 2});
+				}
+				autoCalcSetup();
+
+
+				$('button[name=remove]').click(function(e) {
+					e.preventDefault();
+
+					var form = $(this).parents('form')
+					$(this).parents('tr').remove();
+					autoCalcSetup();
+
+				});
+
+				$('button[name=add]').click(function(e) {
+					e.preventDefault();
+
+					var $table = $(this).parents('table');
+					var $top = $table.find('tr[name=line_items]').first();
+					var $new = $top.clone(true);
+
+					$new.jAutoCalc('destroy');
+					$new.insertBefore($top);
+					$new.find('input[type=text]').val('');
+					autoCalcSetup();
+
+				});
+
+			});
+		//-->
+		</script>
+    <!--<script src="<?=PROOT?>js/vendor/jquery-2.2.4.min.js"></script>-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 	 crossorigin="anonymous"></script>
 	<script src="<?=PROOT?>js/vendor/bootstrap.min.js"></script>
