@@ -7,7 +7,11 @@
     <?php Alert::displayscriptalert();?>
     <?php ?>
 
-<?php Orders::processTable(1);?>
+<?php 
+		//take the user_id from registered cutomer in session
+		$user_id= 3;
+		Orders::processOrdersTable($user_id);
+?>
 
 <br>
 
