@@ -17,6 +17,19 @@
 			//dnd($data);
 		
         //dnd($data);
+        if(Session::exists('logged_in')){
+            if(Session::get('logged_in')){
+                $regcust=$data[2];
+                //dnd($regcust->get_house_number());
+            }
+            else{
+                $regcust=null;
+            }
+        }
+        else{
+            $regcust=null;
+        }
+        //dnd($regcust);
         $products= $data[0];
         $total= $data[1];
         //dnd($total);
@@ -133,31 +146,124 @@
                 
             </div>
             <div class="float-right">
-                <a class="genric-btn primary checkout" data-target="#verficationCodeModal" data-toggle="modal">Checkout</a>
+                <a class="genric-btn primary checkout" data-target="#deliveryMethodModel" data-toggle="modal">Checkout</a>
             </div>
         </div>
     </section>
-    <div id="verficationCodeModal" class="modal fade" role="dialog">
+    <div id="billingDetailsModal" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-md" role="content">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Enter Verification Code</h4>
+					<h4 class="modal-title">Shipping Details</h4>
 					<button class="close" type="buttton" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<form class="row login_form" action="<?=PROOT?>email/verifycode" method="post" id="">
-						<div class="col-md-12 form-group">
-							<input type="text" class="form-control" id="code" name="code" placeholder="Verification Code" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Verification Code'" required>
-						</div>
-						<div class="form-group">
-							<button type="submit" value="submit" name="submitcode" class="primary-btn">Submit</button>							
-						</div>
-					</form>
+                    <form class="row contact_form" action="<?=PROOT?>myCart/updateCart" method="post">
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control firstName" id="firstName" name="firstName" placeholder="First Name" pattern="[A-Za-z\s]{1,}" title="Allowed alphabetic characters only" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required>
+                                
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control lastName" id="lastName" name="lastName" placeholder="Last Name" pattern="[A-Za-z\s]{1,}" title="Allowed alphabetic characters only" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'" required>
+                                
+                            </div>
+                            <!--<div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="company" name="company" placeholder="Company name">
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="number" name="number">
+                                <span class="placeholder" data-placeholder="Phone number"></span>
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="email" name="compemailany">
+                                <span class="placeholder" data-placeholder="Email Address"></span>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <select class="country_select">
+                                    <option value="1">Country</option>
+                                    <option value="2">Country</option>
+                                    <option value="4">Country</option>
+                                </select>
+                            </div>-->
+                            <div class="col-md-12 form-group p_star">
+                                <input type="number" class="form-control houseNumber" id="houseNumber" name="houseNumber" placeholder="House Number"  min="1" onfocus="this.placeholder = ''" onblur="this.placeholder = 'House Number'" required>
+                                
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control street" id="street" name="street" placeholder="Street" pattern="[A-Za-z0-9\s]{1,}" title="Should contain only alphanumeric characters" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Street'" required>
+                                
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control city" id="city" name="city" placeholder="City" pattern="[A-Za-z\s]{1,}" title="Allowed alphabetic characters only" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'" required>
+                                
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control state" id="state" name="state" placeholder="State" pattern="[A-Za-z\s]{1,}" title="Allowed alphabetic characters only" onfocus="this.placeholder = ''" onblur="this.placeholder = 'State'" required>
+                                
+                            </div>
+                            <!--<div class="col-md-12 form-group p_star">
+                                <select class="country_select">
+                                    <option value="1">District</option>
+                                    <option value="2">District</option>
+                                    <option value="4">District</option>
+                                </select>
+                            </div>-->
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control zipCode" id="zipCode" name="zipCode" placeholder="Zip Code" pattern="[0-9]{5}" title="Should contain only 5 numbers" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zip Code'" required>
+                            </div>
+                            <!--<div class="col-md-12 form-group">
+                                <div class="creat_account">
+                                    <input type="checkbox" id="f-option2" name="selector">
+                                    <label for="f-option2">Create an account?</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div class="creat_account">
+                                    <h3>Shipping Details</h3>
+                                    <input type="checkbox" id="f-option3" name="selector">
+                                    <label for="f-option3">Ship to a different address?</label>
+                                </div>
+                                <textarea class="form-control" name="message" id="message" rows="1" placeholder="Order Notes"></textarea>
+                            </div>-->
+                            <div class="col-md-12 form-group">
+                                <button type="submit" name="submit" value="submit" class="genric-btn primary offset-sm-4">Confirm Details</button>
+                            </div>
+                        </form>
 				</div>
 			</div>
 		</div>
 	</div>
-<?php }?>
+    <div id="deliveryMethodModel" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-md" role="content">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Delivery Method</h4>
+					<button class="close" type="buttton" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body offset-sm-2">
+                    <a class="genric-btn primary" href="" data-toggle="modal">Store PickUp</a>
+                    <a class="genric-btn primary" data-target="#billingDetailsModal" data-toggle="modal" data-dismiss="modal">Home Delivery</a>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php if($regcust!=null){?>
+    <script>
+        document.querySelector(".houseNumber").value=<?php echo $regcust->get_house_number()?>;
+        document.querySelector(".firstName").value="<?php echo $regcust->get_first_name()?>";
+        //console.log(document.querySelector(".stated"));
+        document.querySelector(".lastName").value="<?php echo $regcust->get_last_name()?>";
+        document.querySelector(".state").value="<?php echo $regcust->get_state()?>";
+        //console.log(document.querySelector(".stated"));
+        document.querySelector(".city").value="<?php echo $regcust->get_city()?>";
+        document.querySelector(".zipCode").value="<?php echo $regcust->get_zipcode()?>";
+        document.querySelector(".street").value="<?php echo $regcust->get_street()?>";
+        //console.log(document.querySelector(".houseNumber").value);
+    </script>
+
+<?php }
+
+}?>
 
     <!--================End Cart Area =================-->
 
@@ -197,5 +303,6 @@
 
         document.oninput = setEnabled;
         document.onchange = setEnabled;
- </script> 
+ </script>
+ 
 <?php $this->end()?>

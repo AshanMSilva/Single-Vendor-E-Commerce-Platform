@@ -10,7 +10,22 @@ class MyCart extends Controller{
         $cart = new Cart();
         $total = $cart->get_cart_total();     
         $products = $cart->get_products();      // return array looks like: [ [product_obj, quantity], .... ]
-        $data = [$products, $total];
+        if(Session::exists('logged_in')){
+            if(Session::get('logged_in')){
+                $id = Session::get('registered_customer');
+                $regcust = RegisteredCustomer::get_reg_cust_by_id($id);
+                $data = [$products, $total,$regcust];
+            }
+            else{
+                $data = [$products, $total];
+            }
+        }
+        else{
+            $data = [$products, $total];
+        }
+        
+        
+        
         //render the view of cart. pass the data array
         $this->view->setLayout('normal');
         $this->view->render('mycart/index',$data);
