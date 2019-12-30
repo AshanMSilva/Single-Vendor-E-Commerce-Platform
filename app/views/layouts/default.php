@@ -77,9 +77,11 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false"><span class="fa fa-list"></span> Category</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/1">Electronics</a></li>
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/2">Toys</a></li>
+									<!--<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
 									<li class="nav-item"><a class="nav-link" href="">Category2</a></li>
-									<li class="nav-item"><a class="nav-link" href="">Category3</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Category3</a></li>-->
 									<!--<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
 								</ul>

@@ -71,7 +71,7 @@
 											?>
 											<br>
 											<p><?php echo $atr?></p>
-											<input type="text" name="<?php echo 'product'.$prod ?>" value="<?php echo$product['product_obj']->get_product_id()?>" hidden>
+											<input  type="text" name="<?php echo 'product'.$prod ?>" value="<?php echo$product['product_obj']->get_product_id()?>" hidden>
 											<input type="text" name="<?php echo 'variant'.$variant ?>" value="<?php echo $product['product_obj']->get_variants()[0]->get_variant_id()?>" hidden>
                                         </div>
                                     </div>
@@ -83,12 +83,9 @@
                                 </td>
                                 <td>
                                     <div class="product_count">
-                                        <input type="number" name="<?php echo 'qty'.$qty ?>" id="sst" maxlength="12" value="1" step="1" min="0" title="Quantity:"
+                                        <input class="quantity" type="number" name="<?php echo 'qty'.$qty ?>"  maxlength="12" value="1" step="1" min="0" title="Quantity:"
                                             class="input-text qty">
-                                        <!--<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>-->
+                                        
                                     </div>
                                 </td>
                                 <td>
@@ -125,14 +122,80 @@
 						</tbody>
 					</table>
 					<input type="number" name="count" value="<?php echo $count ?>" hidden>
-					<button type="submit" name="submit" value="submit" class="genric-btn primary float-right">Update Cart</button>
+					<button type="submit" name="submit" value="submit" class="updatecart genric-btn primary float-right">Update Cart</button>
+                   
 								
-				</form>
+                </form>
+                
+                
                 </div>
+                <br>
+                
+            </div>
+            <div class="float-right">
+                <a class="genric-btn primary checkout" data-target="#verficationCodeModal" data-toggle="modal">Checkout</a>
             </div>
         </div>
-	</section>
+    </section>
+    <div id="verficationCodeModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-md" role="content">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Enter Verification Code</h4>
+					<button class="close" type="buttton" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form class="row login_form" action="<?=PROOT?>email/verifycode" method="post" id="">
+						<div class="col-md-12 form-group">
+							<input type="text" class="form-control" id="code" name="code" placeholder="Verification Code" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Verification Code'" required>
+						</div>
+						<div class="form-group">
+							<button type="submit" value="submit" name="submitcode" class="primary-btn">Submit</button>							
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 <?php }?>
+
     <!--================End Cart Area =================-->
-    
+
+ <script>
+        const inputs = document.querySelectorAll(".quantity");
+        //console.log(inputs);
+        for (const el of inputs){
+        el.oldValue = el.value ;
+        
+        }
+
+        // Declares function and call it directly
+        var setEnabled;
+        (setEnabled = function() {
+        var e = true;
+        for (const el of inputs) {
+            if (el.oldValue !== (el.value)) {
+            e = false;
+            break;
+            }
+        }
+        
+        document.querySelector(".updatecart").disabled = e;
+        //console.log(!e)
+        if(document.querySelector(".updatecart").disabled){
+            document.querySelector(".checkout").disabled=false;
+            document.querySelector(".checkout").title='';
+            
+            //console.log( document.querySelector(".updatecart").title);
+           
+        }
+        else{
+            document.querySelector(".checkout").disabled=true;
+            document.querySelector(".checkout").title='Button is diasble. Update cart to enable button';
+        }
+        })();
+
+        document.oninput = setEnabled;
+        document.onchange = setEnabled;
+ </script> 
 <?php $this->end()?>
