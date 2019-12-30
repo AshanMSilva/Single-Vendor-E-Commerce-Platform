@@ -158,7 +158,7 @@
 					<button class="close" type="buttton" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-                    <form class="row contact_form" action="<?=PROOT?>myCart/updateCart" method="post">
+                    <form class="row contact_form" action="" method="post">
                             <div class="col-md-6 form-group p_star">
                                 <input type="text" class="form-control firstName" id="firstName" name="firstName" placeholder="First Name" pattern="[A-Za-z\s]{1,}" title="Allowed alphabetic characters only" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required>
                                 
