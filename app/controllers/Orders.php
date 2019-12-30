@@ -7,8 +7,20 @@ class Orders extends Controller{
 		$this->view->setLayout('default');
 	}
 
-	public function vieworderAction(){
-		$this->view->render('orders/vieworder');
+	public function vieworderAction($data=[]){
+		$passdata=[$data];
+		$db=DB::getInstance();
+		$result = $db->call_procedure('get_order_info',[$data]);
+		array_push($passdata,$result);
+
+		$this->view->render('orders/vieworder',$passdata);
+	}
+	public function trackbyidAction($data=[]){
+		$passdata=[$_POST['order']];
+		$db=DB::getInstance();
+		$result = $db->call_procedure('get_order_info',[$_POST['order']]);
+		array_push($passdata,$result);
+		$this->view->render('orders/vieworder',$passdata);
 	}
 
 	public function guestvieworderAction(){
@@ -111,7 +123,7 @@ class Orders extends Controller{
 	} 
 
 	public static function displayTrackbox(){
-		$action = PROOT.'orders/vieworder';
+		$action = PROOT.'orders/trackbyid'; //change to pass parameter to the page
 		echo "    <!--================Tracking Box Area =================-->
     <section class='tracking_box_area section_gap'>
         <div class='container'>

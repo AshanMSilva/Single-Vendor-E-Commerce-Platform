@@ -23,8 +23,15 @@ SELECT orders.order_id,orders.order_date,amount,t.status,t.tracking_info FROM or
 --estimated date
 --status
 --tracking_info
-SELECT * from couriers NATURAL JOIN (SELECT * FROM orders NATURAL JOIN (payments NATURAL join deliveries as t) WHERE orders.order_id=12)as k 
+SELECT * FROM orders WHERE order_id=4;
+SELECT * FROM payments WHERE order_id=4;
+SELECT * FROM deliveries NATURAL JOIN couriers WHERE order_id=4;
+--join these o_id is in param
+------------------------get_order_info
+SELECT orders.order_id as order_id, order_date, customer_id, deleted, payment_method, amount, card_number, courier_id, delivery_method, tracking_info, estimated_date, completed_date, status, customer_contact, house_number, street, city, state, last_name, zip_code, email, first_name FROM orders left join payments on orders.order_id=payments.order_id left JOIN (SELECT * FROM deliveries NATURAL JOIN couriers) as t on orders.order_id=t.order_id WHERE orders.order_id=o_id
 
+------------------------get_undelete_orders
+SELECT orders.order_id,orders.order_date,amount,t.status,t.tracking_info FROM orders LEFT OUTER JOIN (payments NATURAL join deliveries as t) on t.order_id=orders.order_id WHERE orders.customer_id=user_id and `deleted`=0
 
 
 

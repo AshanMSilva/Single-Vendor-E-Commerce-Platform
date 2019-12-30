@@ -7,16 +7,53 @@
 
 
     <!--==============get order id from link================-->
-    <?php $link = $_SERVER['REQUEST_URI'] ;
-    $a = explode('/', $link);
-    $order_id=(int)($a[4]);
-    ?>
-    <!--================Order details Area =================-->
+            	<?php $order_id = $data[0];
+            	$record  = (isset($data[1][0])) ? $data[1][0] : 0 ;
+            	$cardstring = strval($record->card_number);
+            	$postcardstring = strval($_POST['cardnumber']);
+            	//exit();
+            	//dnd($record);
+            	//dnd($_POST);
 
+            	if (is_int($record)){
+            		if (isset($_POST['cardnumber']) and $record==0) {
+	            		 $this->end();
+	            		 Alert::set('The Order ID does not exist. Please enter a valid ID.');
+	            		 Router::redirect('orders/guestvieworder');
+	            	}
+	            	elseif ($record==0) {
+	            		 $this->end();
+	            		 Alert::set('The Order ID does not exist. Please enter valid ID.');
+	            		 Router::redirect('orders/uservieworder');
+	            	}
+	            	
+	            }
+	            else{
+	            	if (isset($_POST['cardnumber'])and $record->card_number=='' ) {
+	            		 $this->end();
+	            		 Alert::set('The Order ID does not exist for this card number. Please enter a valid Card number.');
+	            		 Router::redirect('orders/guestvieworder');
+	                }
+	                elseif (isset($_POST['cardnumber']) and $cardstring!=$postcardstring) {
+	                	$this->end();
+	            		 Alert::set('Please enter The correct card number');
+	            		 Router::redirect('orders/guestvieworder');
+	                }
+	            	// elseif ($record->customer_id!=$_SESSION['registered_customer']) {
+		            // 	$this->end();
+	            	// 	 Alert::set('There are no orders under this ID for this account');
+	            	// 	 Router::redirect('orders/uservieworder');
+	           		// }	
+	            }
+				
+
+
+
+            	?>
+    <!--================Order details Area =================-->
 
     <section class="order_details section_gap">
         <div class="container">
-
 
 
 
@@ -30,9 +67,9 @@
 						<h4>Order Info</h4>
 						<ul class="list">
 							<li><span>Order ID</span> : <?php echo $order_id ?> </li>
-							<li><span>Date</span> : Los Angeles</li>
-							<li><span>Total</span> : USD 2210</li>
-							<li><span>Payment method</span> : Check payments</li>
+							<li><span>Date</span> : <?php echo $record->order_date; ?></li>
+							<li><span>Total</span> : <?php echo $record->amount; ?></li>
+							<li><span>Payment method</span> : <?php echo $record->payment_method; ?></li>
 						</ul>
 					</div>
 				</div>
@@ -40,10 +77,11 @@
 					<div class="details_item">
 						<h4>Delivery Info</h4>
 						<ul class="list">
-							<li><span>Courier ID</span> : 56/8</li>
-							<li><span>Courier name</span> : Los Angeles</li>
-							<li><span>Courier email</span> : United States</li>
-							<li><span>Delivery Method </span> : 36952</li>
+							<li><span>Courier ID</span> : <?php echo $record->courier_id; ?></li>
+							<li><span>Courier name</span> : <?php $n = $record->first_name.' '.$record->last_name; 
+															echo $n; ?></li>
+							<li><span>Courier email</span> : <?php echo $record->email; ?></li>
+							<li><span>Delivery Method </span> : <?php echo $record->delivery_method; ?></li>
 						</ul>
 					</div>
 				</div>
@@ -51,11 +89,11 @@
 					<div class="details_item">
 						<h4>Shipping Address</h4>
 						<ul class="list">
-							<li><span>House No</span> : 56/8</li>
-							<li><span>Street</span> : Los Angeles</li>
-							<li><span>City</span> : Los Angeles</li>
-							<li><span>State</span> : United States</li>
-							<li><span>Postcode </span> : 36952</li>
+							<li><span>House No</span> : <?php echo $record->house_number; ?></li>
+							<li><span>Street</span> : <?php echo $record->street; ?></li>
+							<li><span>City</span> : <?php echo $record->city; ?></li>
+							<li><span>State</span> : <?php echo $record->state; ?></li>
+							<li><span>Postcode </span> : <?php echo $record->zip_code; ?></li>
 						</ul>
 					</div>
 				</div>
@@ -66,7 +104,7 @@
 					<div class="details_item">
 						<h4>Expected Delivery Date</h4>
 						<ul class="list">
-							<li><span>Order number</span> : 60235</li>
+							<li><?php echo $record->estimated_date; ?></li><!--make the changes for delivered-->
 						</ul>
 					</div>
 				</div>
@@ -74,7 +112,7 @@
 					<div class="details_item">
 						<h4>Status</h4>
 						<ul class="list">
-							<li><span>Street</span> : 56/8</li>
+							<li><?php echo $record->status; ?></li>
 						</ul>
 					</div>
 				</div>
@@ -82,7 +120,7 @@
 					<div class="details_item">
 						<h4>Current Location</h4>
 						<ul class="list">
-							<li><span>Street</span> : 56/8</li>
+							<li><?php echo $record->tracking_info; ?></li>
 						</ul>
 					</div>
 				</div>
@@ -100,39 +138,34 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+
+
+							<?php 
+
+							$db=DB::getInstance();
+							$products = $db->call_procedure('get_products_of_order',[$order_id]);
+							//dnd($products);
+
+							foreach ($products as $obj) {
+								$itemname = $obj->title;
+								$qty = $obj->quantity;
+								$price = $obj->price;
+
+
+								echo'<tr>
 								<td>
-									<p>Pixelstore fresh Blackberry</p>
+									<p>'.$itemname.'</p>
 								</td>
 								<td>
-									<h5>x 02</h5>
+									<h5>'.$qty.'</h5>
 								</td>
 								<td>
-									<p>$720.00</p>
+									<p>$'.$price.'</p>
 								</td>
-							</tr>
-							<tr>
-								<td>
-									<p>Pixelstore fresh Blackberry</p>
-								</td>
-								<td>
-									<h5>x 02</h5>
-								</td>
-								<td>
-									<p>$720.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<p>Pixelstore fresh Blackberry</p>
-								</td>
-								<td>
-									<h5>x 02</h5>
-								</td>
-								<td>
-									<p>$720.00</p>
-								</td>
-							</tr>
+							</tr>';
+
+							}	?>
+							<!--
 							<tr>
 								<td>
 									<h4>Subtotal</h4>
@@ -155,6 +188,7 @@
 									<p>Flat rate: $50.00</p>
 								</td>
 							</tr>
+							-->
 							<tr>
 								<td>
 									<h4>Total</h4>
@@ -163,7 +197,7 @@
 									<h5></h5>
 								</td>
 								<td>
-									<p>$2210.00</p>
+									<p><?php echo '$'.$record->amount; ?></p>
 								</td>
 							</tr>
 						</tbody>

@@ -9,8 +9,15 @@
 
 <?php 
 		//take the user_id from registered cutomer in session
-		$user_id= 3;
-		Orders::processOrdersTable($user_id);
+		//if (isset($_SESSION['registered_customer'])) {
+			$user_id=3;//$_SESSION['registered_customer'];
+			Orders::processOrdersTable($user_id);
+
+		//} else {
+		//	echo "<br><br><section class = 'section_gap'><div class = 'container'><h3>please login before you continue</h3></div></section>";
+		//}
+		
+		
 ?>
 
 <br>
