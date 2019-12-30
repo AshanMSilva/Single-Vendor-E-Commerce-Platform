@@ -54,6 +54,7 @@
                                 <th scope="col">Price</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Total</th>
+                                <th scope="col">Remove</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,6 +106,9 @@
 									<div class="product_count">
 										<input type="text" name="<?php echo 'item_total' ?>" value="" jAutoCalc="{<?php echo 'price'.$price ?>} * {<?php echo 'qty'.$qty ?>}" readonly>
 									</div>
+                                </td>
+                                <td>
+                                    <a class="close" type="button" href="<?=PROOT?>myCart/removeFromCart/<?php echo $product['product_obj']->get_variants()[0]->get_variant_id()?>">&times;</a>
                                 </td>
 							</tr>
 							<?php 

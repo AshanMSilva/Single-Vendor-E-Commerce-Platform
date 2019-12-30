@@ -34,10 +34,11 @@ class MyCart extends Controller{
     public function removeFromCartAction($variant_id){
         $cart = new Cart();
         $cart->remove_product($variant_id);
+        $this->indexAction();
     }
 
     public function updateCartAction(){
-        dnd($_POST);
+        dnd($_POST['variant0']);
         // POST array looks like: ['variant1' => '13', 'quantity1' => 2, 'variant2' => '5', 'quantity2' => 3 ...]
         if(isset($_POST['update'])){
             $post_array = Input::get_array($_POST, ['update', 'checkout']);
@@ -49,6 +50,7 @@ class MyCart extends Controller{
                 $quantity = $post_array['quantity' . $i];
                 $cart->update_product($variant_id, $quantity);
             }
+            $this->indexAction();
         }
     }
 }
