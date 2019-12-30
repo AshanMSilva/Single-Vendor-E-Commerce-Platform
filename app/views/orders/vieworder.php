@@ -10,7 +10,7 @@
             	<?php $order_id = $data[0];
             	$record  = (isset($data[1][0])) ? $data[1][0] : 0 ;
             	$cardstring = strval($record->card_number);
-            	$postcardstring = strval($_POST['cardnumber']);
+            	$postcardstring = (isset(strval($_POST['cardnumber']))) ? strval($_POST['cardnumber']) : 'none';
             	//exit();
             	//dnd($record);
             	//dnd($_POST);
