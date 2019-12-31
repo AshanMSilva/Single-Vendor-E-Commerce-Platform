@@ -1,36 +1,8 @@
 
 	
 <?php $this->start('head')?>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {box-sizing: border-box}
 
-.container {
-  width: 100%;
-
-}
-
-.skills {
-  text-align: right;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  color: white;
-}
-
-.class1 { background-color: #4CAF50;}
-.class2 { background-color: #2196F3;}
-.class3 { background-color: #f44336;}
-.class4 { background-color: #808080;}
-.class5 { background-color: red;}
-.class6 { background-color: purple;}
-.class7 { background-color: black;}
-.class8 { background-color: pink;}
-.class9 { background-color: yellow;}
-.class10 { background-color: green;}
-
-</style>
-</head>
-
+<link rel="stylesheet" href="<?=PROOT?>css/report.css">
 <?php $this->end()?>
 
 <?php $this->start('body')?>
@@ -49,6 +21,7 @@
             <?php 
             $result=$this->get_data();
             $categories=$result[0];
+            
             $numAll=$result[1];
             ?>
             <section class="related-product-area section_gap_bottom">

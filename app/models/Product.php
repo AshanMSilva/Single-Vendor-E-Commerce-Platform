@@ -38,18 +38,27 @@ class Product extends Model{
             'bind' => [$id]
         ]);
         // dnd($variant);
-        $this->variants = $variant;
+        $this->variants = $variant; 
     }
     public static function get_mostsales_products($date1,$date2){
         $db=DB::getInstance();
+        //call procedure not working....
+            $sql="SELECT sum(quantity) as cc from orders INNER JOIN order_details using(order_id) where orders.order_date BETWEEN '".$date1."' and '".$date2."'";
+            $numAll=$db->query($sql)->results()[0]->cc;
+        // $numAll=$db->call_procedure('get_all_Product_sales_count',[$date1,$date2])[0]->cc;
+        
         $products=array();
-        $resultQ=$db->call_procedure('get_most_sales_products',$date1,$date2);
+        $sql="SELECT products.title, sum(order_details.quantity) as cc from orders INNER JOIN order_details using(order_id) INNER JOIN products using(product_id) WHERE orders.order_date BETWEEN '".$date1."' AND '".$date2."'  GROUP BY order_details.product_id ORDER BY  cc DESC limit 10";
+        
+        // $resultQ=$db->call_procedure('get_most_sales_products',[$date1,$date2]);
+        
+        $resultQ=$db->query($sql)->results();
         foreach($resultQ as $result){
             $title=$result->title;
             $count=$result->cc;
             $products[$title]=$count;
         }
-        return $products;
+        return [$products,$numAll];
 
     }
     public function select_variants(){

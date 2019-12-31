@@ -13,10 +13,11 @@ class Category extends Model{
     public static function get_category_with_most_orders(){
         $db=DB::getInstance();
         $categories=array();
-        $numAll=$db->select('product_details','sum(quantity) as cc')[0]->cc;
+        $numAll=$db->select('order_details','sum(quantity) as cc')[0]->cc;
         $resultQ=$db->call_procedure('get_category_with_most_orders');
         foreach($resultQ as $result){
             $title=$result->title;
+            
             $count=$result->cc;
             $categories[$title]=$count;
         }

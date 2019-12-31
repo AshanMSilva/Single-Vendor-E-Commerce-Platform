@@ -1,32 +1,8 @@
 
 	
 <?php $this->start('head')?>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {box-sizing: border-box}
 
-.container {
-  width: 100%;
-
-}
-
-.skills {
-  text-align: right;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  color: white;
-}
-
-.class1 { background-color: #4CAF50;}
-.class2 { background-color: #2196F3;}
-.class3 { background-color: #f44336;}
-.class4 { background-color: #808080;}
-.class5 { background-color: #2146F3;}
-.class6 { background-color: #2146F3;}
-.class7 { background-color: #2236F3;}
-.class8 { background-color: #2456F3;}
-</style>
-</head>
+<link rel="stylesheet" href="<?=PROOT?>css/report.css">
 
 <?php $this->end()?>
 
@@ -46,8 +22,9 @@
             <?php 
             $data=$this->get_data();
             $products=$data[0];
-            $date1=$data[1][0];
-            $date2=$data[1][1];
+            $numAll=$data[1];
+            $date1=$data[2][0];
+            $date2=$data[2][1];
             ?>
             <section class="related-product-area section_gap_bottom">
                 <div class="container"> 
@@ -61,16 +38,17 @@
                     </div>
                 <?php $i=1; ?>
                 <?php echo "Period :".$date1." - ".$date2;?>
-                <?php Alert::set(count($products)); Alert::displayscriptalert();?>
+                <br>
                 <?php foreach($products as $title => $value):?>
                         <div>
                             <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
                                 <div class="single-related-product d-flex">
                                    <a href="#"><img src="" alt=""></a>
                                     
-                                    <p><?php echo $title; $i++;  $w=$value*30?></p>
+                                   <?php $p=round((double)$value*100/(double)$numAll); ?>
+                                    <p><?php echo $title; $i++;  ?></p>
                                         <div class="container">
-                                            <div class="skills class<?php echo $i;  ?>" style="width:<?php echo $w."%";?>"  ><?php echo $value."%";?></div>
+                                            <div class="skills class<?php echo $i;  ?>" style="width:<?php echo $p."%";?>"  ><?php echo $p."%";?></div>
                                         </div>
                                 </div>
                             </div>
