@@ -40,7 +40,18 @@ class Product extends Model{
         // dnd($variant);
         $this->variants = $variant;
     }
+    public static function get_mostsales_products($date1,$date2){
+        $db=DB::getInstance();
+        $products=array();
+        $resultQ=$db->call_procedure('get_most_sales_products',$date1,$date2);
+        foreach($resultQ as $result){
+            $title=$result->title;
+            $count=$result->cc;
+            $products[$title]=$count;
+        }
+        return $products;
 
+    }
     public function select_variants(){
         parent::set_model_name('Variant');
         parent::set_table_name('variants');
