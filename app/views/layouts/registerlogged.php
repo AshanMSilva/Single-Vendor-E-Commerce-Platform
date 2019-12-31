@@ -54,6 +54,7 @@
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="nav-item active"><a class="nav-link" href="<?=PROOT?>home/registerlogged"><span class="fa fa-home"></span> Home</a></li>
 							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/tracking"><span class="fa fa-truck"></span> Tracking</a></li>
+							<li class="nav-item"><a class="nav-link" href=""><span class="fa fa-comment"></span> Messages</a></li>
 							<!--<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
@@ -77,9 +78,9 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false"><span class="fa fa-list"></span> Category</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
-									<li class="nav-item"><a class="nav-link" href="">Category2</a></li>
-									<li class="nav-item"><a class="nav-link" href="">Category3</a></li>
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/1">Electronics</a></li>
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/2">Toys</a></li>
+									<!--<li class="nav-item"><a class="nav-link" href="">Category3</a></li>-->
 									<!--<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
 								</ul>

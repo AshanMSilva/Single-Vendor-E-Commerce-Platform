@@ -79,4 +79,23 @@ class RegisteredCustomer extends Customer{
             }
         }
     }
+
+    public function get_house_number(){
+        return $this->house_number;
+    }
+
+    public function get_street(){
+        return $this->street;
+    }
+
+    public function get_city(){
+        return $this->city;
+    }
+
+    public function get_zipcode(){
+        return $this->zip_code;
+    }
+    public function get_state(){
+        return $this->state;
+    }
 }

@@ -103,4 +103,17 @@
             // dnd($date);
             return $date;
         }
+
+        public static function get_all_categories($root_objs, $cat_array){
+            foreach($root_objs as $obj){
+                if($obj->has_sub_category()){
+                    $sub_cat_objs = $obj->get_sub_categories();
+                    $cat_array[$obj->get_title()] = self::get_all_categories($sub_cat_objs, []);
+                }
+                else{
+                    $cat_array[$obj->get_title()] = $obj->get_category_id();
+                }
+            }
+            return $cat_array;
+        }
     }

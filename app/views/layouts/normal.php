@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="<?=PROOT?>css/bootstrap.css">
     <link rel="stylesheet" href="<?=PROOT?>css/main.css">
     <?= $this->content('head');?>
+    
 </head>
 
 <body>
@@ -74,18 +75,20 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false"><span class="fa fa-list"></span> Category</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/1">Electronics</a></li>
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/2">Toys</a></li>
+									<!--<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
 									<li class="nav-item"><a class="nav-link" href="">Category2</a></li>
-									<li class="nav-item"><a class="nav-link" href="">Category3</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Category3</a></li>-->
 									<!--<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
 								</ul>
 							</li>
                             <li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact"><span class="fa fa-comments"></span> Contact</a></li>
-                            
+                            <li class="nav-item"><a href="<?=PROOT?>myCart" class="cart nav-link"><span class="ti-shopping-cart"></span></a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item"><a href="<?=PROOT?>myCart" class="cart"><span class="ti-shopping-cart"></span></a></li>
+                            
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
@@ -96,7 +99,7 @@
 		</div>
 		<div class="search_input" id="search_input_box">
 			<div class="container">
-                <form class="d-flex justify-content-between" action="<?=PROOT?>search/searchResult" method="POST">
+                <form class="d-flex justify-content-between" action="<?=PROOT?>search/searchResult" method="GET">
 					<input type="text" class="form-control" id="key" name="key" placeholder="Search For Anything.." required> 
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
@@ -205,8 +208,49 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!-- End footer Area -->
+    
 
-    <script src="<?=PROOT?>js/vendor/jquery-2.2.4.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="<?=PROOT?>js/dist/jautocalc.js"></script>
+		<script type="text/javascript">
+		<!--
+			$(document).ready(function() {
+
+				function autoCalcSetup() {
+					$('form[name=cart]').jAutoCalc('destroy');
+					$('form[name=cart] tr[name=line_items]').jAutoCalc({keyEventsFire: true, decimalPlaces: 2, emptyAsZero: true});
+					$('form[name=cart]').jAutoCalc({decimalPlaces: 2});
+				}
+				autoCalcSetup();
+
+
+				$('button[name=remove]').click(function(e) {
+					e.preventDefault();
+
+					var form = $(this).parents('form')
+					$(this).parents('tr').remove();
+					autoCalcSetup();
+
+				});
+
+				$('button[name=add]').click(function(e) {
+					e.preventDefault();
+
+					var $table = $(this).parents('table');
+					var $top = $table.find('tr[name=line_items]').first();
+					var $new = $top.clone(true);
+
+					$new.jAutoCalc('destroy');
+					$new.insertBefore($top);
+					$new.find('input[type=text]').val('');
+					autoCalcSetup();
+
+				});
+
+			});
+		//-->
+		</script>
+    <!--<script src="<?=PROOT?>js/vendor/jquery-2.2.4.min.js"></script>-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 	 crossorigin="anonymous"></script>
 	<script src="<?=PROOT?>js/vendor/bootstrap.min.js"></script>

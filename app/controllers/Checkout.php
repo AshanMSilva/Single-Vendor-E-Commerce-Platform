@@ -101,6 +101,7 @@ class Checkout extends Controller{
     update variant stock */
 
     public function createOrderAction(){
+        //dnd($_POST);
 
         if(isset($_POST['confirm_checkout']) && Session::exists('order_data')){
             $order_data = Session::get('order_data');            

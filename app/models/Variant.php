@@ -2,7 +2,7 @@
 
 class Variant extends Model{
     private $variant_id, $sku, $weight, $price, $stock;
-    private $attributes;    //associative array name => value
+    private $attributes = [];    //associative array name => value
 
     public function __construct($details){
         parent::__construct();

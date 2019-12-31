@@ -10,7 +10,7 @@
 	<!-- start banner Area -->
     
     
-   <!-- <section class="banner-area">
+    <!--<section class="banner-area">
 		<div class="container">
 			<div class="row fullscreen align-items-center justify-content-start">
 				<div class="col-lg-12">-->
@@ -18,8 +18,9 @@
             <!-- Start Search Results Area -->
 
             <?php 
-            $x=Session::get('x');
-            $prodDetails=Session::get('prodDetails');
+            $data=$this->get_data();
+            $prodDetails=$data[0];
+            $x=$data[1];
             ?>
             <section class="related-product-area section_gap_bottom">
                 <div class="container">
@@ -35,15 +36,16 @@
 
                 <?php foreach($prodDetails as $product_id => $details):?>
                     <?php 
-                        $title=$details[0];
-                        $minPrice=$details[1];
-                        $maxPrice=$details[2];?>
+                        $title=$details['title'];
+                        $minPrice=$details['minPrice'];
+                        $maxPrice=$details['maxPrice'];?>
                         <div>
                             <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
                                 <div class="single-related-product d-flex">
-                                    <!-- <a href="#"><img src="../../img/r1.jpg" alt=""></a> -->
+                                    <a href="#"><img src="<?=PROOT?>img/r1.jpg" alt=""></a> <!-- image path should be added-->
                                     <div class="desc">
-                                    <a href="<?=PROOT?>singleproduct/productDisplay?id=<?php echo $product_id?>&title=<?php echo $title;?>" class="title"><?php echo $title;?></a>
+                                    <!--<a href="<?=PROOT?>singleproduct/productDisplay?id=<?php echo $product_id?>&title=<?php echo $title;?>" class="title"><?php echo $title;?></a>-->
+                                    <a href="<?=PROOT?>browse/viewProduct/<?php echo $product_id?>" class="title" ><?php echo $title;?></a>
                                         <div class="price">
                                         <?php 
                                             if ($maxPrice==$minPrice){
@@ -88,8 +90,6 @@
 		</div>
 	</section>-->
 	<!-- End banner Area -->
-    
 
 
 <?php $this->end()?>
- 
