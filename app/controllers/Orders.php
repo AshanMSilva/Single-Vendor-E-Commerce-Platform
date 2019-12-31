@@ -67,11 +67,21 @@ class Orders extends Controller{
 			echo "</div>";
 
 			echo "<div class='visit'>";
+
+			if ($status=='delivered') {
 				echo "<div class='container border-top-generic' align='middle' >
 												<div class='button-group-area mt-40'>
 													<a href='".$deleteLink."' class='genric-btn danger circle'>Delete</a>
 												</div>
 												</div>";
+			} else {
+				echo "<div class='container border-top-generic' align='middle' >
+												<div class='button-group-area mt-40'>
+												</div>
+												</div>";
+			}
+			
+				
 			echo "</div>";
 
 		echo "</div>";
