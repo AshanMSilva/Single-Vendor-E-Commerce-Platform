@@ -142,7 +142,7 @@ class Cart extends Model{
                 foreach($cart_products as $product){
                     $product_obj = Product::get_product_by_id($product['product_id']);
                     $product_obj->set_variant($product['variant_id']);
-                    $this->products[] = [$product_obj, $product['quantity']];
+                    $this->products[] = ['product_obj' => $product_obj, 'quantity' => $product['quantity']];
                 }                
                 return $this->products;
             }

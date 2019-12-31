@@ -2,7 +2,7 @@
 
 class RegisteredCustomer extends Customer{
     private $email, $house_number, $street, $city, $state, $zip_code;
-    private $contacts;
+    private $contacts, $cards;
     
     public function __construct($details){
         parent::__construct();
@@ -22,7 +22,7 @@ class RegisteredCustomer extends Customer{
         /*foreach($resultsQ[0] as $key => $val){
             $reg_cust->$key = $val;
         }*/
-        //dnd($reg_cust);
+        //dnd($reg_cust);        
         return $reg_cust;   
     }
 
@@ -31,6 +31,27 @@ class RegisteredCustomer extends Customer{
         $resultsQ = $db->call_procedure('get_reg_customer_by_id', $id);
         //dnd($resultsQ);
         $reg_cust = new RegisteredCustomer($resultsQ[0]);
+
+        $contactsQ = $db->select('customer_contacts', 'contact_number', [
+            'conditions' => 'customer_id = ?',
+            'bind' => [$reg_cust->get_id()]
+        ]);
+        if($contactsQ != false){
+            foreach($contactsQ as $contact){
+                $this->contacts[] = $contact->contact_number;
+            }
+        }
+
+        $cardsQ = $db->select('card_details', 'card_number', [
+            'conditions' => 'customer_id = ?',
+            'bind' => [$reg_cust->get_id()]
+        ]);
+        if($cardsQ != false){
+            foreach($cardsQ as $card){
+                $this->cards[] = $card->card_number;
+            }
+        }
+        
         return $reg_cust;
     }
 
@@ -56,6 +77,18 @@ class RegisteredCustomer extends Customer{
             'zip_code' => $details['zip_code']
         ]);
         //dnd($x);
+
+        parent::set_table_name('customer_contacts');
+        parent::insert([
+            'customer_id' => $id,
+            'contact_number' => $details['contact1']
+        ]);
+        if(array_key_exists('contact2', $details)){
+            parent::insert([
+                'customer_id' => $id,
+                'contact_number' => $details['contact2']
+            ]);
+        }
     }
 
     public function get_id(){
@@ -97,5 +130,11 @@ class RegisteredCustomer extends Customer{
     }
     public function get_state(){
         return $this->state;
+    }
+    public function get_contacts(){
+        return $this->contacts;
+    }
+    public function get_cards(){
+        return $this->cards;
     }
 }

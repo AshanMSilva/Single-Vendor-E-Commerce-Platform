@@ -17,7 +17,7 @@
         public static function get_array($input = [], $buttons = []){
             $input_array = [];
             foreach($input as $key => $val){
-                if(in_array($key, $buttons)){                           // names of form buttons
+                if(!in_array($key, $buttons)){                           // names of form buttons
                     $input_array[$key] = self::sanitize($val);
                 }
             }

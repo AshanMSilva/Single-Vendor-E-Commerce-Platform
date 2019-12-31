@@ -91,6 +91,8 @@ class Browse extends Controller{
                 
                 for($i = 0; $i < $count; $i++){
                     $attributes = $variant_objs[$i]->get_attributes();
+
+                    $variants[$i][] = $variant_objs[$i]->get_variant_id();
                     $variants[$i][] = $variant_objs[$i]->get_sku();
                     $variants[$i][] = $variant_objs[$i]->get_weight() . 'g';
                     $variants[$i][] = '$' . $variant_objs[$i]->get_price();
@@ -122,11 +124,21 @@ class Browse extends Controller{
         // product_id, variant_id, quantity should be sent through post from the single-product view
         //$post_array = Input::get_array($_POST, ['add']);     // contains product_id, variant_id, quantity
         // dnd(Session::get('registered_customer'));
-        $post_array = ['product_id' => '2', 'variant_id' => '13', 'quantity' => 2];
-        // dnd($post_array['product_id']);
-        $cart = new Cart();
-        // $cart = Cart::get_instance();
-        $cart->add_product($post_array);
-        dnd($_SESSION);
+
+        if(isset($_POST['addToCart'])){
+            // dnd($_POST);
+            $post_array = Input::get_array($_POST, ['addToCart']);
+            $post_array['quantity'] = intval($post_array['quantity']);
+            // $post_array = ['product_id' => '2', 'variant_id' => '13', 'quantity' => 2];
+            // dnd($post_array['product_id']);
+            // dnd($post_array);
+            $cart = new Cart();
+            // $cart = Cart::get_instance();
+            $cart->add_product($post_array);
+            Alert::set('Product added to your cart');
+            // dnd($_SESSION);
+            // Router::redirect('browse/viewProduct/' . $post_array['product_id']);
+            Router::goback();
+        }
     }
 }

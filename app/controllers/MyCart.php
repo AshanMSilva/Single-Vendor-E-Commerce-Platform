@@ -34,23 +34,25 @@ class MyCart extends Controller{
     public function removeFromCartAction($variant_id){
         $cart = new Cart();
         $cart->remove_product($variant_id);
-        $this->indexAction();
+        Router::redirect('MyCart/index');
     }
 
     public function updateCartAction(){
-        dnd($_POST['variant0']);
+        // dnd($_POST);
         // POST array looks like: ['variant1' => '13', 'quantity1' => 2, 'variant2' => '5', 'quantity2' => 3 ...]
         if(isset($_POST['update'])){
-            $post_array = Input::get_array($_POST, ['update', 'checkout']);
-            $length = count($post_array)/2;
+            $post_array = Input::get_array($_POST, ['update']);
+            // dnd($post_array);
+            $count = intval($post_array['count']);            
             $cart = new Cart();
 
-            for($i=1; $i <= $length; $i++){
+            for($i=0; $i < $count; $i++){
                 $variant_id = $post_array['variant' . $i];
-                $quantity = $post_array['quantity' . $i];
+                $quantity = $post_array['qty' . $i];
+                // dnd($quantity);
                 $cart->update_product($variant_id, $quantity);
             }
-            $this->indexAction();
+            Router::redirect('MyCart/index');
         }
     }
 }

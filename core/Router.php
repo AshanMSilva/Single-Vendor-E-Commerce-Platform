@@ -49,4 +49,10 @@ class Router {
 			exit;
 		}
 	}
+
+	public static function goback(){
+		echo '<script type="text/javascript">';
+		echo 'window.history.back()';
+		echo '</script>';
+	}
 }
