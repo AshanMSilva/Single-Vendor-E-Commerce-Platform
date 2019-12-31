@@ -114,12 +114,17 @@ class Product extends Model{
     }
     public static function update_stock($cart_array){
         $db = DB::getInstance();
+        // dnd($cart_array);
         foreach($cart_array as $product){
-            $new_stock = 'stock - ' . $product['quantity'];
-            $db->update('variants', ['stock' => $new_stock], [
+            // $new_stock = 'stock - ' . $product['quantity'];
+            // echo $new_stock."<br>";
+            /*$db->update('variants', ['stock' => $new_stock], [
                 'conditions' => 'variant_id = ?',
                 'bind' => [$product['variant_id']]
-            ]);
+            ]);*/
+            $sql = "UPDATE variants SET stock = stock - ? WHERE variant_id = ?";
+            $bind = [$product['quantity'], $product['variant_id']];
+            $db->query($sql, $bind);
         }
     }
 

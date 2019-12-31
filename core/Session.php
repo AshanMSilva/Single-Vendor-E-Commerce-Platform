@@ -35,6 +35,7 @@
         }
 
         public static function remove_from_array($array_name, $index){
+            // dnd($_SESSION[$array_name]);
             if(self::exists($array_name)){
                 unset($_SESSION[$array_name][$index]);
             }
