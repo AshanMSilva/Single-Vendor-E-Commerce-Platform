@@ -3,31 +3,35 @@
         public function __construct($controller,$action){
             parent::__construct($controller,$action);
         }
-
         public function searchResultAction(){
-            if(isset($_POST["key"])){
+            if(isset($_GET["key"])){
                 $x= Input::get('key');
             }
-<<<<<<< Updated upstream
-=======
             Session::set('xx',$x);
             $x=Session::get('xx');
->>>>>>> Stashed changes
             //call function
             $lastView=$this->searchItem($x);
+
+            //algo improvement
+            if(count($lastView)==0){
+                $keys=explode(" ",$x);
+                foreach($keys as $keyword){
+                    $temp_ids=$this->searchItem($keyword);
+                    foreach($temp_ids as $pid){
+                        if(in_array($pid,$lastView)==false){
+                            array_push($lastView,$pid);
+                        }
+                    }
+                }
+            }
+
             $prodDetails=array();
             foreach($lastView as $product_id){
                 $prodDetails[$product_id]=$this->getDetailsOfProduct($product_id);
             }
-            Session::set('x',$x);
-            Session::set('prodDetails',$prodDetails);
-<<<<<<< Updated upstream
-
-            $this->view->setLayout('default');
-=======
+            $data=[$prodDetails,$x];
             $this->view->setLayout('normal');
->>>>>>> Stashed changes
-            $this->view->render('search/searchResult');
+            $this->view->render('search/searchResult',$data);
         }
         
         //this function returns the all products in the given category
@@ -35,8 +39,6 @@
         public function viewProductsInCategory($category_id,$arr){ 
             return Category::get_products_in_category($category_id);
         } 
-
-
         //this function returns all matching products for the given key
         //this function is called in searchResultAction
         public function searchItem($key){
@@ -62,7 +64,6 @@
                     array_push($distinct,$product_id);
                 }
             }
-
             return $distinct;
         }
         public function getDetailsOfProduct($product_id){

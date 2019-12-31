@@ -5,9 +5,9 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="../../img/fav.png">
+    <link rel="shortcut icon" href="<?=PROOT?>img/fav.png">
     <!-- Author Meta -->
-    <meta name="author" content="CodePixar">
+    <meta name="author" content="3-idiots+kaveesha">
     <!-- Meta Description -->
     <meta name="description" content="">
     <!-- Meta Keyword -->
@@ -15,7 +15,7 @@
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>Karma Shop</title>
+    <title><?= $this->siteTitle()?></title>
 
     <!--
             CSS
@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="<?=PROOT?>css/bootstrap.css">
     <link rel="stylesheet" href="<?=PROOT?>css/main.css">
     <?= $this->content('head');?>
+    
 </head>
 
 <body>
@@ -39,7 +40,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="<?=PROOT?>img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="<?=PROOT?>home"><img src="<?=PROOT?>img/fav.png" alt=""> <Strong> IDIOTS </Strong> </a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -49,8 +50,9 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-							<li class="nav-item submenu dropdown active">
+                            <li class="nav-item "><a class="nav-link" href="<?=PROOT?>home"><span class="fa fa-home"></span> Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/tracking"><span class="fa fa-truck"></span> Tracking</a></li>
+							<!--<li class="nav-item submenu dropdown active">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
@@ -60,28 +62,33 @@
 									<li class="nav-item active"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
 									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
 								</ul>
-							</li>
-							<li class="nav-item submenu dropdown">
+							</li>-->
+							<!--<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Blog</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
 									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
 								</ul>
-							</li>
+							</li>-->
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
+								 aria-expanded="false"><span class="fa fa-list"></span> Category</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/1">Electronics</a></li>
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/2">Toys</a></li>
+									<!--<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Category2</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Category3</a></li>-->
+									<!--<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
+									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
 								</ul>
 							</li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact"><span class="fa fa-comments"></span> Contact</a></li>
+                            <li class="nav-item"><a href="<?=PROOT?>myCart" class="cart nav-link"><span class="ti-shopping-cart"></span></a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+                            
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
@@ -92,7 +99,7 @@
 		</div>
 		<div class="search_input" id="search_input_box">
 			<div class="container">
-                <form class="d-flex justify-content-between" action="<?=PROOT?>search/searchResult" method="POST">
+                <form class="d-flex justify-content-between" action="<?=PROOT?>search/searchResult" method="GET">
 					<input type="text" class="form-control" id="key" name="key" placeholder="Search For Anything.." required> 
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
@@ -134,7 +141,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
+                    <!--<div class="single-footer-widget">
                         <h6>Newsletter</h6>
                         <p>Stay update with our latest</p>
                         <div class="" id="mc_embed_signup">
@@ -155,14 +162,14 @@
                                             type="text">
                                     </div>
 
-                                    <!-- <div class="col-lg-4 col-md-4">
+                                     <div class="col-lg-4 col-md-4">
 													<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-												</div>  -->
+												</div>  
                                 </div>
                                 <div class="info"></div>
                             </form>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="col-lg-3  col-md-6 col-sm-6">
                     <div class="single-footer-widget mail-chimp">
@@ -201,8 +208,49 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!-- End footer Area -->
+    
 
-    <script src="<?=PROOT?>js/vendor/jquery-2.2.4.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="<?=PROOT?>js/dist/jautocalc.js"></script>
+		<script type="text/javascript">
+		<!--
+			$(document).ready(function() {
+
+				function autoCalcSetup() {
+					$('form[name=cart]').jAutoCalc('destroy');
+					$('form[name=cart] tr[name=line_items]').jAutoCalc({keyEventsFire: true, decimalPlaces: 2, emptyAsZero: true});
+					$('form[name=cart]').jAutoCalc({decimalPlaces: 2});
+				}
+				autoCalcSetup();
+
+
+				$('button[name=remove]').click(function(e) {
+					e.preventDefault();
+
+					var form = $(this).parents('form')
+					$(this).parents('tr').remove();
+					autoCalcSetup();
+
+				});
+
+				$('button[name=add]').click(function(e) {
+					e.preventDefault();
+
+					var $table = $(this).parents('table');
+					var $top = $table.find('tr[name=line_items]').first();
+					var $new = $top.clone(true);
+
+					$new.jAutoCalc('destroy');
+					$new.insertBefore($top);
+					$new.find('input[type=text]').val('');
+					autoCalcSetup();
+
+				});
+
+			});
+		//-->
+		</script>
+    <!--<script src="<?=PROOT?>js/vendor/jquery-2.2.4.min.js"></script>-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 	 crossorigin="anonymous"></script>
 	<script src="<?=PROOT?>js/vendor/bootstrap.min.js"></script>

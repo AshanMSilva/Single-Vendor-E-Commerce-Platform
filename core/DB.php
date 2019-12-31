@@ -34,7 +34,7 @@ class DB{
 			if($this->_query->execute()){
 				$this->_result = $this->_query->fetchALL(PDO::FETCH_OBJ);
 				$this->_count = $this->_query->rowCount();
-				$this->_lastInsertID = $this->_pdo->lastInsertID();
+				$this->_lastInsertID = $this->_pdo->lastInsertID();				
 			}
 			else{
 				$this->_error = true;
@@ -65,12 +65,27 @@ class DB{
 		}
 	}*/
 
-	protected function _read($table, $params=[]){
+	protected function _read($table, $columns, $params=[]){
 		//print_r($params);
+		//dnd($columns);
 		$conditionString = '';
 		$bind = [];
 		$order = '';
 		$limit = '';
+		
+		if(isset($columns)){
+			$columnString = '';
+			if(is_array($columns)){
+				foreach($columns as $column){
+					$columnString .= ' ' . $column . ',';
+				}
+				$columnString = trim($columnString);
+				$columnString = rtrim($columnString, ',');
+			}
+			else{
+				$columnString = $columns;
+			}			
+		}
 
 		//conditions
 		if(isset($params['conditions'])){
@@ -104,8 +119,9 @@ class DB{
 			$limit = ' LIMIT ' . $params['limit'];
 		}
 
-		$sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
-		//echo $sql;
+		$sql = "SELECT {$columnString} FROM {$table}{$conditionString}{$order}{$limit}";
+		//echo $sql . "<br>";
+		//dnd($sql);
 		if($this->query($sql, $bind)){
 			if(!count($this->_result)) return false;
 			return true;
@@ -113,8 +129,8 @@ class DB{
 		return false;
 	}
 
-	public function select($table, $params=[]){
-		if($this->_read($table, $params)){
+	public function select($table, $columns, $params=[]){
+		if($this->_read($table, $columns, $params)){
 			return $this->results();
 		}
 		return false;
@@ -134,16 +150,19 @@ class DB{
 		$valueString = rtrim($valueString, ',');
 		
 		$sql =  "INSERT INTO {$table} ({$fieldString}) VALUES ({$valueString})";
-		echo $sql . "<br>";
+		// echo $sql . "<br>";
 		if(!$this->query($sql, $values)->error()){
-			return true;
+			// echo $this->_lastInsertID;
+			return $this->_lastInsertID;
+			//return true;
 		}
 		return false;
 	}
 
-	public function update($table, $id, $fields = []){
+	public function update($table, $fields, $params){
 		$fieldString = '';
 		$values = [];
+		$conditionString = '';
 
 		foreach($fields as $field => $value){
 			$fieldString .= ' ' . $field . ' = ?,';
@@ -152,7 +171,32 @@ class DB{
 		$fieldString = trim($fieldString);
 		$fieldString = rtrim($fieldString, ',');
 
-		$sql = "UPDATE {$table} SET {$fieldString} WHERE id = {$id}";
+		if(isset($params['conditions'])){
+			if(is_array($params['conditions'])){
+				foreach($params['conditions'] as $condition){
+					$conditionString .= ' ' . $condition . ' AND';
+				}
+				$conditionString = trim($conditionString);
+				$conditionString = rtrim($conditionString, ' AND');
+			}
+			else{
+				$conditionString = $params['conditions'];
+			}
+			if($conditionString != ''){
+				$conditionString = ' WHERE ' . $conditionString;
+			}
+		}
+
+		//bind
+		if(array_key_exists('bind', $params)){
+			foreach($params['bind'] as $bind){
+				$values[] = $bind;
+			}
+		}
+
+		$sql = "UPDATE {$table} SET {$fieldString}{$conditionString}";
+		// dnd($sql);
+		// dnd($values);
 		if(!$this->query($sql, $values)->error()){
 			return true; 
 		}
@@ -167,8 +211,26 @@ class DB{
 		return false;
 	}
 
+	public function select_count($table, $columns, $params){
+		//dnd($columns);
+		if($this->_read($table, $columns, $params)){
+			return $this->get_row_count();
+		}
+		else{
+			return false;
+		}
+	}
+
 	public function results(){
 		return $this->_result;
+	}
+
+	public function get_row_count(){
+		return $this->_count;
+	}
+
+	public function last_insert_id(){
+		return $this->_lastInsertID;
 	}
 
 	public function get_columns($table){
@@ -177,6 +239,61 @@ class DB{
 
 	public function error(){
 		return $this->_error;
+	}
+
+	public function call_procedure($procedure, $params = []){
+		$paramString = '';
+		
+		if(isset($params)){
+			
+			if(is_array($params)){
+				foreach($params as $param){
+					$paramString .= ' ' . $param . ',';
+				}
+				$paramString = trim($paramString);
+				$paramString = rtrim($paramString, ',');
+			}
+			else{
+				$paramString = "'" . $params . "'";
+			}
+		}
+		
+		$sql = "CALL {$procedure}({$paramString})";
+		// dnd($sql);
+		if($this->query($sql)){
+			return $this->results();
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function call_function($function, $params = []){
+		$paramString = '';
+
+		if(isset($params)){
+			
+			if(is_array($params)){
+				foreach($params as $param){
+					$paramString .= ' ' . $param . ',';
+				}
+				$paramString = trim($paramString);
+				$paramString = rtrim($paramString, ',');
+			}
+			else{
+				$paramString = "'" . $params . "'";
+			}
+		}
+
+		$sql = "SELECT {$function}({$paramString}) AS {$function}";
+		// dnd($sql);
+		if($this->query($sql)){
+			// dnd($this->results());
+			return $this->results();
+		}
+		else{
+			return false;
+		}
 	}
 
 }

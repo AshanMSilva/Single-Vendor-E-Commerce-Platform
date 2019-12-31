@@ -5,7 +5,7 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="../../img/fav.png">
+	<link rel="shortcut icon" href="<?=PROOT?>img/fav.png">
 	<!-- Author Meta -->
 	<meta name="author" content="3-idiots+kaveesha">
 	<!-- Meta Description -->
@@ -16,6 +16,7 @@
 	<meta charset="UTF-8">
 	<!-- Site Title -->
 	<title><?= $this->siteTitle()?></title>
+	
 	<!--
 		CSS
 		============================================= -->
@@ -41,7 +42,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="<?=PROOT?>img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="<?=PROOT?>/home"><img src="<?=PROOT?>img/fav.png" alt=""> <Strong> IDIOTS </Strong></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -51,8 +52,10 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
-							<li class="nav-item submenu dropdown">
+							<li class="nav-item active"><a class="nav-link" href="<?=PROOT?>home/registerlogged"><span class="fa fa-home"></span> Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/tracking"><span class="fa fa-truck"></span> Tracking</a></li>
+							<li class="nav-item"><a class="nav-link" href=""><span class="fa fa-comment"></span> Messages</a></li>
+							<!--<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
@@ -62,7 +65,7 @@
 									<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
 									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
 								</ul>
-							</li>
+							</li>-->
 							<!--<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Blog</a>
@@ -73,16 +76,29 @@
 							</li>-->
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
+								 aria-expanded="false"><span class="fa fa-list"></span> Category</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="" data-target="" data-toggle="modal">Login</a></li>
-									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/1">Electronics</a></li>
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/2">Toys</a></li>
+									<!--<li class="nav-item"><a class="nav-link" href="">Category3</a></li>-->
+									<!--<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
+									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
 								</ul>
 							</li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact"><span class="fa fa-comments"></span> Contact</a></li>
+							<li class="nav-item submenu dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false"><span class="ti-user"></span></a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>account"><span class="fa fa-user"></span> Account</a></li>
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>account/wishlist"><span class="fa fa-heart"></span> Wish List</a></li>
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>account/logout"><span class="fa fa-sign-out"></span> Sign Out</a></li>
+									<!--<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
+									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
+								</ul>
+							</li>
 							<!--<li class="nav-item"><a href="" class="account nav-link"><span class="ti-user"></span></a></li>-->
-							<li class="nav-item"><a href="cart.html" class="cart  nav-link"><span class="ti-shopping-cart"></span></a></li>
+							<li class="nav-item"><a href="<?=PROOT?>myCart" class="cart  nav-link"><span class="ti-shopping-cart"></span></a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							
@@ -96,8 +112,8 @@
 		</div>
 		<div class="search_input" id="search_input_box">
 			<div class="container">
-				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here" required>
+				<form class="d-flex justify-content-between" action="<?=PROOT?>search/searchResult" method="POST">
+					<input type="text" class="form-control" id="key" name="key" placeholder="Search For Anything.." required> 
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 				</form>
@@ -124,7 +140,7 @@
 					</div>
 				</div>
 				<div class="col-lg-4  col-md-6 col-sm-6">
-					<div class="single-footer-widget">
+					<!--<div class="single-footer-widget">
 						<h6>Newsletter</h6>
 						<p>Stay update with our latest</p>
 						<div class="" id="mc_embed_signup">
@@ -143,14 +159,14 @@
 										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
 									</div>
 
-									<!-- <div class="col-lg-4 col-md-4">
+									 <div class="col-lg-4 col-md-4">
 												<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-											</div>  -->
+											</div> 
 								</div>
 								<div class="info"></div>
 							</form>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="col-lg-3  col-md-6 col-sm-6">
 					<div class="single-footer-widget mail-chimp">

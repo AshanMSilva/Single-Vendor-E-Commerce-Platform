@@ -1,7 +1,7 @@
 <?php
     class Email extends controller{
-        public function __construct($controller,$action){
-            parent::__construct($controller,$action);
+        public function __construct($controller, $action){
+            parent::__construct($controller, $action);
 
         }
         public function validateAction(){
@@ -9,11 +9,11 @@
             //    $firstName =$_POST['email'];
                 //dnd($_POST);
                 //dnd($_SESSION);
-            if(Session::exists('signupdetails')){
+            if(Session::exists('signup_details')){
                 
-                $signupdetails=Session::get('signupdetails');
-                $email=$signupdetails['email'];
-                Session::set('email',$email);
+                $signup_details = Session::get('signup_details');
+                $email = $signup_details['email'];
+                Session::set('email', $email);
                 $this->view->setLayout('normal');
                 $this->view->render('email/validate');
             }
@@ -26,16 +26,19 @@
         }
         public function sendAction(){
             if(isset($_POST['submit'])){
-                $randcode=System::generaterandcode();
-                Session::set('randcode',$randcode);
-                $email=$_POST['email'];
+                $randcode = System::generaterandcode();
+                Session::set('randcode', $randcode);
+                $email = $_POST['email'];
                 //dnd($_POST);
-                if(System::sendmail($email,"",$randcode)){
+                $msg = "Verification Code: " . $randcode . " . Please use the given code to verify your email. Thank you for joining with E-Commerce Platform.";
+                // dnd($msg);
+
+                if(System::sendmail($email, "E-mail Verification Process", $msg)){
                     $script ='$(window).on("load",function(){
                         $("#verficationCodeModal").modal("show");
                     });';
                     Script::set($script);
-                    Alert::set('Verification code sent to your email address successfully ');
+                    Alert::set('Verification code is sent to your email address successfully');
                     Router::redirect('email/validate');
                 }
                 else{
@@ -48,28 +51,48 @@
 
         }
         public function verifycodeAction(){
-            //dnd($_SESSION);
-            //dnd($_POST);
             if(isset($_POST['submitcode'])){
-                $code =$_POST['code'];
-                //dnd($_SESSION);
+                $code = $_POST['code'];
+                //dnd($code);
                 if(Session::exists('randcode')){
-                    
-                    $randcode= Session::get('randcode');
-                    //dnd($code);
-                    if($code==$randcode){
-                        if(Session::exists('signupdetails')){
-                            $signupdetails =Session::get('signupdetails');
+                    $randcode = Session::get('randcode');
+
+                    if($code == $randcode){
+
+                        if(Session::exists('signup_details')){
+                            $signup_details = Session::get('signup_details');
+                            // dnd($signup_details);
                             //save data in database
-                            Session::delete('signupdetails');
-                            Alert::set('Welcome to our E-commerce Platform');
+                            $reg_cust = new RegisteredCustomer($signup_details);
+                            // dnd($reg_cust);
+                            $reg_cust->insert_customer($signup_details);
+
+                            Session::delete('randcode');
+                            Session::delete('signup_details');
+                            //dnd($_SESSION);
+                            // dnd($reg_cust);
+                            $id = $reg_cust->get_id();
+                            Session::set('registered_customer', $id);
+
+                            if(Session::exists('my_cart')){
+                                $my_products = Session::get('my_cart');
+                                $cart = new Cart();
+                                foreach($my_products as $product){
+                                    $cart->add_product($product);
+                                }
+                                Session::delete('my_cart');                       
+                            }
+
+                            // dnd($_SESSION);
+                            Alert::set('Welcome to C Stores E-Commerce Platform');
+                            Session::set('logged_in',true);
                             Router::redirect('home/registerlogged');
+                            
                         }
                     }
                     else{
-                        //dnd(type($randcode));
                         Session::delete('randcode');
-                        Alert::set('Your input code is incorrect. Please click send button to send verification code again..! ');
+                        Alert::set('Your input code is incorrect. Please click send button to send verification code again..!');
                         Router::redirect('email/validate');
                     }
                 }

@@ -17,14 +17,10 @@
             $brand=$details["brand"];
             Session::set('category_name',$category_name);
             Session::set('brand_name',$brand);
-
             $this->view->setLayout('normal');
             $this->view->render('singleproduct/productDisplay');
         }
         public function productAddAction(){
-
-
-
         }
     
     }
