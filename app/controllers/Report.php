@@ -24,6 +24,13 @@ class Report extends Controller{
     public function most_sales_productsAction(){
         $date1=$_GET["from"];
         $date2=$_GET["to"];
+        if($date1>=$date2){
+            Alert::set("Given Period is Not Valid!!");
+            Alert::displayscriptalert();     
+            $this->view->setLayout('normal');
+            $this->view->render('report/index');       
+        }
+        else{
         $result=Product::get_mostsales_products($date1,$date2);
         $products=$result[0];
         $numAll=$result[1];
@@ -32,6 +39,7 @@ class Report extends Controller{
         
         $this->view->setLayout('normal');
         $this->view->render('report/most_sales_products',$data);
+        }
 
     }
 

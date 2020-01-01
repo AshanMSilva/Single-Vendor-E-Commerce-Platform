@@ -12,7 +12,6 @@
 <?php $this->end()?>
 
 <?php $this->start('body')?>
-
 <?php $data=$this->get_data();
 $products=$data[0];
 $numAll=$data[1];
@@ -20,6 +19,7 @@ $period=$data[2];
 ?>
 <!-- Styles -->
 <style>
+    
 #chartdiv {
   width: 100%;
   height: 500px;
