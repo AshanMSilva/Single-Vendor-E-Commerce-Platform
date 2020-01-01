@@ -65,3 +65,43 @@ SELECT orders.order_id,orders.order_date,amount,t.status,t.tracking_info FROM or
 
 ------------------------get_products_of_order
 SELECT title , price , quantity FROM products natural join variants as t JOIN order_details on order_details.product_id = t.product_id and order_details.variant_id=t.variant_id WHERE order_details.order_id = o_id
+
+
+
+
+
+
+--=======================================PROCEDURES==========================================================--
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_order_info_by_track`(IN `track` INT)
+    NO SQL
+SELECT orders.order_id as order_id, order_date, customer_id, deleted, payment_method, amount, card_number, courier_id, delivery_method, tracking_info, estimated_date, completed_date, status, customer_contact, house_number, street, city, state, last_name, zip_code, email, first_name , current_location FROM orders left join payments on orders.order_id=payments.order_id left JOIN (SELECT * FROM deliveries NATURAL JOIN couriers) as t on orders.order_id=t.order_id WHERE t.tracking_info=track$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_order_info`(IN `o_id` INT)
+    NO SQL
+SELECT orders.order_id as order_id, order_date, customer_id, deleted, payment_method, amount, card_number, courier_id, delivery_method, tracking_info, estimated_date, completed_date, status, customer_contact, house_number, street, city, state, last_name, zip_code, email, first_name , current_location FROM orders left join payments on orders.order_id=payments.order_id left JOIN (SELECT * FROM deliveries NATURAL JOIN couriers) as t on orders.order_id=t.order_id WHERE orders.order_id=o_id$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_quarter_sales`(IN `y_in` INT)
+    NO SQL
+SELECT order_date ,Q , tt.product_id as product_id,title, brand , product_total ,product_quantity FROM (SELECT order_date ,Q , k.product_id as product_id,k.variant_id as variant_id , SUM(quantity*price) as product_total , SUM(quantity)as product_quantity FROM (SELECT * FROM (SELECT order_id as id, order_date,Quarter(`order_date`)as Q FROM `orders` WHERE YEAR(`order_date`)=y_in)as t JOIN `order_details` on t.id = order_details.order_id) as k JOIN variants on k.variant_id = variants.variant_id GROUP BY product_id , Q)as tt LEFT JOIN products on tt.product_id=products.product_id$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_undeleted_orders`(IN `user_id` INT)
+    NO SQL
+SELECT orders.order_id,orders.order_date,amount,t.status,t.tracking_info FROM orders LEFT OUTER JOIN (payments NATURAL join deliveries as t) on t.order_id=orders.order_id WHERE orders.customer_id=user_id and `deleted`=0$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_products_of_order`(IN `o_id` INT)
+    NO SQL
+SELECT title , price , quantity FROM products natural join variants as t JOIN order_details on order_details.product_id = t.product_id and order_details.variant_id=t.variant_id WHERE order_details.order_id = o_id$$
+DELIMITER ;
+
+
+
