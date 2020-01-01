@@ -30,7 +30,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_Product_sales_count` ()  NO
 SELECT sum(quantity) as cc from orders INNER JOIN order_details using(order_id) where orders.order_date BETWEEN date1 and date2$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_most_sales_products` (IN `date1` DATE, IN `date2` DATE)  NO SQL
-SELECT products.title, sum(order_details.quantity) as cc from orders INNER JOIN order_details using(order_id) INNER JOIN products using(product_id) WHERE orders.order_date BETWEEN date1 AND date2 GROUP BY order_details.product_id ORDER BY  cc DESC$$
+SELECT products.title, sum(order_details.quantity*price)  as cc from orders INNER JOIN order_details using(order_id) INNER JOIN products using (product_id) INNER JOIN variants using(variant_id)  WHERE orders.order_date BETWEEN date1 AND date2  GROUP BY order_details.product_id ORDER BY order_date$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reach_period` (IN `p_id` INT)  NO SQL
 select sum(quantity) as cc, order_date from orders inner join order_details using(order_id)  where product_id=p_id group by order_date order by order_date$$
