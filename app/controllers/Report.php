@@ -16,6 +16,15 @@ class Report extends Controller{
         $this->view->setLayout('normal');
         $this->view->render('report/reach_period',$date_count);
     }
+    public function quarterly_sales_reportAction(){
+
+        //dnd ($_POST['year']);
+        $year = $_POST['year'];
+        $db=DB::getInstance();
+        $result = $db->call_procedure('get_quarter_sales',[$year]);
+        //dnd($result);
+        $this->view->render('report/quarterly_sales_report',[$year,$result]);//,$date_count);
+    }
     public function category_ordersAction(){
         $result=Category::get_category_with_most_orders();
         $this->view->setLayout('normal');

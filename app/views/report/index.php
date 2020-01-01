@@ -1,8 +1,5 @@
-
-	
 <?php $this->start('head')?>
 
-</head>
 
 <?php $this->end()?>
 
@@ -21,44 +18,96 @@
             <section class="related-product-area section_gap_bottom">
                 <div class="container"> 
                     <!-- <br><br><br> -->
+
                     <div class="row justify-content-center">
                         <div class="col-lg-6 text-center">
                             <div class="section-title">
-                            <h1>Quick Reports</h1> 
+                                <br>
+                                <br>
+                            <h1>Reports</h1> 
                             </div>
                         </div>
                     </div>
+                    
+
+
+                    <div class="container border-top-generic">
+                            <h3 class="text-heading">Quarterly Sales</h3>
+                            <div class="button-group-area mt-40">
+                            
+                             
+                                <div>
+                                    <form action="<?=PROOT?>report/quarterly_sales_report" method = 'post'>
+                                        Year :<input id="year" name="year" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'From'"
+                                 required class="single-input" required>
+                                        <button type="submit" class="genric-btn success circle"> View Report</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <br>
+
 
                     <div class="row">
                         <div class="col-lg-12">
                             <!-- <div class="row"> -->
+                        <div class="container border-top-generic">
+                            <h3 class="text-heading">Most Ordered Product Categories</h3>
+                            <div class="button-group-area mt-40">
                                 <div>
-                                    <label for="">Product Categories with most Orders</label>
-                                    <a href="<?=PROOT?>report/category_orders">View Report</a>       
+                                    <a href="<?=PROOT?>report/category_orders" class = 'genric-btn success circle'>View Report</a>       
                                 </div>
-                                <br>
+                            </div>
+                        </div>
+
+                        <br>
+                        <br>
+                        <div class="container border-top-generic">
+                            <h3 class="text-heading">Sales of Product by Period</h3>
+
+                            <div class="button-group-area mt-40">
                                 <div>
-                                    <label for="">Product With Most NUmber Of Sales</label>
                                     <form action="<?=PROOT?>report/most_sales_products" method="GET">
-                                        From :<input type="date" name="from" required>
-                                        To: <input type="date" name="to" required>
-                                        <button type="submit"> View Report</button>
+                                        From :<input type="date" name="from" onfocus="this.placeholder = ''" onblur="this.placeholder = 'From'"
+                                 required class="single-input" required>
+                                        To: <input type="date" name="to" onfocus="this.placeholder = ''" onblur="this.placeholder = 'To'"
+                                 required class="single-input" required>
+                                        <button type="submit" class="genric-btn success circle"> View Report</button>
                                     <!-- <a href="<?=PROOT?>report/most_sales_products">View Report</a>    -->
                                     </form>    
                                 </div>
+                            </div>
+                        </div>
+
+
+                        <br>
+                        <br>
+
+
+
+
+                        <div class="container border-top-generic">
+                            <h3 class="text-heading">Product's Interest with Time</h3>
+                            <div class="button-group-area mt-40">
                                 <div>
-                                    <label for="">Mose interested period</label>
                                     <form action="<?=PROOT?>report/most_reach_period" method="GET">
-                                        Product id :<input name="id" type="text">
-                                        <button type="submit"> View Report</button>
+                                        Product id :<input name="id" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Product ID'"
+                                 required class="single-input" required>
+                                        <button type="submit" class="genric-btn success circle"> View Report</button>
                                     </form>
-                                </div>                               
-                             
-                                <div>
-                                    <form action="<?=PROOT?>report/quartery_report"></form>
-                                        Year :<input type="text">
-                                        <button type="submit"> View Report</button>
-                                </div>
+                                </div>   
+                            </div>
+                        </div>
+
+
+                        <br>
+                        <br>
+
+
+
+                        
                             <!-- </div> -->
                         </div>
                         <!-- <div class="col-lg-3">
