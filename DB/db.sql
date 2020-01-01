@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2019 at 03:29 PM
+-- Generation Time: Jan 01, 2020 at 08:34 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -51,7 +51,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `select_category_products` (IN `id` 
 SELECT * FROM `product_details` WHERE product_id IN (SELECT product_id FROM product_category_relations WHERE category_id = id)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `select_customer_cart` (IN `id` INT)  NO SQL
-SELECT products.product_id, title, brand, image, variant_id, sku, weight, price, stock, quantity FROM products INNER JOIN optimized_cart_details WHERE customer_id = id$$
+SELECT products.product_id, title, brand, image, variant_id, sku, weight, price, stock, quantity FROM products INNER JOIN (SELECT * FROM optimized_cart_details WHERE customer_id = id) AS cust_cart USING(product_id)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `select_root_categories` ()  NO SQL
 SELECT * FROM `categories` WHERE category_id NOT IN (SELECT sub_category_id FROM category_relations)$$
@@ -115,10 +115,15 @@ INSERT INTO `attributes` (`product_id`, `variant_id`, `attribute_name`, `value`)
 
 CREATE TABLE `card_details` (
   `customer_id` int(11) NOT NULL,
-  `card_number` int(15) NOT NULL,
-  `first_name` varchar(20) NOT NULL,
-  `last_name` varchar(20) NOT NULL
+  `card_number` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `card_details`
+--
+
+INSERT INTO `card_details` (`customer_id`, `card_number`) VALUES
+(15, '2261 6739 1032 5511');
 
 -- --------------------------------------------------------
 
@@ -139,8 +144,11 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`customer_id`, `product_id`, `variant_id`, `quantity`, `removed_flag`) VALUES
-(15, 7, 18, 1, 0),
-(15, 2, 13, 2, 0);
+(15, 7, 18, 3, 0),
+(15, 2, 13, 4, 0),
+(15, 5, 5, 2, 0),
+(15, 6, 6, 1, 0),
+(15, 12, 12, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -279,7 +287,8 @@ INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`) VALUES
 (12, 'Zheng', 'Mei'),
 (13, 'Calvin', 'Harris'),
 (14, 'Alex', 'Benjamin'),
-(15, 'Sahan', 'Jayasinghe');
+(15, 'Sahan', 'Jayasinghe'),
+(16, 'Crowley', 'Stanford');
 
 -- --------------------------------------------------------
 
@@ -291,6 +300,16 @@ CREATE TABLE `customer_contacts` (
   `customer_id` int(11) NOT NULL,
   `contact_number` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `customer_contacts`
+--
+
+INSERT INTO `customer_contacts` (`customer_id`, `contact_number`) VALUES
+(16, '1234567890'),
+(16, '0987654321'),
+(15, '0714861225'),
+(15, '0332270611');
 
 -- --------------------------------------------------------
 
@@ -313,6 +332,14 @@ CREATE TABLE `deliveries` (
   `state` varchar(20) DEFAULT NULL,
   `zip_code` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `deliveries`
+--
+
+INSERT INTO `deliveries` (`order_id`, `courier_id`, `delivery_method`, `tracking_info`, `estimated_date`, `completed_date`, `status`, `customer_contact`, `house_number`, `street`, `city`, `state`, `zip_code`) VALUES
+(16, NULL, 'delivery', '5e0a1a95a0dd9_955736', '2020-01-07', NULL, 'in-progress', '112-1356-298', 21, 'Reed Avenue', 'New Orleans', 'Nevada', '45781'),
+(17, NULL, 'delivery', '5e0ac2d450729_176886', '2020-01-05', NULL, 'in-progress', '112-1356-298', 21, 'Reed Avenue', 'New Orleans', 'Nevada', '45781');
 
 -- --------------------------------------------------------
 
@@ -436,7 +463,9 @@ INSERT INTO `orders` (`order_id`, `order_date`, `customer_id`, `deleted`) VALUES
 (12, '2019-12-08', 3, 0),
 (13, '2019-12-08', 7, 0),
 (14, '2019-12-12', 8, 0),
-(15, '2019-12-15', 4, 0);
+(15, '2019-12-15', 4, 0),
+(16, '2019-12-30', 15, 0),
+(17, '2019-12-31', 15, 0);
 
 -- --------------------------------------------------------
 
@@ -473,7 +502,11 @@ INSERT INTO `order_details` (`order_id`, `product_id`, `variant_id`, `quantity`)
 (8, 5, 16, 2),
 (9, 6, 6, 1),
 (9, 13, 31, 1),
-(10, 12, 12, 1);
+(10, 12, 12, 1),
+(16, 7, 18, 1),
+(16, 2, 13, 2),
+(17, 7, 18, 1),
+(17, 2, 13, 2);
 
 -- --------------------------------------------------------
 
@@ -485,8 +518,16 @@ CREATE TABLE `payments` (
   `order_id` int(11) NOT NULL,
   `payment_method` varchar(20) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
-  `card_number` int(15) DEFAULT NULL
+  `card_number` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`order_id`, `payment_method`, `amount`, `card_number`) VALUES
+(16, 'card', '362.00', '1425'),
+(17, 'card', '362.00', '2261');
 
 -- --------------------------------------------------------
 
@@ -625,7 +666,8 @@ INSERT INTO `registered_customers` (`customer_id`, `email`, `password`, `house_n
 (8, 'shanecooper@example.com', '1yFzehy7+zt+VMYMOIguCA==', 42, 'Lectus Ave', 'Glen Head', 'Illinois', '24015'),
 (9, 'samwinchester6@example.com', '4NI3jN0oOvgQkZ4VJ7YK8g==', 16, 'Aenean Street', 'Roxboro', 'Alabama', '63402'),
 (10, 'dannywu@nowhere.com', 'NmeE/vygrhgRMDQWs2pHPw==', 60, 'Dui. Rd', 'Soquel', 'South Dakota', '07396'),
-(15, 'sahanjayasinghe.17@cse.mrt.ac.lk', '$2y$10$7yT9Hm4Ea/ncOlB40u1xrOOC8gS8GU3XdeEsansJZWdvYF1jbdyyS', 77, 'Loften Avenue', 'Philedelphia', 'Pennsylvania', '45107');
+(15, 'sahanjayasinghe.17@cse.mrt.ac.lk', '$2y$10$7yT9Hm4Ea/ncOlB40u1xrOOC8gS8GU3XdeEsansJZWdvYF1jbdyyS', 77, 'Loften Avenue', 'Philedelphia', 'Pennsylvania', '45107'),
+(16, 'crowley@gmail.com', '$2y$10$O8TmBK5YsO3d05FtDWl9lOhl/4yv8LFBBQ/Lo6JraU2zansNiabXu', 23, 'main street', 'New Jersy', 'Philedelphia', '45107');
 
 -- --------------------------------------------------------
 
@@ -659,12 +701,12 @@ INSERT INTO `variants` (`product_id`, `variant_id`, `sku`, `weight`, `price`, `s
 (10, 10, '6489anco', '3401.780', '52.00', 0),
 (11, 11, '80qpz2-bcsu310', '486.500', '108.00', 0),
 (12, 12, 'qa3-op7-xs2-l7ww', '1956.491', '149.00', 0),
-(2, 13, '87ryjhxs923', '2730.100', '140.00', 0),
+(2, 13, '87ryjhxs923', '2730.100', '140.00', 3),
 (3, 14, '82u-y17s-hd81', '1772.041', '115.00', 0),
 (4, 15, '80uy-j27bj4-sj82', '1449.000', '123.00', 0),
 (5, 16, 'bfgr7-ncsu91-nfei82n', '420.500', '77.00', 0),
 (6, 17, 'jsghkqh8-bsc6714', '1945.580', '68.40', 0),
-(7, 18, 'hwjhla92-ns882', '322.845', '82.00', 0),
+(7, 18, 'hwjhla92-ns882', '322.845', '82.00', 22),
 (8, 19, 'nzc23-ml71q-lpoae4', '1558.410', '102.00', 0),
 (9, 20, 'qb29npa-1hakno-aki1010', '2117.450', '98.00', 0),
 (11, 21, 'nd901-za10lo6', '486.500', '108.00', 0),
@@ -876,13 +918,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `variants`

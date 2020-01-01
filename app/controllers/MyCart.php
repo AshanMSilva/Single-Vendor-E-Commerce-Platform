@@ -32,6 +32,7 @@ class MyCart extends Controller{
     }
 
     public function removeFromCartAction($variant_id){
+        // dnd($variant_id);
         $cart = new Cart();
         $cart->remove_product($variant_id);
         Router::redirect('MyCart/index');

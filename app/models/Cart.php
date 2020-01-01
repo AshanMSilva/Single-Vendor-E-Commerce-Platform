@@ -62,7 +62,7 @@ class Cart extends Model{
                 // dnd($cart_products);
                 $count = count($cart_products);
                 // dnd($count);
-                $index = null;
+                $index = -1;
                 for($i = 0; $i < $count; $i++){
                     // echo $i;
                     if($cart_products[$i]['variant_id'] == $details['variant_id']){
@@ -72,7 +72,7 @@ class Cart extends Model{
                     }
                 }
                 // dnd($index);
-                if($index != null){
+                if($index != -1){
                     // dnd($cart_products[$index]);
                     $current_quantity = $cart_products[$index]['quantity'];
                     $new_quantity = $current_quantity + $details['quantity'];
@@ -165,15 +165,19 @@ class Cart extends Model{
         else{
             if(Session::exists('my_cart')){
                 $cart_products = Session::get('my_cart');
+                // dnd($cart_products);
                 $count = count($cart_products);
-                $index = null;
-                for($i = 0; $i < $count, $i++;){
+                // dnd($count);
+                $index = -1;
+                for($i = 0; $i < $count; $i++){
                     if($cart_products[$i]['variant_id'] == $id){
                         $index = $i;
                         break;
                     }
                 }
-                if($index != null){
+                // dnd($index);
+                if($index != -1){
+                    // dnd($index);
                     Session::remove_from_array('my_cart', $index);
                 }                
             }

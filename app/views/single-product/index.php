@@ -4,6 +4,8 @@
 
 <?php $this->end()?>
 <?php $this->start('body')?>
+<?php Alert::displayscriptalert();?>
+
 <?php 
     $data = $this->get_data();
     $product = $data['product'];    
@@ -115,6 +117,5 @@
             </div>
         </div>
     </section>
-
-    <?php Alert::displayscriptalert();?>
+    
 <?php $this->end()?>

@@ -7,6 +7,8 @@
 
         public function indexAction(){
             //dnd(Product::top_selling_products());
+            // $reg = RegisteredCustomer::get_reg_cust_by_id(16);
+            // dnd($reg);
             $root_categories = Category::get_root_categories();
              //dnd($root_categories);
             $data['categories'] = $root_categories;
