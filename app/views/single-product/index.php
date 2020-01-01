@@ -4,6 +4,8 @@
 
 <?php $this->end()?>
 <?php $this->start('body')?>
+<?php Alert::displayscriptalert();?>
+
 <?php 
     $data = $this->get_data();
     $product = $data['product'];    
@@ -23,7 +25,7 @@
     // dnd($cat_str);
 ?>
 
-    <section class="banner-area organic-breadcrumb">
+    <!--<section class="banner-area organic-breadcrumb">
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
@@ -35,7 +37,7 @@
 					</nav>
 				</div>
 			</div>
-		</div>
+		</div>-->
 	</section>
     <!-- End Banner Area -->
     
@@ -65,19 +67,21 @@
                             <br>
                             <li><span>Available Product Variants</span> : </li>
                         </ul>
-                        <form action="#">
+                        <form action="<?=PROOT?>browse/addToCart" method="post">
+                            <input type="hidden" name="product_id" value="<?=$product->get_product_id()?>">
 							<ul>
                             <?php for($i = 0; $i < $variant_count; $i++): ?>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="variant<?=$i+1?>" name="brand" required><label for="apple">Variant - <?=$i+1?></label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="variant<?=$i+1?>" name="variant_id" value="<?=$variants[$i][0]?>" required><label for="apple">Variant - <?=$i+1?></label></li>
+								
                             <?php endfor; ?>	
                             </ul> 
                             <br>                       
                             <div class="product_count">
                                 <label for="qty">Quantity:</label>
-                                <input type="number" name="qty" id="sst" min=1 value="1" title="Quantity:" class="input-number qty">
+                                <input type="number" name="quantity" id="sst" min=1 value="1" title="Quantity:" class="input-number qty">
                                 </div>
                             <div class="card_area d-flex align-items-center">
-                                <button type="submit" name="addToCart" value="Add To Cart" class="primary-btn">Add to Cart</button>
+                                <button type="submit" name="addToCart" value="Add To Cart" class="genric-btn primary-border circle arrow">Add to Cart</button>
                                 <!-- <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a> -->
                                 <!-- <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a> -->
                             </div>
@@ -103,7 +107,7 @@
                             <tr>
                                 <td>Variant - <?=$i+1?></td>
                                 <!-- <td><input class="pixel-radio" type="radio" id="variant<?//=$i+1?>" name="brand"><label for="apple">Variant - <?//=$i+1?></label></td> -->
-                                <?php for($j = 0; $j < $attribute_count; $j++): ?>
+                                <?php for($j = 1; $j <= $attribute_count; $j++): ?>
                                     <td><?=$variants[$i][$j]?></td>
                                 <?php endfor; ?>
                             </tr>
@@ -113,4 +117,5 @@
             </div>
         </div>
     </section>
+    
 <?php $this->end()?>

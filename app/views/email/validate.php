@@ -16,7 +16,6 @@
 ?>
 
 <?php $this->end()?>
-
 <?php $this->start('body')?>
 <?php Alert::displayscriptalert();?>
 <br>

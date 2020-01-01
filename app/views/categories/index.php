@@ -1,4 +1,4 @@
-<?php //$this->setSiteTitle('Home');
+<?php 
 	//$topProducts = $this->_data[0];   get top products
 ?>
 	
@@ -11,6 +11,7 @@
     $category_title = $data['category_title'];
     $sub_categories = $data['sub_categories'];
     $category_array = $data['category_array'];
+    $this->setSiteTitle($category_title);
 	// $topProducts = $data['topProducts'];
 	//dnd($topProducts);
      //dnd($categories);
@@ -35,7 +36,7 @@
 	}
     ?>
 
-    <section class="banner-area organic-breadcrumb">
+    <!--<section class="banner-area organic-breadcrumb">
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
@@ -48,7 +49,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section>-->
     <!-- End Banner Area -->
     <br>
     <div class="container">
@@ -66,7 +67,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="single-deal">
                                     <div class="overlay"></div>
-                                    <img class="img-fluid w-100" src="<?=PROOT?>img/category/c1.jpg" alt="">
+                                    <img class="img-fluid w-100" src="<?=PROOT . $cat->get_image()?>" alt="">
                                     <a href="<?=PROOT?>browse/loadCategories/<?=$cat->get_category_id()?>">
                                         <div class="deal-details">
                                             <h6 class="deal-title"><?=$cat->get_title()?></h6>

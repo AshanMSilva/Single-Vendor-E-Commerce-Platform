@@ -296,4 +296,20 @@ class DB{
 		}
 	}
 
+	public function get_pdo(){
+		return $this->_pdo;
+	}
+
+	public function begin_transaction(){
+		$this->_pdo->beginTransaction();
+	}
+
+	public function commit(){
+		$this->_pdo->commit();
+	}
+
+	public function rollback(){
+		$this->_pdo->rollback();
+	}
+
 }

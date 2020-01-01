@@ -85,7 +85,9 @@
 
                             // dnd($_SESSION);
                             Alert::set('Welcome to C Stores E-Commerce Platform');
-                            Router::redirect('home/index');
+                            Session::set('logged_in',true);
+                            Router::redirect('home/registerlogged');
+                            
                         }
                     }
                     else{

@@ -11,6 +11,7 @@
     $category_title = $data['category_title'];
     $cat_products = $data['category_products'];
     $category_array = $data['category_array'];
+    $this->setSiteTitle($category_title);
 	// $topProducts = $data['topProducts'];
 	//dnd($topProducts);
      //dnd($categories);
@@ -35,7 +36,7 @@
 	}
     ?>
 
-    <section class="banner-area organic-breadcrumb">
+    <!--<section class="banner-area organic-breadcrumb">
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
@@ -48,7 +49,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section>-->
     <!-- End Banner Area -->
     <br>
     <div class="container">
@@ -76,10 +77,10 @@
                                     </div>
                                     <div class="prd-bottom">
 
-                                        <a href="" class="social-info">
+                                        <!--<a href="" class="social-info">
                                             <span class="ti-bag"></span>
                                             <p class="hover-text">add to bag</p>
-                                        </a>
+                                        </a>-->
                                         <a href="" class="social-info">
                                             <span class="lnr lnr-heart"></span>
                                             <p class="hover-text">Wishlist</p>
@@ -88,7 +89,7 @@
                                             <span class="lnr lnr-sync"></span>
                                             <p class="hover-text">compare</p>
                                         </a>-->
-                                        <a href="" class="social-info">
+                                        <a href="<?=PROOT?>browse/viewProduct/<?=$product->get_product_id()?>" class="social-info">
                                             <span class="lnr lnr-move"></span>
                                             <p class="hover-text">view more</p>
                                         </a>

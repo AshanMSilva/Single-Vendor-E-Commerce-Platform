@@ -18,6 +18,8 @@
                         Alert::set('LogIn Successful');
                         $reg_cust = RegisteredCustomer::create_reg_cust($email);
                         $id = $reg_cust->get_id();
+                        //Session::set('current_logged_in_customer', $id);
+                        Session::set('logged_in', true);
                         Session::set('registered_customer', $id);
 
                         if(Session::exists('my_cart')){
@@ -51,6 +53,7 @@
                     }
                     else{
                         Alert::set('Invalid Password');
+                        Router::redirect('home/index');
                     }                    
                 }
                 else{
@@ -91,17 +94,23 @@
                             // dnd(password_verify("Sahan@123", $hash));
                             // dnd($post_array);
                             // dnd($_SESSION);
+                            // $reg_cust = new RegisteredCustomer($post_array);
+                            // dnd($reg_cust);
+                            // $reg_cust->insert_customer($post_array);
+                            
                             Session::delete('signup_details');
                             Session::set('signup_details', $post_array);
                             // dnd($_SESSION);                       
                             Router::redirect('email/validate');
                         }
                         else{
+                            
                             Alert::set('Password and Re-Password fields are not the same');
                             Router::redirect('home/index');
                         }                      
                     }
                     else{
+                        //dnd($password);
                         $script ='$(window).on("load",function(){
                             $("#loginModal").modal("show");
                         });';
@@ -127,8 +136,6 @@
         //    Alert::set('Successfully logged as a guest..!'); 
         //    Router::redirect('home/guestlogged');
         //}
-
-        public function forgotpasswordAction(){
-
-        }
+        
+        
     }
