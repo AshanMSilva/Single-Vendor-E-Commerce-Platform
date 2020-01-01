@@ -40,6 +40,34 @@ class Product extends Model{
         // dnd($variant);
         $this->variants = $variant; 
     }
+    public static function get_reach_period($product_id){
+        $db=DB::getInstance();
+        $date_count=array();
+        $resultQ=$db->call_procedure('get_reach_period',$product_id);
+        $num=count($resultQ);
+        $date=$resultQ[0]->order_date;
+        $end_date=$resultQ[$num-1]->order_date;
+        for($i=0;$i<$num;$i++){
+            $temp_date=$resultQ[$i]->order_date;
+            $count=$resultQ[$i]->cc;
+            $date_count[$temp_date]=$count;
+        }
+        date_default_timezone_set('UTC');
+        $final=array();
+        while (strtotime($date) <= strtotime($end_date)) {
+            $datea=explode('-',$date);
+            $year=$datea[0]; $month=$datea[1]; $day=$datea[2];
+            if(array_key_exists($date,$date_count)==false){ 
+                array_push($final,[[$year,$month,$day],0]);
+            }
+            else{
+                array_push($final,[[$year,$month,$day],(int)$date_count[$date]]);
+            }
+            $date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
+
+        } 
+        return $final;
+    }
     public static function get_mostsales_products($date1,$date2){
         $db=DB::getInstance();
         //call procedure not working....

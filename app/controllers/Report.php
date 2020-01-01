@@ -10,6 +10,14 @@ class Report extends Controller{
         $this->view->setLayout('normal');
         $this->view->render('report/index');
     }
+    public function most_reach_periodAction(){
+        $product_id=8;
+        $date_count=Product::get_reach_period($product_id);
+        $this->view->setLayout('normal');
+        $this->view->render('report/reach_period',$date_count);
+        
+
+    }
 
     public function category_ordersAction(){
         $result=Category::get_category_with_most_orders();
