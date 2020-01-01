@@ -16,9 +16,9 @@ class Orders extends Controller{
 		$this->view->render('orders/vieworder',$passdata);
 	}
 	public function trackbyidAction($data=[]){
-		$passdata=[$_POST['order']];
 		$db=DB::getInstance();
-		$result = $db->call_procedure('get_order_info',[$_POST['order']]);
+		$result = $db->call_procedure('get_order_info_by_track',[$_POST['track']]);
+		$passdata = (isset($result[0]->order_id)) ? [$result[0]->order_id] : null ;
 		array_push($passdata,$result);
 		$this->view->render('orders/vieworder',$passdata);
 	}
@@ -35,13 +35,13 @@ class Orders extends Controller{
 		$order_id = $orderrecord->order_id;
 		$date = $orderrecord->order_date ;
 		$totalprice = $orderrecord->amount;
-		$currentlocation = $orderrecord->tracking_info;
+		$tracking_id = $orderrecord->tracking_info;
 		$status = $orderrecord->status ;
 		$ViewLink = PROOT.'orders/vieworder/'.$order_id;
 		$deleteLink = '#';
 		echo "<div class='table-row'>
 				  <div class='serial'>";
-				echo $order_id;
+				echo $tracking_id;
 			echo "</div>";
 			echo "<div class='country'>";
 				echo $date;
@@ -50,9 +50,6 @@ class Orders extends Controller{
 				echo $totalprice;
 			echo "</div>";
 			
-			echo "<div class='visit'>";
-				echo $currentlocation;
-			echo "</div>";
 			
 			echo "<div class='visit'>";
 				echo $status;
@@ -111,10 +108,9 @@ class Orders extends Controller{
 								<div class='progress-table-wrap'>
 									<div class='progress-table'>
 										<div class='table-head'>
-											<div class='serial'>Order ID</div>
+											<div class='serial'>Track ID</div>
 											<div class='country'>Date</div>
 											<div class='visit'>Total Price</div>
-											<div class='visit'>Current Location</div>
 											<div class='visit'>Status</div>
 											<div class='visit'></div>
 											<div class='visit'>	</div>
@@ -143,7 +139,7 @@ class Orders extends Controller{
                 <p>To track your order please enter your Order ID in the box below and press the 'Track' button.</p>
                 <form class='row tracking_form' action='".$action."' method='post' novalidate='novalidate'>
                     <div class='col-md-12 form-group'>
-                        <input type='text' class='form-control' id='order' name='order' placeholder='Order ID' onfocus='this.placeholder = ''' onblur='this.placeholder = 'Order ID''>
+                        <input type='text' class='form-control' id='track' name='track' placeholder='Track ID' onfocus='this.placeholder = ''' onblur='this.placeholder = 'Track ID''>
                     </div>
                     <div class='col-md-12 form-group'>
                         <button type='submit' value='submit' name='submit' class='primary-btn'>Track Order</button>

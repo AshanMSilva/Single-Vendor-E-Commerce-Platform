@@ -9,38 +9,39 @@
     <!--==============get order id from link================-->
             	<?php $order_id = $data[0];
             	$record  = (isset($data[1][0])) ? $data[1][0] : 0 ;
-            	$cardstring = strval($record->card_number);
-            	if (isset($_POST['cardnumber'])) {
-            		$postcardstring = strval($_POST['cardnumber']);
+            	$trackstring = strval($record->tracking_info);
+             	//dnd($record);
+
+            	if (isset($_POST['track'])) {
+            		$posttrackstring = strval($_POST['track']);
 
             	} else {
-            		$postcardstring = 'none';
+            		$posttrackstring = 'none';
             	}
             	
             	//exit();
-            	//dnd($record);
             	//dnd($_POST);
 
             	if (is_int($record)){
-            		if (isset($_POST['cardnumber']) and $record==0) {
+            		if (isset($_POST['track']) and $record==0 and $_SESSION['logged_in']==true) {
 	            		 $this->end();
-	            		 Alert::set('The Order ID does not exist. Please enter a valid ID.');
-	            		 Router::redirect('orders/guestvieworder');
+	            		 Alert::set('The Tracking ID does not exist. Please enter a valid ID.');
+	            		 Router::redirect('orders/uservieworder');
 	            	}
-	            	elseif ($record==0) {
+	            	elseif (isset($_POST['track']) and $record==0) {
 	            		 $this->end();
-	            		 Alert::set('The Order ID does not exist. Please enter valid ID.');
+	            		 Alert::set('The Tracking ID does not exist. Please enter a valid ID.');
 	            		 Router::redirect('orders/uservieworder');
 	            	}
 	            	
 	            }
 	            else{
-	            	if (isset($_POST['cardnumber'])and $record->card_number=='' ) {
+	            	if (isset($_POST['track'])and $record->tracking_info=='' ) {
 	            		 $this->end();
 	            		 Alert::set('The Order ID does not exist for this card number. Please enter a valid Card number.');
 	            		 Router::redirect('orders/guestvieworder');
 	                }
-	                elseif (isset($_POST['cardnumber']) and $cardstring!=$postcardstring) {
+	                elseif (isset($_POST['track']) and $trackstring!=$posttrackstring) {
 	                	$this->end();
 	            		 Alert::set('Please enter The correct card number');
 	            		 Router::redirect('orders/guestvieworder');
@@ -72,7 +73,7 @@
 					<div class="details_item">
 						<h4>Order Info</h4>
 						<ul class="list">
-							<li><span>Order ID</span> : <?php echo $order_id ?> </li>
+							<li><span>Track ID</span> : <?php echo $record->tracking_info ?> </li>
 							<li><span>Date</span> : <?php echo $record->order_date; ?></li>
 							<li><span>Total</span> : <?php echo $record->amount; ?></li>
 							<li><span>Payment method</span> : <?php echo $record->payment_method; ?></li>
@@ -126,7 +127,7 @@
 					<div class="details_item">
 						<h4>Current Location</h4>
 						<ul class="list">
-							<li><?php echo $record->tracking_info; ?></li>
+							<li><?php echo $record->current_location; ?></li>
 						</ul>
 					</div>
 				</div>
