@@ -111,7 +111,8 @@
 								<h5></h5>
 							</td>
 							<td>
-								<h5>$<?=$data['total']?></h5>
+								<?php $total = number_format($data['total'], 2, '.', ','); ?>
+								<h5>$<?=$total?></h5>
 							</td>
 						</tr>  							
 					</tbody>
