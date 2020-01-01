@@ -23,36 +23,19 @@
             	//dnd($_POST);
 
             	if (is_int($record)){
-            		if (isset($_POST['track']) and $record==0 and $_SESSION['logged_in']==true) {
+            		if ($record==0 and $_SESSION['logged_in']==true) {
 	            		 $this->end();
-	            		 Alert::set('The Tracking ID does not exist. Please enter a valid ID.');
+	            		 Alert::set('Either the Tracking ID does not exist Or This is a store pickup. Please check the tracking ID!');
 	            		 Router::redirect('orders/uservieworder');
 	            	}
-	            	elseif (isset($_POST['track']) and $record==0) {
+	            	elseif ($record==0) {
 	            		 $this->end();
-	            		 Alert::set('The Tracking ID does not exist. Please enter a valid ID.');
-	            		 Router::redirect('orders/uservieworder');
+	            		 Alert::set('Either the Tracking ID does not exist Or This is a store pickup. Please check the tracking ID!');
+	            		 Router::redirect('orders/guestvieworder');
 	            	}
 	            	
 	            }
-	            else{
-	            	if (isset($_POST['track'])and $record->tracking_info=='' ) {
-	            		 $this->end();
-	            		 Alert::set('The Order ID does not exist for this card number. Please enter a valid Card number.');
-	            		 Router::redirect('orders/guestvieworder');
-	                }
-	                elseif (isset($_POST['track']) and $trackstring!=$posttrackstring) {
-	                	$this->end();
-	            		 Alert::set('Please enter The correct card number');
-	            		 Router::redirect('orders/guestvieworder');
-	                }
-	            	// elseif ($record->customer_id!=$_SESSION['registered_customer']) {
-		            // 	$this->end();
-	            	// 	 Alert::set('There are no orders under this ID for this account');
-	            	// 	 Router::redirect('orders/uservieworder');
-	           		// }	
-	            }
-				
+	           
 
 
 
