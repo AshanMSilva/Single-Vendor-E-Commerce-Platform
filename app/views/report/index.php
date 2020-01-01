@@ -38,7 +38,7 @@
                              
                                 <div>
                                     <form action="<?=PROOT?>report/quarterly_sales_report" method = 'post'>
-                                        Year :<input id="year" name="year" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'From'"
+                                        Year :<input id="year" name="year" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'year'"
                                  required class="single-input" required>
                                         <button type="submit" class="genric-btn success circle"> View Report</button>
                                     </form>
