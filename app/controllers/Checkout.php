@@ -108,7 +108,7 @@ class Checkout extends Controller{
     public function confirmCheckoutAction(){
 
         if(isset($_POST['confirm_checkout']) && Session::exists('order_data')){
-            dnd($_POST);
+            //dnd($_POST);
             $post_array = Input::get_array($_POST, ['confirm_checkout']);
             $order_data = Session::get('order_data');
             // dnd($post_array);         

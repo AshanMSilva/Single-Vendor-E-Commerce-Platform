@@ -180,25 +180,32 @@
 
                                         <?php $count = count($data['reg_cust']['cards']); ?>
                                         <p>Insert a new card or select one from the dropdown</p>
-                                        <select id="card_list" name="card_list" class="">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                        <select id="card_list" name="card_list" class="col-sm-10 offset-col-1">
                                             <option value="no_select" selected="selected">No card selected</option>
                                             <?php for($i = 0; $i < $count;  $i++): ?>
                                                 <option value="<?=$data['reg_cust']['cards'][$i]?>"><?=$data['reg_cust']['cards'][$i]?></option>
                                             <?php endfor; ?>
                                         </select>
+                                        </div>
                                     <?php endif; ?>
-                                    <input type="text" name="card_number" id="card_num" value="" placeholder="card number" pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}" disabled>                                                           
-                                    <div class="check"></div>
+                                                                                               
+                                    <div class="col-sm-6">
+                                    <input class="col-sm-10 offset-col-1 form-control" type="text" name="card_number" id="card_num" value="" placeholder="card number" pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}" disabled>
+                                    </div>
+                                    </div>
                                 </div>                                
-                            </div>
+                            
                             <!--<div class="creat_account">
                                 <input type="checkbox" id="f-option4" name="selector">
                                 <label for="f-option4">I’ve read and accept the </label>
                                 <a href="#">terms & conditions*</a>
                             </div>-->
                             <!-- <a class="primary-btn" href="#">Proceed to Paypal</a> -->
-                            <div class="col-md-12 col-lg-6 offset-lg-3 form-group">
-                                <button class="primary-btn" type="submit" name="confirm_checkout" value="confirm">Confirm Checkout</button>
+                            <div class="col-md-12 form-group">
+                                <button class="genric-btn primary radius col-6 offset-sm-3" type="submit" name="confirm_checkout" value="confirm">Confirm Checkout</button>
+                            </div>
                             </div>
                         </form>
                     </div>

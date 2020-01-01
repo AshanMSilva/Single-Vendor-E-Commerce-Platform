@@ -67,7 +67,7 @@
 				</div>
 			</div>
 		</div>-->
-		<div class="order_details_table">
+		<div class="order_details_table col-sm-12">
 			<h2>Order Details</h2>
 			<div class="table-responsive">
 				<table class="table">
