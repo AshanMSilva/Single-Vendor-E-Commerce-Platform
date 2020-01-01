@@ -16,9 +16,7 @@
     <meta charset="UTF-8">
     <!-- Site Title -->
     <title><?= $this->siteTitle()?></title>
-    <?php
-		$root_categories = Category::get_root_categories();
-	?>
+
     <!--
             CSS
             ============================================= -->
@@ -77,9 +75,8 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false"><span class="fa fa-list"></span> Category</a>
 								<ul class="dropdown-menu">
-                                    <?php foreach($root_categories as $cat): ?>
-										<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/<?=$cat->get_category_id()?>"> <?=$cat->get_title()?></a></li>
-									<?php endforeach; ?>
+                                    <li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/1">Electronics</a></li>
+									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/2">Toys</a></li>
 									<!--<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
 									<li class="nav-item"><a class="nav-link" href="">Category2</a></li>
 									<li class="nav-item"><a class="nav-link" href="">Category3</a></li>-->
@@ -88,20 +85,19 @@
 								</ul>
 							</li>
                             <li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact"><span class="fa fa-comments"></span> Contact</a></li>
-                            <li class="nav-item"><a class="nav-link" href="<?=PROOT?>/report"><span class="fa fa-info"></span> AboutUs</a></li>
                             <li class="nav-item"><a href="<?=PROOT?>myCart" class="cart nav-link"><span class="ti-shopping-cart"></span></a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
                             
-							<li class="nav-item">
+							<!-- <li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 				</div>
 			</nav>
 		</div>
-		<div class="search_input" id="search_input_box">
+		<!-- <div class="search_input" id="search_input_box">
 			<div class="container">
                 <form class="d-flex justify-content-between" action="<?=PROOT?>search/searchResult" method="GET">
 					<input type="text" class="form-control" id="key" name="key" placeholder="Search For Anything.." required> 
@@ -109,7 +105,7 @@
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 				</form>
 			</div>
-		</div>
+		</div> -->
 	</header>
 	<!-- End Header Area -->
 
@@ -214,7 +210,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- End footer Area -->
     
 
-        <script type="text/javascript" src="<?=PROOT?>js/dist/ido.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript" src="<?=PROOT?>js/dist/jautocalc.js"></script>
 		<script type="text/javascript">
 		<!--

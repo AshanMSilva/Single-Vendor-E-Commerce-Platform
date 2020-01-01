@@ -233,8 +233,8 @@
 				<div class="row justify-content-center">
 					<div class="col-lg-6 text-center">
 						<div class="section-title">
-							<h1>Top Products</h1>
-							<p>Our top product which have highest number of orders in last month</p>
+							<h1>Trending Products</h1>
+							<p>Products which have the highest number of orders in last month</p>
 						</div>
 					</div>
 				</div>
@@ -243,7 +243,8 @@
 					<?php foreach($topProducts as $product): ?>
 					<div class="col-lg-3 col-md-6">
 						<div class="single-product">
-							<img class="img-fluid" src="<?=PROOT?>img/product/p1.jpg" alt="">
+							<a href="<?=PROOT?>browse/viewProduct/<?=$product->get_product_id()?>">
+							<img class="img-fluid" src="<?=PROOT?>img/product/p1.jpg" alt=""></a>
 							<div class="product-details">
 								<h6><strong><?=$product->get_title()?></strong></h6>
 								<h6>From: <strong><?=$product->get_brand()?></strong></h6>

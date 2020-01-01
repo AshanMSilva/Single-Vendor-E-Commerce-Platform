@@ -16,7 +16,9 @@
 	<meta charset="UTF-8">
 	<!-- Site Title -->
 	<title><?= $this->siteTitle()?></title>
-	
+	<?php
+		$root_categories = Category::get_root_categories();
+	?>
 	<!--
 		CSS
 		============================================= -->
@@ -78,14 +80,16 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false"><span class="fa fa-list"></span> Category</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/1">Electronics</a></li>
-									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/2">Toys</a></li>
+									<?php foreach($root_categories as $cat): ?>
+										<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/<?=$cat->get_category_id()?>"> <?=$cat->get_title()?></a></li>
+									<?php endforeach; ?>
 									<!--<li class="nav-item"><a class="nav-link" href="">Category3</a></li>-->
 									<!--<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
 								</ul>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact"><span class="fa fa-comments"></span> Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/report"><span class="fa fa-info"></span> AboutUs</a></li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false"><span class="ti-user"></span></a>

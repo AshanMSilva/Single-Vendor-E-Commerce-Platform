@@ -16,6 +16,9 @@
 	<meta charset="UTF-8">
 	<!-- Site Title -->
 	<title><?= $this->siteTitle()?></title>
+	<?php
+		$root_categories = Category::get_root_categories();
+	?>
 	<!--
 		CSS
 		============================================= -->
@@ -77,8 +80,9 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false"><span class="fa fa-list"></span> Category</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/1">Electronics</a></li>
-									<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/2">Toys</a></li>
+									<?php foreach($root_categories as $cat): ?>
+										<li class="nav-item"><a class="nav-link" href="<?=PROOT?>browse/loadCategories/<?=$cat->get_category_id()?>"> <?=$cat->get_title()?></a></li>
+									<?php endforeach; ?>									
 									<!--<li class="nav-item"><a class="nav-link" href="">Category1</a></li>
 									<li class="nav-item"><a class="nav-link" href="">Category2</a></li>
 									<li class="nav-item"><a class="nav-link" href="">Category3</a></li>-->
@@ -87,6 +91,7 @@
 								</ul>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact"><span class="fa fa-comments"></span> Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/report"><span class="fa fa-info"></span> AboutUs</a></li>
 							<li class="nav-item"><a href="" class="account nav-link" data-target="#loginModal" data-toggle="modal"><span class="ti-user"></span></a></li>
 							<li class="nav-item"><a href="<?=PROOT?>myCart" class="cart  nav-link"><span class="ti-shopping-cart"></span></a></li>
 						</ul>
@@ -213,6 +218,12 @@
 									<input type="password" class="form-control" id="re-password" name="re-password" placeholder="Re-Password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$@#!%*?&]).{6,20}" 
 									title="Must contain at least one number and one uppercase and lowercase letter, at least one special character and at least 6 or more characters without spaces" 
 									onfocus="this.placeholder = ''" onblur="this.placeholder = 'Re-Password'" required>
+								</div>
+								<div class="col-md-6 form-group">
+									<input type="text" class="form-control" id="contact1" name="contact1" placeholder="Contact Number" pattern="[0-9]{10}" title="10 digit phone number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact Number'" required>
+								</div>
+								<div class="col-md-6 form-group">
+									<input type="text" class="form-control" id="contact2" name="contact2" placeholder="Contact Number(Optional)" pattern="[0-9]{10}" title="10 digit phone number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact Number(Optional)'" >
 								</div>
 								<div class="col-md-6 col-lg-4 form-group">
 									<input type="number" class="form-control" id="houseNumber" name="house_number" placeholder="House Number" min="1" onfocus="this.placeholder = ''" onblur="this.placeholder = 'House Number'" required>

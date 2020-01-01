@@ -72,9 +72,9 @@
         public function signupAction(){
 
             if(isset($_POST['submit'])){ 
-                 //dnd($_POST);               
-                $post_array = $_POST;                
-                //dnd($post_array);
+                // dnd($_POST);               
+                $post_array = Input::get_array($_POST, ['submit']);                
+                // dnd($post_array);
                 if(!System::email_exists($post_array['email'])){        
                     
                     if(System::validate_password($post_array['password'])){
@@ -94,6 +94,10 @@
                             // dnd(password_verify("Sahan@123", $hash));
                             // dnd($post_array);
                             // dnd($_SESSION);
+                            // $reg_cust = new RegisteredCustomer($post_array);
+                            // dnd($reg_cust);
+                            // $reg_cust->insert_customer($post_array);
+                            
                             Session::delete('signup_details');
                             Session::set('signup_details', $post_array);
                             // dnd($_SESSION);                       
