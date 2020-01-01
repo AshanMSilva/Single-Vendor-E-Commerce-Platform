@@ -210,8 +210,9 @@
                                 <a href="#">terms & conditions*</a>
                             </div>-->
                             <!-- <a class="primary-btn" href="#">Proceed to Paypal</a> -->
-                            <div class="col-md-12 col-lg-6 offset-lg-3 form-group">
-                                <button class="primary-btn" type="submit" name="confirm_checkout" value="confirm">Confirm Checkout</button>
+                            <div class="col-md-12 form-group">
+                                <button class="genric-btn primary radius col-6 offset-sm-3" type="submit" name="confirm_checkout" value="confirm">Confirm Checkout</button>
+                            </div>
                             </div>
                         </form>
                     </div>

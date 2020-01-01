@@ -89,6 +89,7 @@
 								</ul>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/contact"><span class="fa fa-comments"></span> Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?=PROOT?>/report"><span class="fa fa-info"></span> AboutUs</a></li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false"><span class="ti-user"></span></a>
