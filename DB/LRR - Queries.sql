@@ -46,8 +46,9 @@ SELECT title , price , quantity FROM products natural join variants as t JOIN or
 --take by 3 months
 --columns  
 -- | item | Q1 | Q2 | Q3 | Q4 | total 
+--input y_in
 
-SELECT order_id, order_date ,Q , k.product_id as product_id,k.variant_id as variant_id, quantity, price ,quantity*price as total, SUM(quantity*price) as product_total FROM (SELECT * FROM (SELECT order_id as id, order_date,Quarter(`order_date`)as Q FROM `orders` WHERE YEAR(`order_date`)='2019')as t JOIN `order_details` on t.id = order_details.order_id) as k JOIN variants on k.variant_id = variants.variant_id GROUP BY product_id
+SELECT order_date ,Q , tt.product_id as product_id,title, brand , product_total ,product_quantity FROM (SELECT order_date ,Q , k.product_id as product_id,k.variant_id as variant_id , SUM(quantity*price) as product_total , SUM(quantity)as product_quantity FROM (SELECT * FROM (SELECT order_id as id, order_date,Quarter(`order_date`)as Q FROM `orders` WHERE YEAR(`order_date`)=y_in)as t JOIN `order_details` on t.id = order_details.order_id) as k JOIN variants on k.variant_id = variants.variant_id GROUP BY product_id , Q)as tt LEFT JOIN products on tt.product_id=products.product_id
 
 
 
