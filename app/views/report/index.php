@@ -1,28 +1,7 @@
 
 	
 <?php $this->start('head')?>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {box-sizing: border-box}
 
-.container {
-  width: 100%;
-
-}
-
-.skills {
-  text-align: right;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  color: white;
-}
-
-.class1 { background-color: #4CAF50;}
-.class2 { background-color: #2196F3;}
-.class3 { background-color: #f44336;}
-.class4 { background-color: #808080;}
-.class5 { background-color: #2146F3;}
-</style>
 </head>
 
 <?php $this->end()?>
@@ -45,7 +24,7 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-6 text-center">
                             <div class="section-title">
-                            <h1>Quick Report</h1> 
+                            <h1>Quick Reports</h1> 
                             </div>
                         </div>
                     </div>
@@ -67,6 +46,14 @@
                                     <!-- <a href="<?=PROOT?>report/most_sales_products">View Report</a>    -->
                                     </form>    
                                 </div>
+                                <div>
+                                    <label for="">Mose interested period</label>
+                                    <form action="<?=PROOT?>report/most_reach_period" method="GET">
+                                        Product id :<input name="id" type="text">
+                                        <button type="submit"> View Report</button>
+                                    </form>
+                                </div>                               
+                             
                                 <div>
                                     <form action="<?=PROOT?>report/quartery_report"></form>
                                         Year :<input type="text">

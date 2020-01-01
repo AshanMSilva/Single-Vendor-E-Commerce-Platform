@@ -84,7 +84,8 @@ class Product extends Model{
         foreach($resultQ as $result){
             $title=$result->title;
             $count=$result->cc;
-            $products[$title]=$count;
+            array_push($products,[$title,$count]);
+            // $products[$title]=$count;
         }
         return [$products,$numAll];
 
