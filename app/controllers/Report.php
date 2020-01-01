@@ -15,10 +15,7 @@ class Report extends Controller{
         $date_count=Product::get_reach_period($product_id);
         $this->view->setLayout('normal');
         $this->view->render('report/reach_period',$date_count);
-        
-
     }
-
     public function category_ordersAction(){
         $result=Category::get_category_with_most_orders();
         $this->view->setLayout('normal');

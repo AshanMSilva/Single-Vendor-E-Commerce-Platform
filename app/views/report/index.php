@@ -68,6 +68,14 @@
                                     </form>    
                                 </div>
                                 <div>
+                                    <label for="">Mose interested period</label>
+                                    <form action="<?=PROOT?>report/most_reach_period" method="GET">
+                                        Product id :<input name="id" type="text">
+                                        <button type="submit"> View Report</button>
+                                    </form>
+                                </div>                               
+                             
+                                <div>
                                     <form action="<?=PROOT?>report/quartery_report"></form>
                                         Year :<input type="text">
                                         <button type="submit"> View Report</button>
