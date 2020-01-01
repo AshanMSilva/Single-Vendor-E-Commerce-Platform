@@ -26,6 +26,9 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_category_with_most_orders` ()  NO SQL
+select categories.title, sum(order_details.quantity) as cc from order_details join product_category_relations USING (product_id) join categories using(category_id) group by category_id order by cc DESC limit 10$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_Product_sales_count` ()  NO SQL
 SELECT sum(quantity) as cc from orders INNER JOIN order_details using(order_id) where orders.order_date BETWEEN date1 and date2$$
 

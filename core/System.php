@@ -1,7 +1,7 @@
 <?php
     class System{
         public static function sendmail($email, $subject, $message){
-            $header = "From: ashansilva.17@cse.mrt.ac.lk";
+            $header = "From: aclakith@gmail.com";
             if(mail($email, $subject, $message, $header)){
                 return true;
             }

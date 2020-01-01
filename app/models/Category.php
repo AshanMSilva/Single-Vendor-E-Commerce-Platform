@@ -19,7 +19,8 @@ class Category extends Model{
             $title=$result->title;
             
             $count=$result->cc;
-            $categories[$title]=$count;
+            array_push($categories,[$title,$count]);
+            // $categories[$title]=$count;
         }
         return [$categories,$numAll];
 
