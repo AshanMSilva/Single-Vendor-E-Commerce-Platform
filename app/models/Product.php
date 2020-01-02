@@ -46,7 +46,19 @@ class Product extends Model{
         $ss="select count(product_id) as ccc from order_details where product_id = ".$product_id;
         $all=$db->query($ss)->results()[0]->ccc;
         if($all=='0'){
-            $final='x';
+            $dd="select order_date from orders order by order_date";
+            $resQ=$db->query($dd)->results();
+            $date=$resQ[0]->order_date;
+            $end_date=$resQ[count($resQ)-1]->order_date;
+            date_default_timezone_set('UTC');
+            $final=array();
+            while (strtotime($date) <= strtotime($end_date)) {
+                $datea=explode('-',$date);
+                $year=$datea[0]; $month=$datea[1]; $day=$datea[2];
+                array_push($final,[[$year,$month,$day],0]);
+                $date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
+
+            }
         }
         else{
             $resultQ=$db->call_procedure('get_reach_period',$product_id);
