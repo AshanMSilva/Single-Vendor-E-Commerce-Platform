@@ -83,6 +83,9 @@ columnTemplate.strokeOpacity = 1;
 </script>
 
 <!-- HTML -->
+<h3 class="mb-30">Sales of Product by Period - <?php echo " ".$period;?></h3>
+<br>
+<h5>Income (Dollars)</h5>
 <div id="chartdiv"></div>
 
 

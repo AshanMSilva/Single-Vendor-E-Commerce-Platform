@@ -92,7 +92,7 @@
                             <h3 class="text-heading">Product's Interest with Time</h3>
                             <div class="button-group-area mt-40">
                                 <div>
-                                    <form action="<?=PROOT?>report/most_reach_period" method="GET">
+                                    <form action="<?=PROOT?>report/most_reach_period" method="POST">
                                         Product id :<input name="id" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Product ID'"
                                  required class="single-input" required>
                                         <button type="submit" class="genric-btn success circle"> View Report</button>
