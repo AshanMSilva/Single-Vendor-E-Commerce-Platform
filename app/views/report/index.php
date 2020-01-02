@@ -69,7 +69,7 @@
 
                             <div class="button-group-area mt-40">
                                 <div>
-                                    <form action="<?=PROOT?>report/most_sales_products" method="GET">
+                                    <form action="<?=PROOT?>report/most_sales_products" method="POST">
                                         From :<input type="date" name="from" onfocus="this.placeholder = ''" onblur="this.placeholder = 'From'"
                                  required class="single-input" required>
                                         To: <input type="date" name="to" onfocus="this.placeholder = ''" onblur="this.placeholder = 'To'"

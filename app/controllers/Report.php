@@ -31,8 +31,8 @@ class Report extends Controller{
         $this->view->render('report/category_orders',$result);
     }
     public function most_sales_productsAction(){
-        $date1=$_GET["from"];
-        $date2=$_GET["to"];
+        $date1=$_POST["from"];
+        $date2=$_POST["to"];
         if($date1>=$date2){
             Alert::set("Given Period is Not Valid!!");
             Alert::displayscriptalert();     
@@ -40,10 +40,9 @@ class Report extends Controller{
             $this->view->render('report/index');       
         }
         else{
-        $result=Product::get_mostsales_products($date1,$date2);
-        $products=$result[0];
-        $numAll=$result[1];
-        $period=[$date1,$date2];
+        $products=Product::get_mostsales_products($date1,$date2);
+        $numAll=1;
+        $period=$date1." - ".$date2;
         $data=[$products,$numAll,$period];
         
         $this->view->setLayout('normal');
