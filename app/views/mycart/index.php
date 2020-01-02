@@ -10,7 +10,13 @@
 		if(empty($data[0])){
 			//dnd($data);
 			?>
-			<h2>There is no items in your cart</h2>
+            <br>
+            <div class="col-md-4"></div>
+            <div class="col-md-12">
+                <img class="img-fluid" src="<?=PROOT?>img/empty1.jpg" alt="">
+            </div>
+            <div class="col-md-4"></div>
+			<!-- <h2>There is no items in your cart</h2> -->
 		<?php
 		}
 		else{

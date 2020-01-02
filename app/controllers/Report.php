@@ -11,8 +11,15 @@ class Report extends Controller{
         $this->view->render('report/index');
     }
     public function most_reach_periodAction(){
-        $product_id=$_GET['id'];
+        $product_id=$_POST['id'];
         $date_count=Product::get_reach_period($product_id);
+        if($date_count=='x'){
+            
+            Alert::set('given product has not sales');
+            Alert::displayscriptalert();
+            $this->view->setLayout('normal');
+            $this->view->render('report/index');
+        }
         $this->view->setLayout('normal');
         $this->view->render('report/reach_period',$date_count);
     }

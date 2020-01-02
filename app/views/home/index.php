@@ -129,7 +129,7 @@
 					<div class="col-lg-6 col-md-6">
 						<div class="single-deal">
 							<div class="overlay"></div>
-							<img class="img-fluid w-100" src="<?=PROOT?>img/category/c1.jpg" alt="">
+							<img class="img-fluid w-100" src="<?=PROOT . $cat->get_image()?>" alt="">
 							<a href="<?=PROOT?>browse/loadCategories/<?=$cat->get_category_id()?>">
 								<div class="deal-details">
 									<h6 class="deal-title"><?=$cat->get_title()?></h6>

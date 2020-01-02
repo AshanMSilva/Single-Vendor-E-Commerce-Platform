@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2020 at 08:34 AM
+-- Generation Time: Jan 01, 2020 at 06:25 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -33,7 +33,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_Product_sales_count` ()  NO
 SELECT sum(quantity) as cc from orders INNER JOIN order_details using(order_id) where orders.order_date BETWEEN date1 and date2$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_most_sales_products` (IN `date1` DATE, IN `date2` DATE)  NO SQL
-SELECT products.title, sum(order_details.quantity) as cc from orders INNER JOIN order_details using(order_id) INNER JOIN products using(product_id) WHERE orders.order_date BETWEEN date1 AND date2 GROUP BY order_details.product_id ORDER BY  cc DESC$$
+SELECT products.title, sum(order_details.quantity*price)  as cc from orders INNER JOIN order_details using(order_id) INNER JOIN products using (product_id) INNER JOIN variants using(variant_id)  WHERE orders.order_date BETWEEN date1 AND date2  GROUP BY order_details.product_id ORDER BY order_date$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reach_period` (IN `p_id` INT)  NO SQL
 select sum(quantity) as cc, order_date from orders inner join order_details using(order_id)  where product_id=p_id group by order_date order by order_date$$
@@ -105,7 +105,11 @@ INSERT INTO `attributes` (`product_id`, `variant_id`, `attribute_name`, `value`)
 (2, 13, 'Processor', 'Intel Core i7-8300U 3.0GHz'),
 (2, 13, 'Graphics', 'NVIDIA GeForce 940MX 4GB Dedicated VRAM'),
 (2, 13, 'HDD', '1000GB'),
-(2, 13, 'Color', 'Grey');
+(2, 13, 'Color', 'Grey'),
+(20, 44, 'Color', 'Black'),
+(20, 44, 'Display', '1.4 inch E-ink'),
+(20, 44, 'Resolution', '296 x 128'),
+(20, 44, 'Waterproof', 'Yes');
 
 -- --------------------------------------------------------
 
@@ -123,7 +127,9 @@ CREATE TABLE `card_details` (
 --
 
 INSERT INTO `card_details` (`customer_id`, `card_number`) VALUES
-(15, '2261 6739 1032 5511');
+(15, '2261 6739 1032 5511'),
+(15, '1425 7842 8246 3924'),
+(1, '1073 4497 2966 7215');
 
 -- --------------------------------------------------------
 
@@ -144,11 +150,15 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`customer_id`, `product_id`, `variant_id`, `quantity`, `removed_flag`) VALUES
-(15, 7, 18, 3, 0),
-(15, 2, 13, 4, 0),
-(15, 5, 5, 2, 0),
-(15, 6, 6, 1, 0),
-(15, 12, 12, 2, 1);
+(15, 7, 18, 3, 1),
+(15, 2, 13, 4, 1),
+(15, 5, 5, 2, 1),
+(15, 6, 6, 1, 1),
+(15, 12, 12, 2, 1),
+(15, 2, 2, 1, 0),
+(15, 11, 24, 2, 0),
+(1, 10, 10, 2, 1),
+(1, 14, 33, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -168,30 +178,30 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`category_id`, `title`, `description`, `image`) VALUES
-(1, 'Electronic Devices', NULL, NULL),
-(2, 'Toys', NULL, NULL),
-(3, 'Smart Phones', NULL, NULL),
-(4, 'Laptops', NULL, NULL),
-(5, 'Speakers', NULL, NULL),
-(6, 'Smart Watches', NULL, NULL),
-(7, 'TVs', NULL, NULL),
-(8, 'Computer Accessories', NULL, NULL),
-(9, 'Diecast Toy Vehicles', NULL, NULL),
-(10, 'Action Figures', NULL, NULL),
-(11, 'Normal Laptops', NULL, NULL),
-(12, 'Gaming Laptops', NULL, NULL),
-(13, 'Normal TVs', NULL, NULL),
-(14, 'Smart TVs', NULL, NULL),
-(15, 'Subwoofers', NULL, NULL),
-(16, 'Outdoor Speakers', NULL, NULL),
-(17, 'Android Phones', NULL, NULL),
-(18, 'iOS Phones', NULL, NULL),
-(19, 'LCD TVs', NULL, NULL),
-(20, 'LED TVs', NULL, NULL),
-(21, 'Plasma TVs', NULL, NULL),
-(22, 'Toy Vehicles', NULL, NULL),
-(23, 'Ride On Toy Vehicles', NULL, NULL),
-(24, 'Remote Control Vehicles', NULL, NULL);
+(1, 'Electronic Devices', NULL, 'img/category/electronic_devices.jpg'),
+(2, 'Toys', NULL, 'img/category/toys.jpg'),
+(3, 'Smart Phones', NULL, 'img/category/smartphones.jpg'),
+(4, 'Laptops', NULL, 'img/category/laptops.jpg'),
+(5, 'Speakers', NULL, 'img/category/speakers.jpg'),
+(6, 'Smart Watches', NULL, 'img/category/smartwatches.jpg'),
+(7, 'TVs', NULL, 'img/category/tvs.jpg'),
+(8, 'Computer Accessories', NULL, 'img/category/comp_access.jpg'),
+(9, 'Diecast Toy Vehicles', NULL, 'img/category/diecast_toy.jpg'),
+(10, 'Action Figures', NULL, 'img/category/action_figures.jpg'),
+(11, 'Normal Laptops', NULL, 'img/category/normal_laptops.jpg'),
+(12, 'Gaming Laptops', NULL, 'img/category/gaming_laptops.jpg'),
+(13, 'Normal TVs', NULL, 'img/category/normal_tv.jpg'),
+(14, 'Smart TVs', NULL, 'img/category/smart_tv.jpg'),
+(15, 'Subwoofers', NULL, 'img/category/subwoofers.jpg'),
+(16, 'Outdoor Speakers', NULL, 'img/category/outdoor_speakers1.jpg'),
+(17, 'Android Phones', NULL, 'img/category/android_phones.jpg'),
+(18, 'iOS Phones', NULL, 'img/category/ios_phones.jpg'),
+(19, 'LCD TVs', NULL, 'img/category/lcd_tv.jpg'),
+(20, 'LED TVs', NULL, 'img/category/led_tv.jpg'),
+(21, 'Plasma TVs', NULL, 'img/category/plasma_tv.jpg'),
+(22, 'Toy Vehicles', NULL, 'img/category/toy_vehicles.jpg'),
+(23, 'Ride On Toy Vehicles', NULL, 'img/category/ride_on_toys.jpg'),
+(24, 'Remote Control Vehicles', NULL, 'img/category/remote_control.jpg');
 
 -- --------------------------------------------------------
 
@@ -288,7 +298,8 @@ INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`) VALUES
 (13, 'Calvin', 'Harris'),
 (14, 'Alex', 'Benjamin'),
 (15, 'Sahan', 'Jayasinghe'),
-(16, 'Crowley', 'Stanford');
+(16, 'Crowley', 'Stanford'),
+(17, 'Gary', 'Benson');
 
 -- --------------------------------------------------------
 
@@ -322,6 +333,7 @@ CREATE TABLE `deliveries` (
   `courier_id` int(11) DEFAULT NULL,
   `delivery_method` varchar(20) NOT NULL,
   `tracking_info` varchar(100) DEFAULT NULL,
+  `current_location` varchar(20) DEFAULT NULL,
   `estimated_date` date DEFAULT NULL,
   `completed_date` date DEFAULT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'in-progress',
@@ -337,9 +349,10 @@ CREATE TABLE `deliveries` (
 -- Dumping data for table `deliveries`
 --
 
-INSERT INTO `deliveries` (`order_id`, `courier_id`, `delivery_method`, `tracking_info`, `estimated_date`, `completed_date`, `status`, `customer_contact`, `house_number`, `street`, `city`, `state`, `zip_code`) VALUES
-(16, NULL, 'delivery', '5e0a1a95a0dd9_955736', '2020-01-07', NULL, 'in-progress', '112-1356-298', 21, 'Reed Avenue', 'New Orleans', 'Nevada', '45781'),
-(17, NULL, 'delivery', '5e0ac2d450729_176886', '2020-01-05', NULL, 'in-progress', '112-1356-298', 21, 'Reed Avenue', 'New Orleans', 'Nevada', '45781');
+INSERT INTO `deliveries` (`order_id`, `courier_id`, `delivery_method`, `tracking_info`, `current_location`, `estimated_date`, `completed_date`, `status`, `customer_contact`, `house_number`, `street`, `city`, `state`, `zip_code`) VALUES
+(24, NULL, 'delivery', '5e0c55d40c245_761106', NULL, '2020-01-11', NULL, 'in-progress', '0714861225', 77, 'Loften Avenue', 'Philedelphia', 'Pennsylvania', '45107'),
+(28, NULL, 'store_pickup', '5e0c652880256_307699', NULL, '2020-01-09', NULL, 'in-progress', '0778963295', NULL, NULL, NULL, NULL, NULL),
+(29, NULL, 'delivery', '5e0ca097c5710_674301', NULL, '2020-01-11', NULL, 'in-progress', '0712789301', 75, 'Lorem Rd', 'Zuni', 'Rhode Island', '87771');
 
 -- --------------------------------------------------------
 
@@ -350,6 +363,13 @@ INSERT INTO `deliveries` (`order_id`, `courier_id`, `delivery_method`, `tracking
 CREATE TABLE `guest_customers` (
   `customer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `guest_customers`
+--
+
+INSERT INTO `guest_customers` (`customer_id`) VALUES
+(17);
 
 -- --------------------------------------------------------
 
@@ -464,8 +484,9 @@ INSERT INTO `orders` (`order_id`, `order_date`, `customer_id`, `deleted`) VALUES
 (13, '2019-12-08', 7, 0),
 (14, '2019-12-12', 8, 0),
 (15, '2019-12-15', 4, 0),
-(16, '2019-12-30', 15, 0),
-(17, '2019-12-31', 15, 0);
+(24, '2020-01-01', 15, 0),
+(28, '2020-01-01', 17, 0),
+(29, '2020-01-01', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -503,10 +524,13 @@ INSERT INTO `order_details` (`order_id`, `product_id`, `variant_id`, `quantity`)
 (9, 6, 6, 1),
 (9, 13, 31, 1),
 (10, 12, 12, 1),
-(16, 7, 18, 1),
-(16, 2, 13, 2),
-(17, 7, 18, 1),
-(17, 2, 13, 2);
+(24, 7, 18, 3),
+(24, 2, 13, 4),
+(24, 5, 5, 2),
+(24, 6, 6, 1),
+(28, 12, 27, 2),
+(29, 10, 10, 2),
+(29, 14, 33, 1);
 
 -- --------------------------------------------------------
 
@@ -526,8 +550,9 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`order_id`, `payment_method`, `amount`, `card_number`) VALUES
-(16, 'card', '362.00', '1425'),
-(17, 'card', '362.00', '2261');
+(24, 'card', '1038.56', '1425 7842 8246 3924'),
+(28, 'cash', '288.00', NULL),
+(29, 'card', '191.00', '1073 4497 2966 7215');
 
 -- --------------------------------------------------------
 
@@ -656,10 +681,10 @@ CREATE TABLE `registered_customers` (
 --
 
 INSERT INTO `registered_customers` (`customer_id`, `email`, `password`, `house_number`, `street`, `city`, `state`, `zip_code`) VALUES
-(1, 'johnfelix145@example.com', 'jfgORVR1nMRSlU4ZqwRl4Q==', 75, 'Lorem Rd', 'Zuni', 'Rhode Island', '87771'),
-(2, 'samhoward@example.com', 'pbI2BqjtDQR7tAI/d8xj0Q==', 19, 'Nascetur Ave', 'Housten', 'Texas', '32164'),
-(3, 'peterjenkins@example.com', 'ucWn7dKzF+J//fu+xVZIpQ==', 148, 'Venenatis St.', 'Glen Haven', 'Nevada', '76891'),
-(4, 'alicesummer@example.com', 'howZlIIY3Yx5XGXD4yliBg==', 6, 'Quam Street', 'Rowley', 'Alaska', '29510'),
+(1, 'johnfelix145@example.com', '$2y$10$AtwE5nzXJSXTOg6uwtLkRu317OAFue.U7biPgvT.AXCZQMwrsd9gK', 75, 'Lorem Rd', 'Zuni', 'Rhode Island', '87771'),
+(2, 'samhoward@example.com', '$2y$10$evVCkGUvD5Vm/ithaZK.WOavVa52ptCPFR/8rvVn43KbNPxp/JfvC', 19, 'Nascetur Ave', 'Housten', 'Texas', '32164'),
+(3, 'peterjenkins@example.com', '$2y$10$QX/BXpgMhs48Ayh3S59jSuxxSqh04kvQhliGHWYBbzFOwAoUjW0nW', 148, 'Venenatis St.', 'Glen Haven', 'Nevada', '76891'),
+(4, 'alicesummer@example.com', '$2y$10$iCO.zsH1lWd7y7.xlJB9o.MPQ9pEqV.Ohyrw16Sa155gqgm.amRyW', 6, 'Quam Street', 'Rowley', 'Alaska', '29510'),
 (5, 'deanmorgan7@example.com', 'WQUWPmcK5gklqLYuykY0FA==', 27, 'Senectus St', 'El Paso', 'Texas', '37722'),
 (6, 'kaifali215@example.com', 'H81c0+4gA69F5oKSSDxoBA==', 95, 'Dickinson Square', 'Dresden', 'New Jersey', '70862'),
 (7, 'marywhite@nowhere.com', '4iT8zFUdJQ1W3YaH5e7Eig==', 46, 'Euismod Av', 'Paia', 'Vermont', '84684'),
@@ -689,43 +714,53 @@ CREATE TABLE `variants` (
 --
 
 INSERT INTO `variants` (`product_id`, `variant_id`, `sku`, `weight`, `price`, `stock`) VALUES
-(1, 1, '345-298-2xx', '456.300', '84.76', 0),
-(2, 2, '988cjj2ka', '2314.830', '138.00', 0),
-(3, 3, '6ty-8729-vb45', '1875.270', '104.00', 0),
-(4, 4, '80uy-bjdc3-j41nk', '1772.400', '122.00', 0),
-(5, 5, 'bfehi-b72bq-72n9n', '420.500', '72.00', 0),
-(6, 6, 'jhwd810-bjsc821', '2651.350', '88.56', 0),
-(7, 7, 'chi9nw81-83nef9', '322.845', '82.00', 0),
-(8, 8, 'hskq01-nsckh12-15db71', '1681.620', '103.00', 0),
+(1, 1, '345-298-2xx', '456.300', '84.76', 40),
+(2, 2, '988cjj2ka', '2314.830', '138.00', 26),
+(3, 3, '6ty-8729-vb45', '1875.270', '104.00', 14),
+(4, 4, '80uy-bjdc3-j41nk', '1772.400', '122.00', 22),
+(5, 5, 'bfehi-b72bq-72n9n', '420.500', '72.00', -2),
+(6, 6, 'jhwd810-bjsc821', '2651.350', '88.56', -1),
+(7, 7, 'chi9nw81-83nef9', '322.845', '82.00', 16),
+(8, 8, 'hskq01-nsckh12-15db71', '1681.620', '103.00', 24),
 (9, 9, 'aplm23-maqp12-pzw6v', '2027.000', '99.00', 0),
-(10, 10, '6489anco', '3401.780', '52.00', 0),
+(10, 10, '6489anco', '3401.780', '52.00', -2),
 (11, 11, '80qpz2-bcsu310', '486.500', '108.00', 0),
 (12, 12, 'qa3-op7-xs2-l7ww', '1956.491', '149.00', 0),
-(2, 13, '87ryjhxs923', '2730.100', '140.00', 3),
-(3, 14, '82u-y17s-hd81', '1772.041', '115.00', 0),
-(4, 15, '80uy-j27bj4-sj82', '1449.000', '123.00', 0),
-(5, 16, 'bfgr7-ncsu91-nfei82n', '420.500', '77.00', 0),
+(2, 13, '87ryjhxs923', '2730.100', '140.00', -1),
+(3, 14, '82u-y17s-hd81', '1772.041', '115.00', 23),
+(4, 15, '80uy-j27bj4-sj82', '1449.000', '123.00', 7),
+(5, 16, 'bfgr7-ncsu91-nfei82n', '420.500', '77.00', 10),
 (6, 17, 'jsghkqh8-bsc6714', '1945.580', '68.40', 0),
-(7, 18, 'hwjhla92-ns882', '322.845', '82.00', 22),
+(7, 18, 'hwjhla92-ns882', '322.845', '82.00', 19),
 (8, 19, 'nzc23-ml71q-lpoae4', '1558.410', '102.00', 0),
 (9, 20, 'qb29npa-1hakno-aki1010', '2117.450', '98.00', 0),
 (11, 21, 'nd901-za10lo6', '486.500', '108.00', 0),
 (4, 22, '80uy-vhg27b-b763b', '1832.973', '116.00', 0),
-(7, 23, 'nkdskj81-aazw2', '345.100', '93.00', 0),
+(7, 23, 'nkdskj81-aazw2', '345.100', '93.00', 32),
 (11, 24, '801aer-mpq012', '495.120', '111.00', 0),
 (7, 25, 'balpq953-nzka12', '345.100', '93.00', 0),
 (11, 26, 'pmxd87-sevm25', '496.720', '111.00', 0),
-(12, 27, 's2i-qp1-b23-ga3e', '1872.410', '144.00', 0),
+(12, 27, 's2i-qp1-b23-ga3e', '1872.410', '144.00', -4),
 (13, 28, 'sgu82-fwx92', '84.390', '51.99', 0),
 (13, 29, 'sgq05-am54d', '85.830', '54.20', 0),
 (13, 30, 'sg4r9-e2ui8', '85.830', '52.78', 0),
 (13, 31, 'sg3h2-6ciq0', '84.390', '51.99', 0),
 (14, 32, 'w107y-jz34-33e', '5883.900', '87.00', 0),
-(14, 33, 'w204m-6y2y-dr9', '5883.900', '87.00', 0),
+(14, 33, 'w204m-6y2y-dr9', '5883.900', '87.00', -1),
 (15, 34, 'up90zxx2ert', '825.910', '42.00', 0),
 (15, 35, 'uq34axks431', '1022.350', '45.00', 0),
 (16, 36, 'XM21qw-e56yzkj', '72.936', '22.00', 0),
-(16, 37, 'XM4t6q3-niq981', '72.936', '22.00', 0);
+(16, 37, 'XM4t6q3-niq981', '72.936', '22.00', 0),
+(17, 38, '77yu3-8qzm0-pq3xm', '1332.860', '58.20', 15),
+(17, 39, '77de1-z56mef-904bv', '1445.900', '60.40', 12),
+(17, 40, '78w3j-i3c70-lwl27', '1422.000', '60.40', 0),
+(18, 41, 'qpl32xc-33uqnmb', '225.500', '13.00', 30),
+(18, 42, '9os7w1-w12xmb', '275.000', '16.00', 20),
+(19, 43, 'wpl00-zam34', '448.640', '29.99', 8),
+(20, 44, 'bwcdu89320', '122.450', '25.48', 18),
+(20, 45, 'nadkj92012', '122.450', '25.48', 22),
+(20, 46, 'xwklj87220', '122.450', '25.48', 20),
+(20, 47, 'rnscaj12853', '122.450', '25.48', 19);
 
 -- --------------------------------------------------------
 
@@ -918,19 +953,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `variants`
 --
 ALTER TABLE `variants`
-  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Constraints for dumped tables

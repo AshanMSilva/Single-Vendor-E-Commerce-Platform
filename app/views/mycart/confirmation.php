@@ -20,12 +20,12 @@
 				<div class="details_item">
 					<h4>Order Info</h4>
 					<ul class="list">
-						<li><a href="#"><span>Tracking ID</span> : <?=$data['tracking_id']?></a></li>
-						<li><a href="#"><span>Date</span> : <?=$data['order_date']?></a></li>
-						<li><a href="#"><span>Total</span> : <?=$data['total']?></a></li>
-						<li><a href="#"><span>Payment method</span> : <?=$data['payment_method']?></a></li>
+						<li><strong><span>Tracking ID</span> : <?=$data['tracking_id']?></strong></li>
+						<li><span>Date</span> : <?=$data['order_date']?></li>
+						<li><span>Total</span> : $<?=$data['total']?></li>
+						<li><span>Payment method</span> : <?=$data['payment_method']?></li>
 						<?php if($data['payment_method'] == "Card Payment"): ?>
-							<li><a href="#"><span>Card Number</span> : <?=$data['card']?></a></li>
+							<li><span>Card Number</span> : <?=$data['card']?></li>
 						<?php endif; ?>
 					</ul>
 				</div>
@@ -35,22 +35,22 @@
 					<?php if(isset($data['delivery_address'])): ?>							
 						<h4>Delivery Address</h4>
 						<ul class="list">
-							<li><a href="#"><span>House Number</span> : <?=$data['delivery_address']['house_number']?></a></li>
-							<li><a href="#"><span>Street</span> : <?=$data['delivery_address']['street']?></a></li>
-							<li><a href="#"><span>City</span> : <?=$data['delivery_address']['city']?></a></li>
-							<li><a href="#"><span>State </span> : <?=$data['delivery_address']['state']?></a></li>
-							<li><a href="#"><span>Postal Code </span> : <?=$data['delivery_address']['zip_code']?></a></li>
-							<li><a href="#"><span>Estimated Delivery Date </span> : <?=$data['estimated_date']?></a></li>
+							<li><span>House Number</span> : <?=$data['delivery_address']['house_number']?></li>
+							<li><span>Street</span> : <?=$data['delivery_address']['street']?></li>
+							<li><span>City</span> : <?=$data['delivery_address']['city']?></li>
+							<li><span>State </span> : <?=$data['delivery_address']['state']?></li>
+							<li><span>Postal Code </span> : <?=$data['delivery_address']['zip_code']?></li>
+							<li><span>Estimated Delivery Date </span> : <?=$data['estimated_date']?></li>
 						</ul>
 					<?php else: ?>
 						<h4>Warehouse Address</h4>
 						<ul class="list">
-							<li><a href="#"><span>House Number</span> : C Stores</a></li>
-							<li><a href="#"><span>Street</span> : Main Road</a></li>
-							<li><a href="#"><span>City</span> : Cleveland</a></li>
-							<li><a href="#"><span>State </span> : Texas</a></li>
-							<li><a href="#"><span>Postal Code </span> : 37722</a></li>
-							<li><a href="#"><span>Estimated Availability Date </span> : <?=$data['available_date']?></a></li>
+							<li><span>House Number</span> : C Stores></li>
+							<li><span>Street</span> : Main Road</li>
+							<li><span>City</span> : Cleveland</li>
+							<li><span>State </span> : Texas</li>
+							<li><span>Postal Code </span> : 37722</li>
+							<li><span>Estimated Availability Date </span> : <?=$data['available_date']?></li>
 						</ul>
 					<?php endif; ?>
 				</div>
@@ -75,6 +75,7 @@
 						<tr>
 							<th scope="col">Product</th>
 							<th scope="col">SKU</th>
+							<th scope="col">Price</th>
 							<th scope="col">Quantity</th>
 							<th scope="col">Total</th>
 						</tr>
@@ -87,6 +88,9 @@
 								</td>
 								<td>
 									<p><?=$cart[$i]['sku']?></p>
+								</td>								
+								<td>
+									<p>$<?=$cart[$i]['price']?></p>
 								</td>
 								<td>
 									<h5><?=$cart[$i]['quantity']?></h5>
@@ -102,13 +106,16 @@
 						<?php endfor; ?>                                            
 						<tr>
 							<td>
+								<h5></h5>
+							</td>
+							<td>
+								<h5></h5>
+							</td>
+							<td>
+								<h5></h5>
+							</td>
+							<td>
 								<h4>Total Price</h4>
-							</td>
-							<td>
-								<h5></h5>
-							</td>
-							<td>
-								<h5></h5>
 							</td>
 							<td>
 								<?php $total = number_format($data['total'], 2, '.', ','); ?>

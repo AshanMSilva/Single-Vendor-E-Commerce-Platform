@@ -200,7 +200,7 @@ class Cart extends Model{
                 // dnd($cart_products);
                 $count = count($cart_products);
                 // dnd($count);
-                $index = null;
+                $index = -1;
                 for($i = 0; $i < $count; $i++){
                     if($cart_products[$i]['variant_id'] == $variant_id){
                         // dnd($cart_products[$i]['variant_id']);
@@ -209,7 +209,7 @@ class Cart extends Model{
                     }
                 }
                 // dnd($index);
-                if($index != null){
+                if($index != -1){
                     // dnd($cart_products[$index]);
                     Session::update_array('my_cart', $index, 'quantity', $quantity);
                 }

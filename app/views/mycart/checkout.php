@@ -175,28 +175,35 @@
                             <div class="payment_item">
                                 <div class="radion_btn">                                        
                                     <input type="radio" id="f-option5" name="method" value="card" onclick="toggle_text_input()">
-                                    <label for="f-option5">Card Payment</label>
-                                    <?php if(Session::exists('registered_customer')): ?>
-
+                                    <label for="f-option5">Card Payment</label>                                    
+                                    <?php if(Session::exists('registered_customer')): ?>                                            
                                         <?php $count = count($data['reg_cust']['cards']); ?>
                                         <p>Insert a new card or select one from the dropdown</p>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                        <select id="card_list" name="card_list" class="col-sm-10 offset-col-1">
-                                            <option value="no_select" selected="selected">No card selected</option>
-                                            <?php for($i = 0; $i < $count;  $i++): ?>
-                                                <option value="<?=$data['reg_cust']['cards'][$i]?>"><?=$data['reg_cust']['cards'][$i]?></option>
-                                            <?php endfor; ?>
-                                        </select>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <select id="card_list" name="card_list" class="col-sm-10 offset-col-1">
+                                                    <option value="no_select" selected="selected">No card selected</option>
+                                                    <?php for($i = 0; $i < $count;  $i++): ?>
+                                                        <option value="<?=$data['reg_cust']['cards'][$i]?>"><?=$data['reg_cust']['cards'][$i]?></option>
+                                                    <?php endfor; ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input class="col-sm-10 offset-col-1 form-control" type="text" name="card_number" id="card_num" value="" placeholder="new card number" pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}" disabled>                                                           
+                                            </div>
                                         </div>
+                                        <div class="check"></div>
+                                    <?php else: ?>
+                                        <p>Insert card number below</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input class="col-sm-10 offset-col-1 form-control" type="text" name="card_number" id="card_num" value="" placeholder="card number" pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}" disabled>                                                           
+                                            </div>
+                                        </div>
+                                        <div class="check"></div>
                                     <?php endif; ?>
-                                                                                               
-                                    <div class="col-sm-6">
-                                    <input class="col-sm-10 offset-col-1 form-control" type="text" name="card_number" id="card_num" value="" placeholder="card number" pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}" disabled>
-                                    </div>
-                                    </div>
                                 </div>                                
-                            
+                            </div>
                             <!--<div class="creat_account">
                                 <input type="checkbox" id="f-option4" name="selector">
                                 <label for="f-option4">I’ve read and accept the </label>
@@ -215,12 +222,12 @@
     </div>
 </section>
 
-<script>
+<script>    
     function toggle_text_input() {
         if(document.getElementById("f-option5").checked == true){
-            $elem = document.getElementById("card_list");
-            if($elem){
-                $elem.disabled = false;
+            var elem = document.getElementById("card_list");
+            if(elem){
+                elem.disabled = false;
             }
             else{
                 document.getElementById("card_num").required = true;
@@ -229,10 +236,10 @@
             document.getElementById("card_num").disabled = false;                
             // document.getElementById("card_num").required = true;
         }
-        if(document.getElementById("f-option6").checked == true){
-            $elem = document.getElementById("card_list");
-            if($elem){
-                $elem.disabled = true;
+        else if(document.getElementById("f-option6").checked == true){
+            var elem = document.getElementById("card_list");
+            if(elem){
+                elem.disabled = true;
             }
             else{
                 document.getElementById("card_num").required = false;
@@ -242,7 +249,9 @@
             // document.getElementById("card_num").required = false;
         }
     }
+</script>
 
+<script>
     function validate(){
         if(document.getElementById("f-option5").checked == false && document.getElementById("f-option6").checked == false){
             alert("Please select a payment method and confirm your order");
@@ -262,15 +271,15 @@
     }
 
     $('#card_num').on('keyup', function(e){
-    var val = $(this).val();
-    var newval = '';
-    val = val.replace(/\s/g, '');
-    for(var i=0; i < val.length; i++) {
-        if(i%4 == 0 && i > 0) newval = newval.concat(' ');
-        newval = newval.concat(val[i]);
-    }
-    $(this).val(newval);
-});
+        var val = $(this).val();
+        var newval = '';
+        val = val.replace(/\s/g, '');
+        for(var i=0; i < val.length; i++) {
+            if(i%4 == 0 && i > 0) newval = newval.concat(' ');
+            newval = newval.concat(val[i]);
+        }
+        $(this).val(newval);
+    });
 </script>
 <!--================End Checkout Area =================-->
 

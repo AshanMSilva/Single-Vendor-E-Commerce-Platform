@@ -140,5 +140,8 @@ class Browse extends Controller{
             // Router::redirect('browse/viewProduct/' . $post_array['product_id']);
             Router::goback();
         }
+        else{
+            Router::goback();
+        }
     }
 }

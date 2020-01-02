@@ -89,11 +89,14 @@ class Checkout extends Controller{
             
             $data['cart'] = $cart_details;
 
-            Session::set('order_data', $data);            
+            Session::set('order_data', $data);           
             // dnd($_SESSION);           
             // render checkout/confirmCheckout
             $this->view->setLayout('normal');
             $this->view->render('mycart/checkout', $data);
+        }
+        else{
+            Router::redirect('home/index');
         }        
     }
 
@@ -108,10 +111,11 @@ class Checkout extends Controller{
     public function confirmCheckoutAction(){
 
         if(isset($_POST['confirm_checkout']) && Session::exists('order_data')){
-            //dnd($_POST);
+            // dnd($_POST);
             $post_array = Input::get_array($_POST, ['confirm_checkout']);
             $order_data = Session::get('order_data');
-            // dnd($post_array);         
+            // dnd($post_array);
+            // dnd($order_data);        
             $cart_obj = new Cart();
 
             if(Session::exists('registered_customer')){
@@ -127,7 +131,7 @@ class Checkout extends Controller{
             // Product::update_stock($my_cart);
             
             // dnd($my_cart);
-            $order_obj = Order::create_order($my_cart, $cust_id);
+            // $order_obj = Order::create_order($my_cart, $cust_id);
             // dnd($order_obj);
             // $order_data['cart'] = $my_cart;
 
@@ -148,26 +152,29 @@ class Checkout extends Controller{
                 $payment_method = "cash";
                 $order_data['payment_method'] = 'Cash on Delivery';
                 $card = null;
-            }
+            }            
             $order_data['card'] = $card;
 
             $amount = $order_data['total'];
-            $order_obj->create_payment($payment_method, $amount, $card);
+            $payment_details = [$payment_method, $amount, $card];
+            // $order_obj->create_payment($payment_method, $amount, $card);
 
             $details = [];
-            $details['order_id'] = $order_obj->get_order_id();
+            // $details['order_id'] = $order_obj->get_order_id();
             if(array_key_exists('estimated_date', $order_data)){
                 $details['estimated_date'] = $order_data['estimated_date'];
+                $address = $order_data['delivery_address'];
             }
             else{
                 $details['available_date'] = $order_data['available_date'];
+                $address = [];
             }
-            $details['customer_contact'] = $order_data['contact'];
-            $address = $order_data['delivery_address'];
-
-            $tracking_id = Delivery::create_delivery($details, $address);
-            $order_data['tracking_id'] = $tracking_id;
-            $order_data['order_date'] = date("Y/m/d");
+            $details['customer_contact'] = $order_data['contact'];            
+            // dnd($my_cart);
+            $output = Order::start_order_transaction($my_cart, $cust_id, $payment_details, $details, $address);
+            // dnd($output);
+            $order_data['tracking_id'] = $output[2];
+            $order_data['order_date'] = $output[1];
 
             $cart_obj->clear_cart();
 
@@ -178,6 +185,9 @@ class Checkout extends Controller{
             //pass the order_details to the view
             $this->view->setLayout('normal');
             $this->view->render('mycart/confirmation', $order_data);
-        }        
+        }
+        else{
+            Router::redirect('home/index');
+        }       
     }
 }
