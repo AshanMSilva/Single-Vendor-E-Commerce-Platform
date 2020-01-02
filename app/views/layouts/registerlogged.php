@@ -22,7 +22,7 @@
 	<!--
 		CSS
 		============================================= -->
-	<link rel="stylesheet" href="<?=PROOT?>css/linearicons.css">
+		<link rel="stylesheet" href="<?=PROOT?>css/linearicons.css">
 	<link rel="stylesheet" href="">
 	<link rel="stylesheet" href="<?=PROOT?>css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?=PROOT?>css/themify-icons.css">

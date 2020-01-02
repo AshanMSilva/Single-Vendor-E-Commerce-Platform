@@ -30,6 +30,7 @@
                 $prodDetails[$product_id]=$this->getDetailsOfProduct($product_id);
             }
             $data=[$prodDetails,$x];
+            //dnd($data);
             $this->view->setLayout('normal');
             $this->view->render('search/searchResult',$data);
         }

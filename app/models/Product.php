@@ -111,7 +111,7 @@ class Product extends Model{
             ]);
         
         
-        $titleRes=$db->select('products',['title','brand'],[
+        $titleRes=$db->select('products',['title','brand','image'],[
             'conditions'=> 'product_id = ? ',
             'bind'=>[$product_id]
         ]);
@@ -120,6 +120,7 @@ class Product extends Model{
         $details["minPrice"]=$results[0]->minPrice;
         $details["brand"]=$titleRes[0]->brand;
         $details["category"]=$categoryResult[0]->title;
+        $details["image"]=$titleRes[0]->image;
         return $details;
     }
 

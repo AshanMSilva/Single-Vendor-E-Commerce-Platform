@@ -37,12 +37,14 @@
                 <?php foreach($prodDetails as $product_id => $details):?>
                     <?php 
                         $title=$details['title'];
+                        $image=$details['image'];
                         $minPrice=$details['minPrice'];
-                        $maxPrice=$details['maxPrice'];?>
+                        $maxPrice=$details['maxPrice'];
+                        //dnd($prodDetails);?>
                         <div>
                             <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
                                 <div class="single-related-product d-flex">
-                                    <a href="#"><img src="<?=PROOT?>img/r1.jpg" alt=""></a> <!-- image path should be added-->
+                                    <a href="#"><img src="<?=PROOT?>img/search/<?php echo $image ?>" alt=""></a> <!-- image path should be added-->
                                     <div class="desc">
                                     <!--<a href="<?=PROOT?>singleproduct/productDisplay?id=<?php echo $product_id?>&title=<?php echo $title;?>" class="title"><?php echo $title;?></a>-->
                                     <a href="<?=PROOT?>browse/viewProduct/<?php echo $product_id?>" class="title" ><?php echo $title;?></a>

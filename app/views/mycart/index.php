@@ -82,7 +82,7 @@
                                 <td>
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="../../img/cart.jpg" alt="">
+                                            <img src="<?=PROOT  . "/img/search/" .  $product['product_obj']->get_image()?>" alt="">
                                         </div>
                                         <div class="media-body">
 											<a href="<?=PROOT?>browse/viewProduct/<?=$product['product_obj']->get_product_id()?>"> <?php echo $product['product_obj']->get_title()?> </a>

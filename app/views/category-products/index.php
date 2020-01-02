@@ -67,7 +67,7 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="single-product">
                                 <a href="<?=PROOT?>browse/viewProduct/<?=$product->get_product_id()?>">
-                                <img class="img-fluid" src="<?=PROOT?>img/product/p1.jpg" alt=""></a>
+                                <img class="img-fluid" src="<?=PROOT ."img/product/" . $product->get_image()?>" alt=""></a>
                                 <div class="product-details">
                                     <h6><strong><?=$product->get_title()?></strong></h6>
                                     <h6>From: <strong><?=$product->get_brand()?></strong></h6>

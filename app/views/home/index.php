@@ -9,8 +9,11 @@
 	<?php $data = $this->get_data();
 	$categories = $data['categories'];
 	$topProducts = $data['topProducts'];
-	//dnd($topProducts);
+	$exclusiveproduct= $topProducts[0];
+	//dnd($topProducts[0]->get_image());
 	 //dnd($categories);
+	 $pro_img_path=PROOT."img/product/";
+	 //dnd($pro_img_path);
 	?>
 	<?php Alert::displayscriptalert();?>
 	<!-- start banner Area -->
@@ -243,8 +246,10 @@
 					<?php foreach($topProducts as $product): ?>
 					<div class="col-lg-3 col-md-6">
 						<div class="single-product">
+							<?php $imgpath=$product->get_image();
+							 $img_path= $pro_img_path . $imgpath;?>
 							<a href="<?=PROOT?>browse/viewProduct/<?=$product->get_product_id()?>">
-							<img class="img-fluid" src="<?=PROOT?>img/product/p1.jpg" alt=""></a>
+							<img class="img-fluid" src="<?php echo $img_path?>" alt=""></a>
 							<div class="product-details">
 								<h6><strong><?=$product->get_title()?></strong></h6>
 								<h6>From: <strong><?=$product->get_brand()?></strong></h6>
@@ -285,40 +290,43 @@
 				<div class="row justify-content-center">
 					<div class="col-lg-6 text-center">
 						<div class="section-title">
-							<h1>Coming Products</h1>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-								dolore
-								magna aliqua.</p>
+							<h1>Trending Products</h1>
+							<p>Products which have the highest number of orders in last month</p>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<!-- single product -->
+					<?php foreach($topProducts as $product): ?>
 					<div class="col-lg-3 col-md-6">
 						<div class="single-product">
-							<img class="img-fluid" src="<?=PROOT?>img/product/p6.jpg" alt="">
+							<?php $imgpath=$product->get_image();
+							 $img_path= $pro_img_path . $imgpath;?>
+							<a href="<?=PROOT?>browse/viewProduct/<?=$product->get_product_id()?>">
+							
+							<img class="img-fluid" src="<?php echo $img_path?>" alt=""></a>
 							<div class="product-details">
-								<h6>addidas New Hammer sole
-									for Sports person</h6>
+								<h6><strong><?=$product->get_title()?></strong></h6>
+								<h6>From: <strong><?=$product->get_brand()?></strong></h6>
 								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
+									<h6>$<?=$product->get_min_price()?> - $<?=$product->get_max_price()?></h6>
+									<!--<h6 class="l-through">$210.00</h6>-->
 								</div>
 								<div class="prd-bottom">
 
-									<a href="" class="social-info">
+									<!--<a href="" class="social-info">
 										<span class="ti-bag"></span>
 										<p class="hover-text">add to bag</p>
-									</a>
-									<a href="" class="social-info">
+									</a>-->
+									<a href="<?=PROOT?>account/addtowishlist/<?=$product->get_product_id()?>" class="social-info">
 										<span class="lnr lnr-heart"></span>
 										<p class="hover-text">Wishlist</p>
 									</a>
-									<a href="" class="social-info">
+									<!--<a href="" class="social-info">
 										<span class="lnr lnr-sync"></span>
 										<p class="hover-text">compare</p>
-									</a>
-									<a href="" class="social-info">
+									</a>-->
+									<a href="<?=PROOT?>browse/viewProduct/<?=$product->get_product_id()?>" class="social-info">
 										<span class="lnr lnr-move"></span>
 										<p class="hover-text">view more</p>
 									</a>
@@ -326,237 +334,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- single product -->
-					<div class="col-lg-3 col-md-6">
-						<div class="single-product">
-							<img class="img-fluid" src="<?=PROOT?>img/product/p8.jpg" alt="">
-							<div class="product-details">
-								<h6>addidas New Hammer sole
-									for Sports person</h6>
-								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
-								</div>
-								<div class="prd-bottom">
-
-									<a href="" class="social-info">
-										<span class="ti-bag"></span>
-										<p class="hover-text">add to bag</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-heart"></span>
-										<p class="hover-text">Wishlist</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-sync"></span>
-										<p class="hover-text">compare</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-move"></span>
-										<p class="hover-text">view more</p>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- single product -->
-					<div class="col-lg-3 col-md-6">
-						<div class="single-product">
-							<img class="img-fluid" src="<?=PROOT?>img/product/p3.jpg" alt="">
-							<div class="product-details">
-								<h6>addidas New Hammer sole
-									for Sports person</h6>
-								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
-								</div>
-								<div class="prd-bottom">
-
-									<a href="" class="social-info">
-										<span class="ti-bag"></span>
-										<p class="hover-text">add to bag</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-heart"></span>
-										<p class="hover-text">Wishlist</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-sync"></span>
-										<p class="hover-text">compare</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-move"></span>
-										<p class="hover-text">view more</p>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- single product -->
-					<div class="col-lg-3 col-md-6">
-						<div class="single-product">
-							<img class="img-fluid" src="<?=PROOT?>img/product/p5.jpg" alt="">
-							<div class="product-details">
-								<h6>addidas New Hammer sole
-									for Sports person</h6>
-								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
-								</div>
-								<div class="prd-bottom">
-
-									<a href="" class="social-info">
-										<span class="ti-bag"></span>
-										<p class="hover-text">add to bag</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-heart"></span>
-										<p class="hover-text">Wishlist</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-sync"></span>
-										<p class="hover-text">compare</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-move"></span>
-										<p class="hover-text">view more</p>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- single product -->
-					<div class="col-lg-3 col-md-6">
-						<div class="single-product">
-							<img class="img-fluid" src="<?=PROOT?>img/product/p1.jpg" alt="">
-							<div class="product-details">
-								<h6>addidas New Hammer sole
-									for Sports person</h6>
-								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
-								</div>
-								<div class="prd-bottom">
-
-									<a href="" class="social-info">
-										<span class="ti-bag"></span>
-										<p class="hover-text">add to bag</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-heart"></span>
-										<p class="hover-text">Wishlist</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-sync"></span>
-										<p class="hover-text">compare</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-move"></span>
-										<p class="hover-text">view more</p>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- single product -->
-					<div class="col-lg-3 col-md-6">
-						<div class="single-product">
-							<img class="img-fluid" src="<?=PROOT?>img/product/p4.jpg" alt="">
-							<div class="product-details">
-								<h6>addidas New Hammer sole
-									for Sports person</h6>
-								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
-								</div>
-								<div class="prd-bottom">
-
-									<a href="" class="social-info">
-										<span class="ti-bag"></span>
-										<p class="hover-text">add to bag</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-heart"></span>
-										<p class="hover-text">Wishlist</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-sync"></span>
-										<p class="hover-text">compare</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-move"></span>
-										<p class="hover-text">view more</p>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- single product -->
-					<div class="col-lg-3 col-md-6">
-						<div class="single-product">
-							<img class="img-fluid" src="<?=PROOT?>img/product/p1.jpg" alt="">
-							<div class="product-details">
-								<h6>addidas New Hammer sole
-									for Sports person</h6>
-								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
-								</div>
-								<div class="prd-bottom">
-
-									<a href="" class="social-info">
-										<span class="ti-bag"></span>
-										<p class="hover-text">add to bag</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-heart"></span>
-										<p class="hover-text">Wishlist</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-sync"></span>
-										<p class="hover-text">compare</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-move"></span>
-										<p class="hover-text">view more</p>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- single product -->
-					<div class="col-lg-3 col-md-6">
-						<div class="single-product">
-							<img class="img-fluid" src="<?=PROOT?>img/product/p8.jpg" alt="">
-							<div class="product-details">
-								<h6>addidas New Hammer sole
-									for Sports person</h6>
-								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
-								</div>
-								<div class="prd-bottom">
-
-									<a href="" class="social-info">
-										<span class="ti-bag"></span>
-										<p class="hover-text">add to bag</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-heart"></span>
-										<p class="hover-text">Wishlist</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-sync"></span>
-										<p class="hover-text">compare</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-move"></span>
-										<p class="hover-text">view more</p>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
+					<?php endforeach; ?>
+				
 				</div>
 			</div>
 		</div>
@@ -600,33 +379,41 @@
 					<div class="active-exclusive-product-slider">
 						<!-- single exclusive carousel -->
 						<div class="single-exclusive-slider">
-							<img class="img-fluid" src="<?=PROOT?>img/product/e-p1.png" alt="">
+							<?php $imgpath=$exclusiveproduct->get_image();
+							//dnd($exclusiveproduct);
+							 $img_path= $pro_img_path . $imgpath;?>
+							<a href="<?=PROOT?>browse/viewProduct/<?=$exclusiveproduct->get_product_id()?>">
+							<img class="img-fluid" src="<?php echo $img_path?>" alt="">
 							<div class="product-details">
 								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
+									<h6>$<?=$exclusiveproduct->get_min_price()?> - $<?=$exclusiveproduct->get_max_price()?></h6>
+									<!--<h6 class="l-through">$210.00</h6>-->
 								</div>
-								<h4>addidas New Hammer sole
-									for Sports person</h4>
+								<h4><?=$exclusiveproduct->get_title()?></h4>
 								<div class="add-bag d-flex align-items-center justify-content-center">
-									<a class="add-btn" href=""><span class="ti-bag"></span></a>
-									<span class="add-text text-uppercase">Add to Bag</span>
+								<a href="<?=PROOT?>browse/viewProduct/<?=$exclusiveproduct->get_product_id()?>" class="add-btn">
+									<span class="lnr lnr-move"></span></a>
+									<span class="add-text text-uppercase">View More</span>
 								</div>
 							</div>
 						</div>
 						<!-- single exclusive carousel -->
 						<div class="single-exclusive-slider">
-							<img class="img-fluid" src="<?=PROOT?>img/product/e-p1.png" alt="">
+						<?php $imgpath=$exclusiveproduct->get_image();
+							//dnd($exclusiveproduct);
+							 $img_path= $pro_img_path . $imgpath;?>
+							<a href="<?=PROOT?>browse/viewProduct/<?=$exclusiveproduct->get_product_id()?>">
+							<img class="img-fluid" src="<?php echo $img_path?>" alt="">
 							<div class="product-details">
 								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
+									<h6>$<?=$exclusiveproduct->get_min_price()?> - $<?=$exclusiveproduct->get_max_price()?></h6>
+									<!--<h6 class="l-through">$210.00</h6>-->
 								</div>
-								<h4>addidas New Hammer sole
-									for Sports person</h4>
+								<h4><?=$exclusiveproduct->get_title()?></h4>
 								<div class="add-bag d-flex align-items-center justify-content-center">
-									<a class="add-btn" href=""><span class="ti-bag"></span></a>
-									<span class="add-text text-uppercase">Add to Bag</span>
+									<a href="<?=PROOT?>browse/viewProduct/<?=$exclusiveproduct->get_product_id()?>" class="add-btn">
+									<span class="lnr lnr-move"></span></a>
+									<span class="add-text text-uppercase">View More</span>
 								</div>
 							</div>
 						</div>
@@ -662,7 +449,7 @@
 	<!-- End brand Area -->
 
 	<!-- Start related-product Area -->
-	<section class="related-product-area section_gap_bottom">
+	<!--<section class="related-product-area section_gap_bottom">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-lg-6 text-center">
@@ -795,6 +582,6 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section>-->
 	<!-- End related-product Area -->
 <?php $this->end()?>

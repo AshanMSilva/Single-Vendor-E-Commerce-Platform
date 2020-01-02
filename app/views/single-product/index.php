@@ -47,13 +47,13 @@
 				<div class="col-lg-6">
 					<div class="s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid" src="../../img/category/s-p1.jpg" alt="">
+							<img class="img-fluid" src="<?=PROOT  . "/img/product/" .  $product->get_image()?>" alt="">
 						</div>
 						<div class="single-prd-item">
-							<img class="img-fluid" src="../../img/category/s-p1.jpg" alt="">
+							<img class="img-fluid" src="<?=PROOT . "/img/product/" . $product->get_image()?>" alt="">
 						</div>
 						<div class="single-prd-item">
-							<img class="img-fluid" src="../../img/category/s-p1.jpg" alt="">
+							<img class="img-fluid" src="<?=PROOT  . "/img/product/" .  $product->get_image()?>" alt="">
 						</div>
 					</div>
 				</div>

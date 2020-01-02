@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2020 at 06:25 PM
+-- Generation Time: Jan 02, 2020 at 04:00 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -26,23 +26,23 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_Product_sales_count` ()  NO SQL
+SELECT sum(quantity) as cc from orders INNER JOIN order_details using(order_id) where orders.order_date BETWEEN date1 and date2$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_belonging_categories` (IN `id` INT)  NO SQL
+SELECT categories.category_id, title FROM categories WHERE category_id IN (SELECT category_id FROM `product_category_relations` WHERE product_id = id)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_category_with_most_orders` ()  NO SQL
 select categories.title, sum(order_details.quantity) as cc from order_details join product_category_relations USING (product_id) join categories using(category_id) group by category_id order by cc DESC limit 10$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_Product_sales_count` ()  NO SQL
-SELECT sum(quantity) as cc from orders INNER JOIN order_details using(order_id) where orders.order_date BETWEEN date1 and date2$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_customer_details` (IN `in_email` VARCHAR(50))  NO SQL
+SELECT customers.customer_id, first_name, last_name, email, house_number, street, city, state, zip_code FROM `customers`  INNER JOIN (SELECT * FROM `registered_customers` WHERE registered_customers.email = in_email) AS reg_cust_details USING(customer_id)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_most_sales_products` (IN `date1` DATE, IN `date2` DATE)  NO SQL
 SELECT products.title, sum(order_details.quantity*price)  as cc from orders INNER JOIN order_details using(order_id) INNER JOIN products using (product_id) INNER JOIN variants using(variant_id)  WHERE orders.order_date BETWEEN date1 AND date2  GROUP BY order_details.product_id ORDER BY order_date$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reach_period` (IN `p_id` INT)  NO SQL
 select sum(quantity) as cc, order_date from orders inner join order_details using(order_id)  where product_id=p_id group by order_date order by order_date$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_belonging_categories` (IN `id` INT)  NO SQL
-SELECT categories.category_id, title FROM categories WHERE category_id IN (SELECT category_id FROM `product_category_relations` WHERE product_id = id)$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_customer_details` (IN `in_email` VARCHAR(50))  NO SQL
-SELECT customers.customer_id, first_name, last_name, email, house_number, street, city, state, zip_code FROM `customers`  INNER JOIN (SELECT * FROM `registered_customers` WHERE registered_customers.email = in_email) AS reg_cust_details USING(customer_id)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reg_customer_by_id` (IN `id` INT)  NO SQL
 SELECT cust_details.customer_id, first_name, last_name, email, house_number, street, city, state, zip_code FROM `registered_customers` INNER JOIN (SELECT * FROM `customers` WHERE customers.customer_id = id) AS cust_details USING(customer_id)$$
@@ -584,26 +584,26 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `title`, `brand`, `image`) VALUES
-(1, 'SAMSUNG_S10', 'Samsung', NULL),
-(2, 'ACER_ASPIRE_F15', 'ACER', NULL),
-(3, 'HP Elite Dragonfly', 'HP', NULL),
-(4, 'HP Zbook 15u G5', 'HP', NULL),
-(5, 'SONY XB402M Extra Bass', 'SONY', NULL),
-(6, 'Plasma TV-TH27391YT', 'Panasonic', NULL),
-(7, 'Huawei P9', 'Huawei', NULL),
-(8, 'ACER Chromebook Spin511', 'ACER', NULL),
-(9, 'ACER Nitro 7', 'ACER', NULL),
-(10, 'SONY GTK-PG10 Outdoor Speaker', 'SONY', NULL),
-(11, 'iPhone X', 'Apple', NULL),
-(12, 'ASUS Predator 701', 'ASUS', NULL),
-(13, 'Samsung Gear S3 Frontier Smartwatch', 'Samsung', NULL),
-(14, 'Mercedes C63S Kids Ride-on Car', 'Unbranded', NULL),
-(15, 'Monster Jam Mini Pack', 'Hot Wheels', NULL),
-(16, 'Xiaomi mi band 4 BT5.0 Standard Edition', 'Xiaomi', NULL),
-(17, 'LG Premier 2.0 Smart TV ', 'LG', NULL),
-(18, 'Lego Marvel Avengers Minifigures', 'Lego', NULL),
-(19, 'Technic RC Remote Control Racing Car', 'Lego', NULL),
-(20, 'Sony Smart Band SWR30', 'SONY', NULL);
+(1, 'SAMSUNG_S10', 'Samsung', 'samsung-s10-1.jpg'),
+(2, 'ACER_ASPIRE_F15', 'ACER', 'acer-aspire-f15.jpeg'),
+(3, 'HP Elite Dragonfly', 'HP', 'hp-elitebook-dragonfly-01.jpg'),
+(4, 'HP Zbook 15u G5', 'HP', 'customize.jpeg'),
+(5, 'SONY XB402M Extra Bass', 'SONY', '81+UoKhBNPL._SX679_.jpg'),
+(6, 'Plasma TV-TH27391YT', 'Panasonic', 'td-500x500.jpg'),
+(7, 'Huawei P9', 'Huawei', '71+-S48Hx1L._AC_SX425_.jpg'),
+(8, 'ACER Chromebook Spin511', 'ACER', '1548277946_chromebook_spin.jpg'),
+(9, 'ACER Nitro 7', 'ACER', '71PUCl5W8XL._SX466_.jpg'),
+(10, 'SONY GTK-PG10 Outdoor Speaker', 'SONY', '71PFd1oeF-L._AC_SX466_.jpg'),
+(11, 'iPhone X', 'Apple', 'iPhoneX-silver-1.jpg'),
+(12, 'ASUS Predator 701', 'ASUS', '41QveeKrBGL._AC_SY400_ML2_.jpg'),
+(13, 'Samsung Gear S3 Frontier Smartwatch', 'Samsung', '59a880408457ae030239890c-big__17560.1566410479.jpg'),
+(14, 'Mercedes C63S Kids Ride-on Car', 'Unbranded', 'IMG_5410-1.jpg'),
+(15, 'Monster Jam Mini Pack', 'Hot Wheels', '712pOzhfOiL._AC_SX425_.jpg'),
+(16, 'Xiaomi mi band 4 BT5.0 Standard Edition', 'Xiaomi', 's-l300.jpg'),
+(17, 'LG Premier 2.0 Smart TV ', 'LG', 'G_L_940x620.jpg'),
+(18, 'Lego Marvel Avengers Minifigures', 'Lego', 's-l300 (1).jpg'),
+(19, 'Technic RC Remote Control Racing Car', 'Lego', '2019-SEMBO-Technic-RC-remote-control-car-toy-Building-Blocks-model-Kit-F1-formula-Racing-Car.jpg'),
+(20, 'Sony Smart Band SWR30', 'SONY', 's-l30022.jpg');
 
 -- --------------------------------------------------------
 

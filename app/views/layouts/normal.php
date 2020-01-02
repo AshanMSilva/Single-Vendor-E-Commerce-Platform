@@ -23,12 +23,16 @@
             CSS
             ============================================= -->
     <link rel="stylesheet" href="<?=PROOT?>css/linearicons.css">
-    <link rel="stylesheet" href="<?=PROOT?>css/owl.carousel.css">
-    <link rel="stylesheet" href="<?=PROOT?>css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?=PROOT?>css/themify-icons.css">
-    <link rel="stylesheet" href="<?=PROOT?>css/nice-select.css">
-    <link rel="stylesheet" href="<?=PROOT?>css/nouislider.min.css">
-    <link rel="stylesheet" href="<?=PROOT?>css/bootstrap.css">
+	<link rel="stylesheet" href="">
+	<link rel="stylesheet" href="<?=PROOT?>css/font-awesome.min.css">
+	<link rel="stylesheet" href="<?=PROOT?>css/themify-icons.css">
+	<link rel="stylesheet" href="<?=PROOT?>css/bootstrap.css">
+	<link rel="stylesheet" href="<?=PROOT?>css/owl.carousel.css">
+	<link rel="stylesheet" href="<?=PROOT?>css/nice-select.css">
+	<link rel="stylesheet" href="<?=PROOT?>css/nouislider.min.css">
+	<link rel="stylesheet" href="<?=PROOT?>css/ion.rangeSlider.css" />
+	<link rel="stylesheet" href="<?=PROOT?>css/ion.rangeSlider.skinFlat.css" />
+	<link rel="stylesheet" href="<?=PROOT?>css/magnific-popup.css">
     <link rel="stylesheet" href="<?=PROOT?>css/main.css">
     <?= $this->content('head');?>
     
