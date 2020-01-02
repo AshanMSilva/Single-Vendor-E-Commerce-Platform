@@ -10,7 +10,7 @@
             	<?php $order_id = $data[0];
             	$record  = (isset($data[1][0])) ? $data[1][0] : 0 ;
             	$trackstring = strval($record->tracking_info);
-             	//dnd($record);
+             	// dnd($record);
 
             	if (isset($_POST['track'])) {
             		$posttrackstring = strval($_POST['track']);
@@ -25,17 +25,34 @@
             	if (is_int($record)){
             		if ($record==0 and $_SESSION['logged_in']==true) {
 	            		 $this->end();
-	            		 Alert::set('Either the Tracking ID does not exist Or This is a store pickup. Please check the tracking ID!');
+	            		 Alert::set('Either the Tracking ID does not exist or this is a store pickup order. Please enter a valid ID.');
 	            		 Router::redirect('orders/uservieworder');
 	            	}
 	            	elseif ($record==0) {
 	            		 $this->end();
-	            		 Alert::set('Either the Tracking ID does not exist Or This is a store pickup. Please check the tracking ID!');
+	            		 Alert::set('Either the Tracking ID does not exist or this is a store pickup order. Please enter a valid ID.');
 	            		 Router::redirect('orders/guestvieworder');
 	            	}
 	            	
 	            }
-	           
+	            /*else{
+	            	if (isset($_POST['track'])and $record->tracking_info=='' ) {
+	            		 $this->end();
+	            		 Alert::set('The Order ID does not exist for this card number. Please enter a valid Card number.');
+	            		 Router::redirect('orders/guestvieworder');
+	                }
+	                elseif (isset($_POST['track']) and $trackstring!=$posttrackstring) {
+	                	$this->end();
+	            		 Alert::set('Please enter The correct card number');
+	            		 Router::redirect('orders/guestvieworder');
+	                }*/
+	            	// elseif ($record->customer_id!=$_SESSION['registered_customer']) {
+		            // 	$this->end();
+	            	// 	 Alert::set('There are no orders under this ID for this account');
+	            	// 	 Router::redirect('orders/uservieworder');
+	           		// }	
+	            //}
+				
 
 
 

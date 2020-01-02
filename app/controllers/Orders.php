@@ -17,7 +17,9 @@ class Orders extends Controller{
 	}
 	public function trackbyidAction($data=[]){
 		$db=DB::getInstance();
-		$result = $db->call_procedure('get_order_info_by_track',[$_POST['track']]);
+		// dnd($_POST['track']);
+		$result = $db->call_procedure('get_order_info_by_track',$_POST['track']);
+		// dnd($result);
 		$passdata = (isset($result[0]->order_id)) ? [$result[0]->order_id] : null ;
 		array_push($passdata,$result);
 		$this->view->render('orders/vieworder',$passdata);
@@ -43,7 +45,9 @@ class Orders extends Controller{
 				  <div class='serial'>";
 				echo $tracking_id;
 			echo "</div>";
-			echo "<div class='country'>";
+			echo "<div class='visit'>";				
+			echo "</div>";
+			echo "<div class='visit'>";
 				echo $date;
 			echo "</div>";
 			echo "<div class='visit'>";
@@ -109,7 +113,8 @@ class Orders extends Controller{
 									<div class='progress-table'>
 										<div class='table-head'>
 											<div class='serial'>Track ID</div>
-											<div class='country'>Date</div>
+											<div class='visit'></div>
+											<div class='visit'>Date</div>
 											<div class='visit'>Total Price</div>
 											<div class='visit'>Status</div>
 											<div class='visit'></div>

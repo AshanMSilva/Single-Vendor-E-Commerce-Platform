@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2020 at 04:00 AM
+-- Generation Time: Jan 02, 2020 at 05:52 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -41,11 +41,26 @@ SELECT customers.customer_id, first_name, last_name, email, house_number, street
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_most_sales_products` (IN `date1` DATE, IN `date2` DATE)  NO SQL
 SELECT products.title, sum(order_details.quantity*price)  as cc from orders INNER JOIN order_details using(order_id) INNER JOIN products using (product_id) INNER JOIN variants using(variant_id)  WHERE orders.order_date BETWEEN date1 AND date2  GROUP BY order_details.product_id ORDER BY order_date$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_order_info` (IN `o_id` INT)  NO SQL
+SELECT orders.order_id as order_id, order_date, customer_id, deleted, payment_method, amount, card_number, courier_id, delivery_method, tracking_info, estimated_date, completed_date, status, customer_contact, house_number, street, city, state, last_name, zip_code, email, first_name , current_location FROM orders  join payments on orders.order_id=payments.order_id left JOIN (SELECT * FROM deliveries NATURAL JOIN couriers) as t on orders.order_id=t.order_id WHERE orders.order_id=o_id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_order_info_by_track` (IN `track` VARCHAR(100))  NO SQL
+SELECT orders.order_id as order_id, order_date, customer_id, deleted, payment_method, amount, card_number, courier_id, delivery_method, tracking_info, estimated_date, completed_date, status, customer_contact, house_number, street, city, state, last_name, zip_code, email, first_name , current_location FROM orders left join payments on orders.order_id=payments.order_id left JOIN (SELECT * FROM deliveries NATURAL JOIN couriers) as t on orders.order_id=t.order_id WHERE t.tracking_info=track$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_products_of_order` (IN `o_id` INT)  NO SQL
+SELECT title , price , quantity FROM products natural join variants as t JOIN order_details on order_details.product_id = t.product_id and order_details.variant_id=t.variant_id WHERE order_details.order_id = o_id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_quarter_sales` (IN `y_in` INT)  NO SQL
+SELECT order_date ,Q , tt.product_id as product_id,title, brand , product_total ,product_quantity FROM (SELECT order_date ,Q , k.product_id as product_id,k.variant_id as variant_id , SUM(quantity*price) as product_total , SUM(quantity)as product_quantity FROM (SELECT * FROM (SELECT order_id as id, order_date,Quarter(`order_date`)as Q FROM `orders` WHERE YEAR(`order_date`)=y_in)as t JOIN `order_details` on t.id = order_details.order_id) as k JOIN variants on k.variant_id = variants.variant_id GROUP BY product_id , Q)as tt LEFT JOIN products on tt.product_id=products.product_id$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reach_period` (IN `p_id` INT)  NO SQL
 select sum(quantity) as cc, order_date from orders inner join order_details using(order_id)  where product_id=p_id group by order_date order by order_date$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_reg_customer_by_id` (IN `id` INT)  NO SQL
 SELECT cust_details.customer_id, first_name, last_name, email, house_number, street, city, state, zip_code FROM `registered_customers` INNER JOIN (SELECT * FROM `customers` WHERE customers.customer_id = id) AS cust_details USING(customer_id)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_undeleted_orders` (IN `user_id` INT)  NO SQL
+SELECT orders.order_id,orders.order_date,amount,t.status,t.tracking_info FROM orders LEFT OUTER JOIN (payments NATURAL join deliveries as t) on t.order_id=orders.order_id WHERE orders.customer_id=user_id and `deleted`=0$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `select_category_products` (IN `id` INT)  NO SQL
 SELECT * FROM `product_details` WHERE product_id IN (SELECT product_id FROM product_category_relations WHERE category_id = id)$$
@@ -109,7 +124,19 @@ INSERT INTO `attributes` (`product_id`, `variant_id`, `attribute_name`, `value`)
 (20, 44, 'Color', 'Black'),
 (20, 44, 'Display', '1.4 inch E-ink'),
 (20, 44, 'Resolution', '296 x 128'),
-(20, 44, 'Waterproof', 'Yes');
+(20, 44, 'Waterproof', 'Yes'),
+(20, 45, 'Color', 'Grey'),
+(20, 45, 'Display', '1.4 inch E-ink'),
+(20, 45, 'Resolution', '296 x 128'),
+(20, 45, 'Waterproof', 'Yes'),
+(20, 46, 'Color', 'Blue'),
+(20, 46, 'Display', '1.4 inch E-ink'),
+(20, 46, 'Resolution', '296 x 128'),
+(20, 46, 'Waterproof', 'Yes'),
+(20, 47, 'Color', 'White'),
+(20, 47, 'Display', '1.4 inch E-ink'),
+(20, 47, 'Resolution', '296 x 128'),
+(20, 47, 'Waterproof', 'Yes');
 
 -- --------------------------------------------------------
 
@@ -129,7 +156,8 @@ CREATE TABLE `card_details` (
 INSERT INTO `card_details` (`customer_id`, `card_number`) VALUES
 (15, '2261 6739 1032 5511'),
 (15, '1425 7842 8246 3924'),
-(1, '1073 4497 2966 7215');
+(1, '1073 4497 2966 7215'),
+(15, '1587 4565 9782 1568');
 
 -- --------------------------------------------------------
 
@@ -155,10 +183,11 @@ INSERT INTO `carts` (`customer_id`, `product_id`, `variant_id`, `quantity`, `rem
 (15, 5, 5, 2, 1),
 (15, 6, 6, 1, 1),
 (15, 12, 12, 2, 1),
-(15, 2, 2, 1, 0),
-(15, 11, 24, 2, 0),
+(15, 2, 2, 1, 1),
+(15, 11, 24, 2, 1),
 (1, 10, 10, 2, 1),
-(1, 14, 33, 1, 1);
+(1, 14, 33, 1, 1),
+(15, 7, 23, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -255,6 +284,14 @@ CREATE TABLE `couriers` (
   `last_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `couriers`
+--
+
+INSERT INTO `couriers` (`courier_id`, `email`, `first_name`, `last_name`) VALUES
+(1, 'courier1@example.com', 'cour1', 'courlast'),
+(2, 'courier2@example.com', 'cour2', 'cour2last');
+
 -- --------------------------------------------------------
 
 --
@@ -350,9 +387,20 @@ CREATE TABLE `deliveries` (
 --
 
 INSERT INTO `deliveries` (`order_id`, `courier_id`, `delivery_method`, `tracking_info`, `current_location`, `estimated_date`, `completed_date`, `status`, `customer_contact`, `house_number`, `street`, `city`, `state`, `zip_code`) VALUES
-(24, NULL, 'delivery', '5e0c55d40c245_761106', NULL, '2020-01-11', NULL, 'in-progress', '0714861225', 77, 'Loften Avenue', 'Philedelphia', 'Pennsylvania', '45107'),
+(1, 1, 'delivery', '1546902000_856740', NULL, '2019-08-22', '2019-08-21', 'delivered', '0765438902', 148, 'Venenatis St.', 'Glen Haven', 'Nevada', '76891'),
+(2, 1, 'delivery', '1548316102_956471', NULL, '2018-08-31', '2019-08-31', 'delivered', '0724561093', 46, 'Euismod Av', 'Paia', 'Vermont', '84684'),
+(3, NULL, 'store_pickup', '1549266502_539338 ', NULL, '2019-09-15', '2019-09-18', 'delivered', '0718854544', NULL, NULL, NULL, NULL, NULL),
+(4, 2, 'delivery', '1550606109_751261 ', NULL, '2019-10-06', '2019-10-04', 'delivered', '0756129943', 108, 'Cursus. Road', 'Exeter', 'Michigan', '22087'),
+(5, 1, 'delivery', '1552649373_480553 ', NULL, '2019-10-17', '2019-10-18', 'delivered', '0775553081', 16, 'Aenean Street', 'Roxboro', 'Alabama', '63402'),
+(6, 2, 'delivery', '1554178202_913785', NULL, '2019-10-28', '2019-10-27', 'delivered', '0712340951', 148, 'Venenatis St.', 'Glen Haven', 'Nevada', '76891'),
+(7, 2, 'delivery', '1554757112_150314 ', NULL, '2019-11-16', '2019-11-19', 'delivered', '0718854544', 6, 'Quam Street', 'Rowley', 'Alaska', '29510'),
+(8, NULL, 'store_pickup', '1556281712_333568', NULL, '2019-11-24', '2019-12-02', 'delivered', '0756129943', NULL, NULL, NULL, NULL, NULL),
+(9, 1, 'delivery', '1557756464_920138', NULL, '2019-12-12', '2019-12-12', 'delivered', '0782341887', 89, 'Euismod Av.', 'Roccasicura', 'Indiana', '33810'),
+(10, NULL, 'store_pickup', '1560674838_446071', NULL, '2019-12-18', '2019-12-18', 'delivered', '0702226953', NULL, NULL, NULL, NULL, NULL),
+(24, 1, 'delivery', '5e0c55d40c245_761106', NULL, '2020-01-11', NULL, 'delivered', '0714861225', 77, 'Loften Avenue', 'Philedelphia', 'Pennsylvania', '45107'),
 (28, NULL, 'store_pickup', '5e0c652880256_307699', NULL, '2020-01-09', NULL, 'in-progress', '0778963295', NULL, NULL, NULL, NULL, NULL),
-(29, NULL, 'delivery', '5e0ca097c5710_674301', NULL, '2020-01-11', NULL, 'in-progress', '0712789301', 75, 'Lorem Rd', 'Zuni', 'Rhode Island', '87771');
+(29, 2, 'delivery', '5e0ca097c5710_674301', NULL, '2020-01-11', NULL, 'in-progress', '0712789301', 75, 'Lorem Rd', 'Zuni', 'Rhode Island', '87771'),
+(30, NULL, 'delivery', '5e0d73bc5314b_111510', NULL, '2020-01-12', NULL, 'in-progress', '0714861225', 77, 'Loften Avenue', 'Philedelphia', 'Pennsylvania', '45107');
 
 -- --------------------------------------------------------
 
@@ -469,24 +517,25 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_date`, `customer_id`, `deleted`) VALUES
-(1, '2019-10-28', 3, 0),
-(2, '2019-11-05', 7, 0),
-(3, '2019-11-16', 4, 0),
-(4, '2019-11-16', 1, 0),
-(5, '2019-11-21', 9, 0),
-(6, '2019-11-26', 3, 0),
-(7, '2019-12-02', 4, 0),
-(8, '2019-12-02', 1, 0),
+(1, '2019-08-14', 3, 0),
+(2, '2019-08-23', 7, 0),
+(3, '2019-09-10', 4, 0),
+(4, '2019-09-25', 1, 0),
+(5, '2019-10-07', 9, 0),
+(6, '2019-10-20', 3, 0),
+(7, '2019-11-08', 4, 0),
+(8, '2019-11-19', 1, 0),
 (9, '2019-12-04', 7, 0),
-(10, '2019-12-07', 2, 0),
-(11, '2019-12-08', 10, 0),
-(12, '2019-12-08', 3, 0),
-(13, '2019-12-08', 7, 0),
-(14, '2019-12-12', 8, 0),
-(15, '2019-12-15', 4, 0),
-(24, '2020-01-01', 15, 0),
-(28, '2020-01-01', 17, 0),
-(29, '2020-01-01', 1, 0);
+(10, '2019-12-15', 2, 0),
+(11, '2019-12-19', 10, 0),
+(12, '2019-12-20', 3, 0),
+(13, '2019-12-23', 7, 0),
+(14, '2019-12-24', 8, 0),
+(15, '2019-12-28', 4, 0),
+(24, '2019-10-06', 15, 0),
+(28, '2019-10-21', 17, 0),
+(29, '2019-11-14', 1, 0),
+(30, '2020-01-02', 15, 0);
 
 -- --------------------------------------------------------
 
@@ -530,7 +579,13 @@ INSERT INTO `order_details` (`order_id`, `product_id`, `variant_id`, `quantity`)
 (24, 6, 6, 1),
 (28, 12, 27, 2),
 (29, 10, 10, 2),
-(29, 14, 33, 1);
+(29, 14, 33, 1),
+(11, 20, 45, 2),
+(11, 15, 35, 1),
+(11, 19, 43, 1),
+(30, 2, 2, 1),
+(30, 11, 24, 2),
+(30, 7, 23, 2);
 
 -- --------------------------------------------------------
 
@@ -552,7 +607,8 @@ CREATE TABLE `payments` (
 INSERT INTO `payments` (`order_id`, `payment_method`, `amount`, `card_number`) VALUES
 (24, 'card', '1038.56', '1425 7842 8246 3924'),
 (28, 'cash', '288.00', NULL),
-(29, 'card', '191.00', '1073 4497 2966 7215');
+(29, 'card', '191.00', '1073 4497 2966 7215'),
+(30, 'card', '546.00', '1587 4565 9782 1568');
 
 -- --------------------------------------------------------
 
@@ -715,7 +771,7 @@ CREATE TABLE `variants` (
 
 INSERT INTO `variants` (`product_id`, `variant_id`, `sku`, `weight`, `price`, `stock`) VALUES
 (1, 1, '345-298-2xx', '456.300', '84.76', 40),
-(2, 2, '988cjj2ka', '2314.830', '138.00', 26),
+(2, 2, '988cjj2ka', '2314.830', '138.00', 25),
 (3, 3, '6ty-8729-vb45', '1875.270', '104.00', 14),
 (4, 4, '80uy-bjdc3-j41nk', '1772.400', '122.00', 22),
 (5, 5, 'bfehi-b72bq-72n9n', '420.500', '72.00', -2),
@@ -736,8 +792,8 @@ INSERT INTO `variants` (`product_id`, `variant_id`, `sku`, `weight`, `price`, `s
 (9, 20, 'qb29npa-1hakno-aki1010', '2117.450', '98.00', 0),
 (11, 21, 'nd901-za10lo6', '486.500', '108.00', 0),
 (4, 22, '80uy-vhg27b-b763b', '1832.973', '116.00', 0),
-(7, 23, 'nkdskj81-aazw2', '345.100', '93.00', 32),
-(11, 24, '801aer-mpq012', '495.120', '111.00', 0),
+(7, 23, 'nkdskj81-aazw2', '345.100', '93.00', 30),
+(11, 24, '801aer-mpq012', '495.120', '111.00', -2),
 (7, 25, 'balpq953-nzka12', '345.100', '93.00', 0),
 (11, 26, 'pmxd87-sevm25', '496.720', '111.00', 0),
 (12, 27, 's2i-qp1-b23-ga3e', '1872.410', '144.00', -4),
@@ -959,7 +1015,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `variants`
