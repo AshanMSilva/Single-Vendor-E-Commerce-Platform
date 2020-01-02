@@ -76,7 +76,8 @@
           }); // end am4core.ready()
     
 </script>
-
+<h1>Product's Interest with Time</h1>
+<h5>Income (Dollars)</h5>
 <!-- HTML -->
 <div id="chartdiv"></div>
 

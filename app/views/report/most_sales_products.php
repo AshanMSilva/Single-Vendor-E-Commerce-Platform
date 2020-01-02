@@ -82,6 +82,7 @@ columnTemplate.strokeOpacity = 1;
 }); // end am4core.ready()
 </script>
 
+<h1>Sales of Product by Period <?php echo "  ".$period; ?></h1>
 <!-- HTML -->
 <div id="chartdiv"></div>
 

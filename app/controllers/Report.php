@@ -23,7 +23,7 @@ class Report extends Controller{
         $db=DB::getInstance();
         $result = $db->call_procedure('get_quarter_sales',[$year]);
         //dnd($result);
-        $this->view->render('report/quarterly_sales_report',[$year,$result]);//,$date_count);
+        $this->view->render('report/quarterly_sales_report',[$year,$result]);
     }
     public function category_ordersAction(){
         $result=Category::get_category_with_most_orders();
@@ -40,10 +40,9 @@ class Report extends Controller{
             $this->view->render('report/index');       
         }
         else{
-        $result=Product::get_mostsales_products($date1,$date2);
-        $products=$result[0];
-        $numAll=$result[1];
-        $period=[$date1,$date2];
+        $products=Product::get_mostsales_products($date1,$date2);
+        $numAll=1;
+        $period=$date1." - ".$date2;
         $data=[$products,$numAll,$period];
         
         $this->view->setLayout('normal');

@@ -70,24 +70,21 @@ class Product extends Model{
     }
     public static function get_mostsales_products($date1,$date2){
         $db=DB::getInstance();
-        //call procedure not working....
-            $sql="SELECT sum(quantity) as cc from orders INNER JOIN order_details using(order_id) where orders.order_date BETWEEN '".$date1."' and '".$date2."'";
-            $numAll=$db->query($sql)->results()[0]->cc;
-        // $numAll=$db->call_procedure('get_all_Product_sales_count',[$date1,$date2])[0]->cc;
         
         $products=array();
         // $sql="SELECT products.title, sum(order_details.quantity) as cc from orders INNER JOIN order_details using(order_id) INNER JOIN products using(product_id) WHERE orders.order_date BETWEEN '".$date1."' AND '".$date2."'  GROUP BY order_details.product_id ORDER BY order_date ";
-        $sql="SELECT products.title, sum(order_details.quantity*price)  as cc from orders INNER JOIN order_details using(order_id) INNER JOIN products using (product_id) INNER JOIN variants using(variant_id)  WHERE orders.order_date BETWEEN '".$date1."' AND '".$date2."'  GROUP BY order_details.product_id ORDER BY order_date";
-        // $resultQ=$db->call_procedure('get_most_sales_products',[$date1,$date2]);
+        // $sql="SELECT products.title, sum(order_details.quantity*price)  as cc from orders INNER JOIN order_details using(order_id) INNER JOIN products using (product_id) INNER JOIN variants using(variant_id)  WHERE orders.order_date BETWEEN '".$date1."' AND '".$date2."'  GROUP BY order_details.product_id ORDER BY order_date";
+        $resultQ=$db->call_procedure('get_most_sales_products',[$date1,$date2]);
         
-        $resultQ=$db->query($sql)->results();
+        // $resultQ=$db->query($sql)->results();
+        // dnd($resultQ);
+        
         foreach($resultQ as $result){
             $title=$result->title;
             $count=$result->cc;
             array_push($products,[$title,$count]);
-            // $products[$title]=$count;
         }
-        return [$products,$numAll];
+        return $products;
 
     }
     public function select_variants(){

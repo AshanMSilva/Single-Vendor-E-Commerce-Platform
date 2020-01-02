@@ -83,6 +83,7 @@ columnTemplate.strokeOpacity = 1;
 </script>
 
 <!-- HTML -->
+<h1>Most Ordered Product Categories</h1>
 <div id="chartdiv"></div>
 
 
